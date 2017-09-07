@@ -14,7 +14,7 @@
                 </Menu>
             </Col>
             <Col span="20">
-                <div class="layout-header"></div>
+                <div class="layout-header">test</div>
                 <div class="layout-breadcrumb">
                     <Breadcrumb>
                         <BreadcrumbItem v-for="(tag,index) in activeMenu.path" :key="index">{{ tag }}</BreadcrumbItem>
