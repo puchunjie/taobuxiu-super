@@ -8,6 +8,11 @@ import '../static/css/iview.css'
 import axios from './http'
 import store from './store/store'
 import moment from 'vue-moment-jalaali'
+import * as filters from '@/utils/filters'
+
+Object.keys(filters).forEach(key => {
+    Vue.filter(key, filters[key])
+})
 
 Vue.use(iView)
 Vue.use(moment)

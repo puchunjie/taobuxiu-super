@@ -236,7 +236,6 @@
                 this.$http.post(this.api.addAd, {
                     groupId: groupId
                 }).then(res => {
-                    console.log(res)
                     if (res.code === 1000) {
                         this.allAdList[goupIndex].adList.push(res.data);
                     }

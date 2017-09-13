@@ -12,6 +12,68 @@ export const uploadApi = 'http://192.168.0.251:8080/fileUpload/images';
 export const login = '/login/userLogin';
 
 
+// *********************************权限管理*********************************
+/**
+ * 查询权限列表
+ * path: /sys/auth/role/findAll
+ * method: POST
+ * params: 
+ */
+export const getAllRoles = '/sys/auth/role/findAll'
+
+
+// *********************************接口管理*********************************
+/**
+ * 添加单个接口
+ * path: /sys/auth/interface/save
+ * method: POST
+ * params: {
+ *      name:  名称
+ *      url:    接口地址
+ *      methodType: 接口类型 0,1,2,3,4
+ * }
+ */
+export const addInterface = '/sys/auth/interface/save'
+
+/**
+ * 删除单个接口
+ * path: /sys/auth/interface/delInterface
+ * method: POST
+ * params: {
+ *      id:  接口id
+ * }
+ */
+export const delInterface = '/sys/auth/interface/delInterface'
+
+/**
+ * 获取接口列表
+ * path: /sys/auth/interface/findGroupAll
+ * method: POST
+ * params: null
+ */
+export const getInterfaceList = '/sys/auth/interface/findGroupAll'
+
+/**
+ * 添加、修改接口分组信息
+ * path: /sys/auth/group/save
+ * method: POST
+ * parmas: {
+ *      name: 分组名
+ *      id:   修改时传入
+ * }
+ */
+export const addInterfaceGroup = '/sys/auth/group/save'
+
+/**
+ * 接口绑定分组
+ * path: /sys/auth/interface/saveGroup
+ * method: POST
+ * params: {
+ *      jsonObject :  分组列表字符串
+ * }
+ */
+export const interfaceBlindGroup = '/sys/auth/interface/saveGroup'
+
 // *********************************广告位管理*********************************
 /**
  * 查询所有广告

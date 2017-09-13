@@ -6,27 +6,24 @@
                 <div class="layout-logo-left">淘不锈超管后台管理系统</div>
                 <Submenu :name="index" v-for="(item,index) in menu" :key="index">
                     <template slot="title">
-                                <span class="iconfont" :class="item.icon"></span>
-                                {{ item.name }}
-                    </template>
+                                            <span class="iconfont" :class="item.icon"></span>
+                                            {{ item.name }}
+</template>
                         <MenuItem :name="index+'-'+i" v-for="(sub,i) in item.children" :key="i">{{ sub.name }}</MenuItem>
                     </Submenu>
                 </Menu>
             </Col>
             <Col span="20">
-                <div class="layout-header">test</div>
+                <div class="layout-header" ref="layoutHeader">test</div>
                 <div class="layout-breadcrumb">
                     <Breadcrumb>
                         <BreadcrumbItem v-for="(tag,index) in activeMenu.path" :key="index">{{ tag }}</BreadcrumbItem>
                     </Breadcrumb>
                 </div>
-                <div class="layout-content">
+                <div class="layout-content" :style="{'height':contentHeight+'px'}">
                     <div class="layout-content-main">
                         <router-view></router-view>
                     </div>
-                </div>
-                <div class="layout-copy">
-                    2011-2016 &copy; TalkingData
                 </div>
             </Col>
         </Row>
@@ -41,7 +38,8 @@
                 menu: menu,
                 openArr: [],
                 // 导航初始选中菜单
-                activeIndex: ''
+                activeIndex: '',
+                contentHeight: '700'
             }
         },
         computed: {
@@ -78,13 +76,22 @@
                             this.activeIndex = `${index}-${i}`
                     })
                 });
+            },
+            // 设置内容区域高度
+            resizeContent() {
+                // 获取屏幕高度
+                let winHeight = document.body.clientHeight;
+                let headerHeight = this.$refs.layoutHeader.clientHeight;
+                let contnetHeight = winHeight - headerHeight - 64;
+                this.contentHeight = contnetHeight;
             }
         },
-        created () {
+        created() {
             this.setActiveMenu();
         },
-        mounted () {
+        mounted() {
             this.$refs.menu.updateActiveName();
+            this.resizeContent();
         },
         watch: {
             $route(a) {
@@ -109,14 +116,18 @@
     }
     
     .layout-content {
-        min-height: 700px;
         margin: 15px;
-        /* overflow: hidden; */
+        overflow-x: hidden;
         border-radius: 4px;
+    }
+    
+    .layout-content::-webkit-scrollbar {
+        width: 0;
     }
     
     .layout-content-main {
         padding: 10px;
+        height: 100%;
     }
     
     .layout-copy {
@@ -147,5 +158,11 @@
         text-align: center;
         font-size: 16px;
         font-weight: bold;
+    }
+
+    .content-container{
+        width: 100%;
+        height: 100%;
+        background-color: #fff;
     }
 </style>

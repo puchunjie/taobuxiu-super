@@ -27,5 +27,20 @@ export default [{
             router: { name: 'special' }
         }]
     },
-
+    {
+        name: '权限',
+        icon: 'icon-xianshitejia',
+        children: [{
+            name: '角色配置',
+            router: { name: 'jurisdiction' }
+        }]
+    },
+    {
+        name: '接口',
+        icon: 'icon-jiekou',
+        children: [{
+            name: '接口管理',
+            router: { name: 'interfaceManagement' }
+        }]
+    }
 ]

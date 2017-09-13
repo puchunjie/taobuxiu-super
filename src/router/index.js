@@ -22,14 +22,24 @@ const router = new Router({
             name: '/',
             component: resolve => require(['@/views/index/index'], resolve),
             children: [{
-                path: 'adManage',
-                name: 'adManage',
-                component: resolve => require(['@/views/marketing/adManage'], resolve),
-            }, {
-                path: 'special',
-                name: 'special',
-                component: resolve => require(['@/views/specialResources/index'], resolve),
-            }]
+                    path: 'jurisdiction',
+                    name: 'jurisdiction',
+                    component: resolve => require(['@/views/jurisdiction/index'], resolve),
+                },
+                {
+                    path: 'interfaceManagement',
+                    name: 'interfaceManagement',
+                    component: resolve => require(['@/views/interface/index'], resolve),
+                }, {
+                    path: 'adManage',
+                    name: 'adManage',
+                    component: resolve => require(['@/views/marketing/adManage'], resolve),
+                }, {
+                    path: 'special',
+                    name: 'special',
+                    component: resolve => require(['@/views/specialResources/index'], resolve),
+                }
+            ]
         },
         {
             path: '/login',
