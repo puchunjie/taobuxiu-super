@@ -8,9 +8,12 @@
             <div class="group-head">
                 <Button size="small" type="primary" @click.native="groupShow.is = true"><Icon type="plus-circled"></Icon>添加分组</Button>
             </div>
-            <transition-group enter-active-class="animated flipInX" leave-active-class="animated bounceOut">
+            <transition-group enter-active-class="animated zoomInLeft" leave-active-class="animated zoomOutRight">
                 <div class="group-item" v-for="(panel,index) in groupList" :key="panel.groupId" :class="{'active':activeGroup === index}" @click="selectGroup(index)">
-                    <div class="head">{{ panel.groupName }}</div>
+                    <div class="head">
+                        {{ panel.groupName }}
+                        <Icon type="close-round" @click.native.self="delGroup(index,panel.groupId)"></Icon>
+                    </div>
                     <div class="interface-group clearfix">
                         <transition-group enter-active-class="animated flipInX" leave-active-class="animated bounceOut">
                             <div class="interface-item-small" :class="'status-'+inter.methodType" v-for="(inter,i) in panel.interfaceList" :key="inter.id">
@@ -103,24 +106,52 @@
                 this.poolList.push(interfaceData);
             },
             // 删除接口
-            delInterface(id,index){
+            delInterface(id, index) {
                 let _this = this;
-                this.$Modal.warning({
+                this.$Modal.confirm({
                     title: '删除确认',
-                    content:'此操作将无法撤销,是否继续？',
-                    onOk(){
-                        _this.$http.post(_this.api.delInterface,{
+                    content: '此操作将无法撤销,是否继续？',
+                    loading: true,
+                    onOk() {
+                        _this.$http.post(_this.api.delInterface, {
                             id: id
                         }).then(res => {
-                            if(res.code === 1000){
+                            this.$Modal.remove();
+                            if (res.code === 1000) {
                                 _this.poolList.splice(index, 1);
                                 _this.$Message.success('已删除!');
-                            }else{
+                            } else {
                                 _this.$Message.error('删除失败!');
                             }
                         })
                     }
                 })
+            },
+            // 删除分组
+            delGroup(index, groupId) {
+                let _this = this;
+                this.$Modal.confirm({
+                    title: '删除确认',
+                    content: '此操作将无法撤销,是否继续？',
+                    loading: true,
+                    onOk: () => {
+                        _this.$http.post(_this.api.delInterfaceGroup, {
+                            groupId: groupId
+                        }).then(res => {
+                            this.$Modal.remove();
+                            if (res.code === 1000) {
+                                // 获取操作group数据
+                                let group = JSON.parse(JSON.stringify(_this.groupList[index]));
+                                _this.groupList.splice(index, 1);
+                                _this.poolList.push(...group.interfaceList);
+                                _this.activeGroup = 0;
+                                _this.$Message.success('已删除!');
+                            } else {
+                                _this.$Message.error('删除失败!');
+                            }
+                        })
+                    }
+                });
             },
             //编辑接口inter:接口数据，index接口下标,isPool是在池中还是分组中
             editInterface(inter, index, isPool) {
@@ -223,6 +254,7 @@
                 border-radius: 5px;
                 overflow: hidden;
                 .head {
+                    position: relative;
                     width: 100%;
                     height: 30px;
                     line-height: 30px;
@@ -232,6 +264,22 @@
                     font-weight: bold;
                     padding: 0 10px;
                     cursor: pointer;
+                    i {
+                        position: absolute;
+                        display: block;
+                        overflow: hidden;
+                        width: 0;
+                        height: 0;
+                        transition: all .3s;
+                        top: 15px;
+                        right: 24px;
+                    }
+                    &:hover i {
+                        width: 14px;
+                        height: 14px;
+                        top: 8px;
+                        right: 10px;
+                    }
                 }
                 &.active {
                     border-color: #007de4;
@@ -257,6 +305,8 @@
                         border: 1px solid #ddd;
                         border-radius: 5px;
                         padding-right: 30px;
+                        overflow: hidden;
+                        cursor: pointer;
                         .icon {
                             position: absolute;
                             text-indent: 0;
@@ -283,7 +333,7 @@
                         &:hover .del {
                             width: 55px;
                         }
-                        .cover{
+                        .cover {
                             position: absolute;
                             display: block;
                             width: 0;

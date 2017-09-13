@@ -65,6 +65,16 @@ export const getInterfaceList = '/sys/auth/interface/findGroupAll'
 export const addInterfaceGroup = '/sys/auth/group/save'
 
 /**
+ * 删除接口分组
+ * path: 
+ * method: POST
+ * params: {
+ *      groupId : 分组ID
+ * }
+ */
+export const delInterfaceGroup = '/sys/auth/group/delGroup'
+
+/**
  * 接口绑定分组
  * path: /sys/auth/interface/saveGroup
  * method: POST

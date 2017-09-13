@@ -60,7 +60,6 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
-    iView.LoadingBar.start();
     if (to.meta.requireAuth) {
         next();
     } else {
@@ -82,9 +81,7 @@ router.beforeEach((to, from, next) => {
 })
 
 router.afterEach((to, from, next) => {
-    setTimeout(function() {
-        iView.LoadingBar.finish();
-    }, 500);
+
 });
 
 export default router;

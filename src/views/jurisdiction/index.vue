@@ -1,10 +1,10 @@
 <template>
     <div class="jurisdiction-container">
+        <Spin fix v-if="!ajaxLoad">
+            <Icon type="load-c" size=18 class="spin-icon-load"></Icon>
+            <div>Loading...</div>
+        </Spin>
         <div class="left-tree">
-            <Spin fix v-if="!treeLoad">
-                <Icon type="load-c" size=18 class="spin-icon-load"></Icon>
-                <div>Loading...</div>
-            </Spin>
             <Affix :offset-top="50">
                 <ul class="action-btn" :class="{'on':nodeModel}">
                     <li><a @click='delNode'><span class="iconfont icon-delete"></span></a></li>
@@ -51,31 +51,11 @@
         },
         data() {
             return {
-                treeLoad: false,
+                ajaxLoad: false,
                 nodeName: '',
                 parentNodeModel: [], //当前点击节点父亲对象
                 nodeModel: null, // 当前点击节点对象
-                ztreeDataSource: [{
-                    id: 1,
-                    name: "音乐",
-                    children: []
-                }, {
-                    id: 2,
-                    name: "音乐",
-                    children: [{
-                        id: 3,
-                        name: "音乐",
-                        children: [{
-                            id: 4,
-                            name: "音乐",
-                            children: []
-                        }, {
-                            id: 5,
-                            name: "音乐",
-                            children: []
-                        }]
-                    }]
-                }]
+                ztreeDataSource: []
             }
         },
         methods: {
@@ -176,10 +156,9 @@
             //获取权限列表
             gettreeData() {
                 this.$http.post(this.api.getAllRoles).then(res => {
-                    console.log(res)
                     if (res.code === 1000) {
                         this.ztreeDataSource = res.data.children;
-                        this.treeLoad = true;
+                        this.ajaxLoad = true;
                     }
                 })
             }
@@ -230,7 +209,7 @@
             background-color: #fff;
             padding: 10px 20px;
             margin-left: 370px;
-            .interface-group{
+            .interface-group {
                 margin-bottom: 20px;
                 // .item{
                 //     width: 80px;

@@ -1,5 +1,5 @@
 <template>
-    <Modal v-model="show.is" width="400" title="添加接口分组" @on-ok="ok" @on-cancel="resetData">
+    <Modal v-model="show.is" width="400" title="添加接口分组" @on-cancel="resetData">
         <Form ref="interfaceGroup" :model="apiData" :rules="ruleValidate">
             <FormItem label="接口名：" prop="name">
                 <Input v-model="apiData.name" placeholder="请输入"></Input>
@@ -46,6 +46,7 @@
                                 this.$emit('on-added',res.data)
                                 this.$Message.success('提交成功!');
                                 this.resetData();
+                                this.loading = false;
                                 this.show.is = false;
                             }
                         })
@@ -59,6 +60,7 @@
                 this.apiData = {
                     name: ""
                 }
+                this.$refs.interfaceGroup.resetFields();
             }
         }
     }

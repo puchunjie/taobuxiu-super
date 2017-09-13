@@ -1,5 +1,5 @@
 <template>
-    <Modal v-model="show.is" width="400" title="添加接口" @on-ok="ok" @on-cancel="resetData">
+    <Modal v-model="show.is" width="400" title="添加接口" @on-cancel="resetData">
         <Form ref="formValidate" :model="apiData" :rules="ruleValidate">
             <FormItem label="接口名：" prop="name">
                 <Input v-model="apiData.name" placeholder="请输入"></Input>
@@ -109,6 +109,7 @@
                                 }
                                 this.$Message.success('提交成功!');
                                 this.resetData();
+                                this.loading = false;
                                 this.show.is = false;
                             }
                         })
@@ -124,6 +125,7 @@
                     url: "",
                     methodType: 0
                 }
+                this.$refs.formValidate.resetFields();
             }
         },
         watch: {
