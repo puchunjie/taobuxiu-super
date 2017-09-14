@@ -11,6 +11,12 @@ export default new Vuex.Store({
         authorization: undefined,
         loginId: undefined
     },
+    getters: {
+        roleId: state => {
+            //写死的超管id,后期修改为从state user中获取
+            return '402800815e74a92e015e74a99ca50000'
+        }
+    },
     mutations: {
         [types.LOGIN]: (state, payload) => {
             Vue.ls.set('authorization', payload.authorization);

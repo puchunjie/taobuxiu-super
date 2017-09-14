@@ -8,83 +8,113 @@
             <Affix :offset-top="50">
                 <ul class="action-btn" :class="{'on':nodeModel}">
                     <li><a @click='delNode'><span class="iconfont icon-delete"></span></a></li>
-                    <li><a @click='addNode'><span class="iconfont icon-add"></span></a></li>
+                    <li><a @click='openEdit(false)'><span class="iconfont icon-add"></span></a></li>
                 </ul>
             </Affix>
-            <ztree :list.sync='ztreeDataSource' :contextmenu="contextmenuClick" :func="nodeClick" :is-open='true'>
-            </ztree>
+            <ztree :list.sync='ztreeDataSource' :func="nodeClick" :is-open='true'></ztree>
         </div>
         <div class="right-content">
-            <Card class="interface-group">
-                <p slot="title">接口分组A</p>
-                <Tag type="dot" closable color="green">接口1</Tag>
-                <Tag type="dot" closable color="green">接口2</Tag>
-                <Tag type="dot" closable color="green">接口3</Tag>
-                <Tag type="dot" closable color="green">接口4</Tag>
-                <Tag type="dot" closable color="green">接口5</Tag>
-                <Tag type="dot" closable color="green">接口6</Tag>
-                <Tag type="dot" closable color="green">接口7</Tag>
-                <Tag type="dot" closable color="green">接口8</Tag>
-                <Tag type="dot" closable color="red">接口9</Tag>
-            </Card>
-            <Card>
-                <p slot="title">接口分组B</p>
-                <Tag type="dot" closable color="green">接口1</Tag>
-                <Tag type="dot" closable color="green">接口2</Tag>
-                <Tag type="dot" closable color="green">接口3</Tag>
-                <Tag type="dot" closable color="green">接口4</Tag>
-                <Tag type="dot" closable color="green">接口5</Tag>
-                <Tag type="dot" closable color="green">接口6</Tag>
-                <Tag type="dot" closable color="green">接口7</Tag>
-                <Tag type="dot" closable color="green">接口8</Tag>
-                <Tag type="dot" closable color="red">接口9</Tag>
-            </Card>
+            <interfacePanel @on-item-click="cacheIn" :id="activeRoleId"></interfacePanel>
         </div>
+    
+        <!-- 角色添加修改面板 -->
+        <Modal v-model="rolePanelShow" width="400" :title="roleIsEdit?'添加角色':'修改角色'" @on-cancel="resetData">
+            <Form ref="roleEdit" :model="apiData" :rules="ruleValidate">
+                <FormItem label="角色名称：" prop="name">
+                    <Input v-model="apiData.name" placeholder="请输入"></Input>
+                </FormItem>
+            </Form>
+            <div slot="footer">
+                <Button type="primary" :loading="loading" @click="addNode"><span v-if="!loading">添加</span><span v-else>提交中...</span></Button>
+            </div>
+        </Modal>
     </div>
 </template>
 
 <script>
     import ztree from '@/components/basics/tree/ztree'
+    import interfacePanel from './interfacePanel.vue'
     export default {
         components: {
-            ztree
+            ztree,
+            interfacePanel
         },
         data() {
             return {
+                rolePanelShow: false,
+                roleIsEdit: false,
+                loading: false,
+                apiData: {
+                    name: ""
+                },
+                ruleValidate: {
+                    name: [{
+                        required: true,
+                        message: '名称不能为空',
+                        trigger: 'blur'
+                    }]
+                },
                 ajaxLoad: false,
-                nodeName: '',
                 parentNodeModel: [], //当前点击节点父亲对象
                 nodeModel: null, // 当前点击节点对象
-                ztreeDataSource: []
+                ztreeDataSource: [], //树数据
+                cacheArr: [], //待绑定接口ID集合
+            }
+        },
+        computed: {
+            activeRoleId() {
+                return {
+                    roleId: this.nodeModel != null ? this.nodeModel.id : this.$store.getters.roleId,
+                    rolePid: this.nodeModel != null ? this.nodeModel.pid : '-1'
+                }
             }
         },
         methods: {
-            // 新增节点
+            openEdit(isEdit) {
+                this.roleIsEdit = isEdit;
+                this.rolePanelShow = true;
+            },
+            // 新增角色
             addNode: function() {
-                if (this.nodeModel) {
-                    this.nodeModel.children.push({
-                        id: +new Date(),
-                        name: "动态新增节点哦～",
-                        path: "",
-                        clickNode: false,
-                        isFolder: false,
-                        isExpand: false,
-                        loadNode: 0,
-                        children: []
-                    });
-                    this.nodeModel.isFolder = true;
-                } else {
-                    this.ztreeDataSource.push({
-                        id: +new Date(),
-                        name: "动态新增节点哦～",
-                        path: "",
-                        clickNode: false,
-                        isFolder: false,
-                        isExpand: false,
-                        loadNode: 0,
-                        children: []
-                    });
+                this.loading = true;
+                this.$refs.roleEdit.validate((valid) => {
+                    if (valid && this.nodeModel) {
+                        this.addRole();
+                    } else {
+                        this.$Message.error('表单验证失败!');
+                        this.loading = false;
+                    }
+                })
+            },
+            //重置角色面板数据
+            resetData() {
+                this.apiData = {
+                    name: ""
                 }
+                this.$refs.roleEdit.resetFields();
+            },
+            addRole() {
+                this.$http.post(this.api.addRole, {
+                    name: this.apiData.name,
+                    pid: this.nodeModel.id
+                }).then(res => {
+                    if (res.code === 1000) {
+                        let data = res.data;
+                        data.clickNode = false;
+                        data.isFolder = false;
+                        data.isExpand = false;
+                        data.loadNode = 0;
+                        this.nodeModel.children.push(data);
+                        this.nodeModel.isFolder = true;
+                        this.$Message.success('添加成功！');
+                    } else {
+                        this.$Message.error('添加失败！');
+                    }
+                    this.resetData();
+                    this.loading = false;
+                    this.rolePanelShow = false;
+                    this.$Modal.remove();
+                })
             },
             // 删除节点
             delNode: function() {
@@ -96,8 +126,6 @@
                         this.parentNodeModel.splice(this.parentNodeModel.indexOf(this.nodeModel), 1);
                     }
                     this.nodeModel = null;
-                } else {
-                    console.log("请先选中节点");
                 }
             },
             // 点击节点
@@ -105,65 +133,35 @@
                 this.show = !this.show;
                 this.nodeModel = m; // 当前点击节点对象
                 this.parentNodeModel = parent; //当前点击节点父亲对象
-    
-                // console.log(m);
-                // console.log(parent)
-            },
-            // 右击事件
-            contextmenuClick: function() {
-                console.log("触发了自定义的contextmenuClick事件");
-                // alert("触发了自定义");
-            },
-            // 点击展开收起
-            expandClick: function(m) {
-                console.log(JSON.parse(JSON.stringify(m)));
-                // 点击异步加载
-                if (m.isExpand) {
-                    // 动态加载子节点, 模拟ajax请求数据
-                    // 请注意 id 不能重复哦。
-                    if (m.hasOwnProperty("children")) {
-    
-                        m.loadNode = 1; // 正在加载节点
-    
-                        setTimeout(() => {
-    
-                            m.loadNode = 2; // 节点加载完毕
-    
-                            m.isFolder = !m.isFolder;
-    
-                            m.children.push({
-                                id: +new Date(),
-                                name: "动态加载节点1",
-                                path: "",
-                                clickNode: false,
-                                isFolder: false,
-                                isExpand: false,
-                                loadNode: 0,
-                                children: [{
-                                    id: +new Date() + 1,
-                                    name: "动态加载末节点",
-                                    path: "",
-                                    clickNode: false,
-                                    isExpand: false,
-                                    isFolder: false,
-                                    loadNode: 0
-                                }]
-                            })
-                        }, 1000);
-                    }
-                }
             },
             //获取权限列表
-            gettreeData() {
-                this.$http.post(this.api.getAllRoles).then(res => {
+            gettreeData(id) {
+                this.$http.post(this.api.getRolesById, {
+                    roleId: this.$store.getters.roleId
+                }).then(res => {
                     if (res.code === 1000) {
-                        this.ztreeDataSource = res.data.children;
+                        let userData = res.data;
+                        delete userData.interfaceInfoList;
+                        this.ztreeDataSource = [userData];
                         this.ajaxLoad = true;
                     }
+                })
+            },
+            cacheIn(list) {
+                let params = {
+                    roleId: this.nodeModel.id,
+                    interfaceGroupList: list
+                }
+                params = JSON.stringify(params);
+                this.$http.post(this.api.roleBlindInterface,{
+                    jsonObject: params
+                }).then(res => {
+
                 })
             }
         },
         created() {
+    
             this.gettreeData();
         }
     }

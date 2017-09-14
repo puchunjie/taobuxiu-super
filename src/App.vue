@@ -39,6 +39,26 @@
       transform: rotate(360deg);
     }
   }
+
+  .status-0 {
+        background-color: #c16bd6;
+    }
+    
+    .status-1 {
+        background-color: #3fa6e3;
+    }
+    
+    .status-2 {
+        background-color: #66c549;
+    }
+    
+    .status-3 {
+        background-color: #f89d34;
+    }
+    
+    .status-4 {
+        background-color: #ff5c55;
+    }
 </style>
 
 

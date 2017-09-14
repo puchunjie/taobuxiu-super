@@ -42,7 +42,7 @@
         },
         computed: {
             // 是否填写完整登录账号密码？
-            valid(){
+            valid() {
                 return this.formInline.mobile != '' && this.formInline.password != ''
             }
         },

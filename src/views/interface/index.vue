@@ -15,7 +15,7 @@
                         <Icon type="close-round" @click.native.self="delGroup(index,panel.groupId)"></Icon>
                     </div>
                     <div class="interface-group clearfix">
-                        <transition-group enter-active-class="animated flipInX" leave-active-class="animated bounceOut">
+                        <transition-group enter-active-class="animated zoomInRight" leave-active-class="animated zoomOutRight">
                             <div class="interface-item-small" :class="'status-'+inter.methodType" v-for="(inter,i) in panel.interfaceList" :key="inter.id">
                                 <span class="iconfont icon" :class="inter.methodType | toIcon"></span> {{inter.name}}
                                 <a class="cover"></a>
@@ -63,12 +63,10 @@
 </template>
 
 <script>
-    import draggable from 'vuedraggable'
     import addInterface from './addInterface.vue'
     import addGroup from './addGroup.vue'
     export default {
         components: {
-            draggable,
             addInterface,
             addGroup
         },
@@ -107,21 +105,20 @@
             },
             // 删除接口
             delInterface(id, index) {
-                let _this = this;
                 this.$Modal.confirm({
                     title: '删除确认',
                     content: '此操作将无法撤销,是否继续？',
                     loading: true,
-                    onOk() {
-                        _this.$http.post(_this.api.delInterface, {
+                    onOk: () => {
+                        this.$http.post(this.api.delInterface, {
                             id: id
                         }).then(res => {
                             this.$Modal.remove();
                             if (res.code === 1000) {
-                                _this.poolList.splice(index, 1);
-                                _this.$Message.success('已删除!');
+                                this.poolList.splice(index, 1);
+                                this.$Message.success('已删除!');
                             } else {
-                                _this.$Message.error('删除失败!');
+                                this.$Message.error('删除失败!');
                             }
                         })
                     }
@@ -129,25 +126,24 @@
             },
             // 删除分组
             delGroup(index, groupId) {
-                let _this = this;
                 this.$Modal.confirm({
                     title: '删除确认',
                     content: '此操作将无法撤销,是否继续？',
                     loading: true,
                     onOk: () => {
-                        _this.$http.post(_this.api.delInterfaceGroup, {
+                        this.$http.post(this.api.delInterfaceGroup, {
                             groupId: groupId
                         }).then(res => {
                             this.$Modal.remove();
                             if (res.code === 1000) {
                                 // 获取操作group数据
-                                let group = JSON.parse(JSON.stringify(_this.groupList[index]));
-                                _this.groupList.splice(index, 1);
-                                _this.poolList.push(...group.interfaceList);
-                                _this.activeGroup = 0;
-                                _this.$Message.success('已删除!');
+                                let group = JSON.parse(JSON.stringify(this.groupList[index]));
+                                this.groupList.splice(index, 1);
+                                this.poolList.push(...group.interfaceList);
+                                this.activeGroup = 0;
+                                this.$Message.success('已删除!');
                             } else {
-                                _this.$Message.error('删除失败!');
+                                this.$Message.error('删除失败!');
                             }
                         })
                     }
@@ -306,6 +302,7 @@
                         border-radius: 5px;
                         padding-right: 30px;
                         overflow: hidden;
+                        box-sizing: content-box;
                         cursor: pointer;
                         .icon {
                             position: absolute;
@@ -409,8 +406,8 @@
                             position: absolute;
                             text-indent: 0;
                             font-size: 38px;
-                            left: 5px;
-                            top: 2px;
+                            left: 0;
+                            top: 0;
                         }
                     }
                     .desc {
@@ -441,25 +438,5 @@
                 }
             }
         }
-    }
-    
-    .status-0 {
-        background-color: #c16bd6;
-    }
-    
-    .status-1 {
-        background-color: #3fa6e3;
-    }
-    
-    .status-2 {
-        background-color: #66c549;
-    }
-    
-    .status-3 {
-        background-color: #f89d34;
-    }
-    
-    .status-4 {
-        background-color: #ff5c55;
     }
 </style>

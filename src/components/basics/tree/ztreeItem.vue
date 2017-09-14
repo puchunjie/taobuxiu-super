@@ -1,13 +1,15 @@
 <template>
     <li :class="liClassVal">
         <span :class="spanClassVal" @click='open(model)'></span>
-        <a :class="aClassVal" @click='Func(model,$event)' @contextmenu.prevent='cxtmenufunc'>
+        <a :class="aClassVal" @click='Func(model,$event)'>
             <span :class="{loadSyncNode:model.loadNode==1}" v-if='model.loadNode==1'></span>
             <span :class='model.iconClass' v-show='model.iconClass' v-else></span>
             <span class="node_name">{{model.name}}</span>
         </a>
         <ul :class="ulClassVal" v-show='model.isFolder'>
-            <ztree-item v-for="(item,i) in model.children" :key='i' :callback='callback' :expandfunc='expandfunc' :cxtmenufunc='cxtmenufunc' :model.sync="item" :num.sync='i' root='1' :nodes.sync='model.children.length' :trees.sync='trees'></ztree-item>
+            <transition-group enter-active-class="animated zoomInLeft">
+                <ztree-item v-for="(item,i) in model.children" :key='i' :callback='callback' :expandfunc='expandfunc' :cxtmenufunc='cxtmenufunc' :model.sync="item" :num.sync='i' root='1' :nodes.sync='model.children.length' :trees.sync='trees'></ztree-item>
+            </transition-group>
         </ul>
     </li>
 </template>
@@ -50,7 +52,7 @@
             },
         },
         methods: {
-            Func(m,e) {
+            Func(m, e) {
                 // 查找点击的子节点
                 var recurFunc = (data, list) => {
                     data.forEach((i) => {

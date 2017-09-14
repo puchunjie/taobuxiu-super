@@ -66,7 +66,6 @@ router.beforeEach((to, from, next) => {
         if (store.state.authorization) {
             next();
         } else {
-            console.log(iView.Message)
             iView.Modal.error({
                 content: '登录过期，请重新登录。',
                 onOk() {

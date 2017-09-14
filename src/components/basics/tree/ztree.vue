@@ -60,15 +60,14 @@
     methods: {
       initTreeData() {
         var tempList = JSON.parse(JSON.stringify(this.list));
-  
+        // console.log(tempList)
         // 递归操作，增加删除一些属性。比如: 展开/收起
         var recurrenceFunc = (data) => {
           data.forEach((m) => {
             m.clickNode = m.hasOwnProperty("clickNode") ? m.clickNode : false;
             m.children = m.children || [];
-  
-            m.isFolder = m.hasOwnProperty("open") ? m.open : this.isOpen;
-            m.isExpand = m.hasOwnProperty("open") ? m.open : this.isOpen;
+            m.isFolder = m.hasOwnProperty("open") ? m.open : this.isOpen && m.children.length > 0;
+            m.isExpand = m.hasOwnProperty("open") ? m.open : this.isOpen && m.children.length > 0;
             m.loadNode = 0;
             recurrenceFunc(m.children);
   
@@ -146,7 +145,7 @@
     padding: 5px;
     color: #333;
   }
-  
+
   .ztree li {
     position: relative;
     padding: 0;

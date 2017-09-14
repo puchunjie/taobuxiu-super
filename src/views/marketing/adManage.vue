@@ -153,20 +153,19 @@
             },
             //删除广告分组
             delGroup(goupIndex, groupId) {
-                let _this = this;
                 this.$Modal.confirm({
                     content: '此操作将无法撤销，是否继续？',
                     cancelText: '再考虑下',
                     okText: '确认删除',
-                    onOk() {
-                        _this.$http.post(this.api.delAdGroup, {
+                    onOk:() => {
+                        this.$http.post(this.api.delAdGroup, {
                             groupId: groupId
                         }).then(res => {
                             if (res.code === 1000) {
-                                _this.$Message.success({
+                                this.$Message.success({
                                     content: '已删除.'
                                 });
-                                _this.allAdList.splice(goupIndex, 1);
+                                this.allAdList.splice(goupIndex, 1);
                             }
                         })
                     }
@@ -243,21 +242,20 @@
             },
             // 删除广告位
             removeAd(data) {
-                let _this = this;
                 this.$Modal.confirm({
                     content: '此操作将无法撤销，是否继续？',
                     cancelText: '再考虑下',
                     okText: '确认删除',
-                    onOk() {
-                        _this.$http.post(this.api.removeAd, {
+                    onOk:() => {
+                        this.$http.post(this.api.removeAd, {
                             id: data.id,
                             groupId: data.groupId
                         }).then(res => {
                             if (res.code === 1000) {
-                                _this.$Message.success({
+                                this.$Message.success({
                                     content: '已删除.'
                                 });
-                                _this.allAdList[data.goupIndex].adList.splice(data.itemIndex, 1)
+                                this.allAdList[data.goupIndex].adList.splice(data.itemIndex, 1)
                             }
                         })
                     }

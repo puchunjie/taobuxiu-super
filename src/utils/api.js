@@ -21,6 +21,47 @@ export const login = '/login/userLogin';
  */
 export const getAllRoles = '/sys/auth/role/findAll'
 
+/**
+ * 添加角色
+ * path: /sys/auth/role/save
+ * method: POST
+ * params: {
+ *      name: 角色名称,
+ *      pid:  角色父编号
+ * }
+ */
+export const addRole = '/sys/auth/role/save'
+
+/**
+ * 按角色编号查询子角色
+ * path: /sys/auth/role/findById
+ * method: POST
+ * params: {
+ *      roleId:   角色编号
+ * }
+ */
+export const getRolesById = '/sys/auth/role/findById'
+
+/**
+ * 角色接口查询
+ * path: /sys/auth/interface/findRoleInterfaceByid
+ * method: POST
+ * params: {
+ *      roleId:   角色编号
+ * }
+ */
+export const getInterfaceById = '/sys/auth/interface/findRoleInterfaceByid'
+
+/**
+ * 角色绑定接口
+ * path: /sys/auth/interface/saveRoleInterface
+ * method: POST
+ * params: {
+ *      jsonObject: 包含roleId:角色编号，interfaceGroupList:分组接口列表
+ * }
+ */
+export const roleBlindInterface = '/sys/auth/interface/saveRoleInterface'
+
 
 // *********************************接口管理*********************************
 /**

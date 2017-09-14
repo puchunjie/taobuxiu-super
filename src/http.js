@@ -43,7 +43,7 @@ axios.interceptors.response.use(response => {
     }
     return response.data;
 }, error => {
-    LoadingBar.finish();
+    LoadingBar.error();
     if (error && error.response) {
         switch (error.response.status) {
             case 400:
@@ -89,7 +89,6 @@ axios.interceptors.response.use(response => {
             case 505:
                 error.message = 'HTTP版本不受支持'
                 break
-
             default:
                 error.message = '服务器收到宇宙能量的干扰，已经变异成机甲！'
         }
