@@ -29,7 +29,7 @@ export default [{
     },
     {
         name: '权限',
-        icon: 'icon-xianshitejia',
+        icon: 'icon-quanxian',
         children: [{
             name: '角色配置',
             router: { name: 'jurisdiction' }
@@ -41,6 +41,14 @@ export default [{
         children: [{
             name: '接口管理',
             router: { name: 'interfaceManagement' }
+        }]
+    },
+    {
+        name: '用户管理',
+        icon: 'icon-admin',
+        children: [{
+            name: '角色绑定',
+            router: { name: 'userManagement' }
         }]
     }
 ]

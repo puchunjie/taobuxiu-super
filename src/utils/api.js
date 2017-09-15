@@ -27,10 +27,21 @@ export const getAllRoles = '/sys/auth/role/findAll'
  * method: POST
  * params: {
  *      name: 角色名称,
- *      pid:  角色父编号
+ *      id:  角色编号
  * }
  */
 export const addRole = '/sys/auth/role/save'
+
+/**
+ * 编辑角色
+ * path: /sys/auth/role/update
+ * method: POST
+ * params: {
+ *      name: 角色名称,
+ *      id:  角色编号
+ * }
+ */
+export const editRole = '/sys/auth/role/update'
 
 /**
  * 按角色编号查询子角色

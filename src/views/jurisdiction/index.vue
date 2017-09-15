@@ -7,7 +7,8 @@
         <div class="left-tree">
             <Affix :offset-top="50">
                 <ul class="action-btn" :class="{'on':nodeModel}">
-                    <li><a @click='delNode'><span class="iconfont icon-delete"></span></a></li>
+                    <!-- <li><a @click='delNode'><span class="iconfont icon-delete"></span></a></li> -->
+                    <li><a @click='openEdit(true)'><span class="iconfont icon-edit"></span></a></li>
                     <li><a @click='openEdit(false)'><span class="iconfont icon-add"></span></a></li>
                 </ul>
             </Affix>
@@ -18,14 +19,14 @@
         </div>
     
         <!-- 角色添加修改面板 -->
-        <Modal v-model="rolePanelShow" width="400" :title="roleIsEdit?'添加角色':'修改角色'" @on-cancel="resetData">
+        <Modal v-model="rolePanelShow" width="400" :title="roleIsEdit?`编辑<${nodeModel != null ? nodeModel.name : ''}>的信息`:`向角色<${nodeModel != null ? nodeModel.name : ''}>中添加节点`" @on-cancel="resetData">
             <Form ref="roleEdit" :model="apiData" :rules="ruleValidate">
                 <FormItem label="角色名称：" prop="name">
                     <Input v-model="apiData.name" placeholder="请输入"></Input>
                 </FormItem>
             </Form>
             <div slot="footer">
-                <Button type="primary" :loading="loading" @click="addNode"><span v-if="!loading">添加</span><span v-else>提交中...</span></Button>
+                <Button type="primary" :loading="loading" @click="addNode"><span v-if="!loading">{{ roleIsEdit ? '编辑' : '添加' }}</span><span v-else>提交中...</span></Button>
             </div>
         </Modal>
     </div>
@@ -63,15 +64,18 @@
         },
         computed: {
             activeRoleId() {
+                // 当前选中的角色，如果没有选择，默认为当前登录的用户角色
                 return {
                     roleId: this.nodeModel != null ? this.nodeModel.id : this.$store.getters.roleId,
-                    rolePid: this.nodeModel != null ? this.nodeModel.pid : '-1'
+                    rolePid: this.nodeModel != null ? this.nodeModel.pid : '-1' //@_@默认pid修改为当前角色的父级，而不是现在的-1
                 }
             }
         },
         methods: {
+            // 打开添加、编辑面板 false为添加true为编辑
             openEdit(isEdit) {
                 this.roleIsEdit = isEdit;
+                if (isEdit) this.apiData.name = this.nodeModel.name;
                 this.rolePanelShow = true;
             },
             // 新增角色
@@ -94,19 +98,26 @@
                 this.$refs.roleEdit.resetFields();
             },
             addRole() {
-                this.$http.post(this.api.addRole, {
+                let apiUrl = this.roleIsEdit ? this.api.editRole : this.api.addRole;
+                this.$http.post(apiUrl, {
                     name: this.apiData.name,
-                    pid: this.nodeModel.id
+                    id: this.nodeModel.id,
+                    pid: this.nodeModel.pid
                 }).then(res => {
                     if (res.code === 1000) {
                         let data = res.data;
-                        data.clickNode = false;
-                        data.isFolder = false;
-                        data.isExpand = false;
-                        data.loadNode = 0;
-                        this.nodeModel.children.push(data);
-                        this.nodeModel.isFolder = true;
-                        this.$Message.success('添加成功！');
+                        if (this.roleIsEdit) {
+                            this.nodeModel.name = data.name;
+                            this.$Message.success('修改成功！');
+                        } else {
+                            data.clickNode = false;
+                            data.isFolder = false;
+                            data.isExpand = false;
+                            data.loadNode = 0;
+                            this.nodeModel.children.push(data);
+                            this.nodeModel.isFolder = true;
+                            this.$Message.success('添加成功！');
+                        }
                     } else {
                         this.$Message.error('添加失败！');
                     }
@@ -153,15 +164,14 @@
                     interfaceGroupList: list
                 }
                 params = JSON.stringify(params);
-                this.$http.post(this.api.roleBlindInterface,{
+                this.$http.post(this.api.roleBlindInterface, {
                     jsonObject: params
                 }).then(res => {
-
+    
                 })
             }
         },
         created() {
-    
             this.gettreeData();
         }
     }
@@ -194,6 +204,9 @@
                 }
                 .icon-delete {
                     color: red
+                }
+                .icon-edit {
+                    color: orange
                 }
                 .icon-moveup,
                 .icon-movedown {

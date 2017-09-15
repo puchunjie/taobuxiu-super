@@ -38,6 +38,10 @@ const router = new Router({
                     path: 'special',
                     name: 'special',
                     component: resolve => require(['@/views/specialResources/index'], resolve),
+                }, {
+                    path: 'userManagement',
+                    name: 'userManagement',
+                    component: resolve => require(['@/views/userManagement/index'], resolve),
                 }
             ]
         },

@@ -39,7 +39,7 @@
             <div class="pool">
                 <transition-group enter-active-class="animated bounceIn" leave-active-class="animated bounceOut">
                     <Tooltip placement="top" v-for="(item,index) in poolList" :key="item.id" :delay="1000">
-                        <div class="item" :class="'status-'+item.methodType">
+                        <div class="item noselect" :class="'status-'+item.methodType">
                             <div class="title">
                                 <span class="iconfont" :class="item.methodType | toIcon"></span> {{item.name}}
                             </div>
@@ -358,6 +358,9 @@
             padding: 10px 20px;
             margin-left: 370px;
             overflow-x: hidden;
+            &::-webkit-scrollbar {
+                width: 0;
+            }
             .head {
                 position: relative;
                 widows: 100%;

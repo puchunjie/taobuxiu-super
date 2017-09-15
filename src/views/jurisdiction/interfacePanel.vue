@@ -1,9 +1,13 @@
 <template>
     <div class="interface-content">
-        <Card class="interface-group" v-for="(item,index) in interfaces" :key="index">
+        <Card class="interface-group" v-show="item.interfaceInfoList.length>0" v-for="(item,index) in interfaces" :key="index">
             <p slot="title">{{ item.name }}</p>
+            <a slot="extra" class="check-all" :class="{'checked':isChecked(item.interfaceInfoList)}" @click="checkAll(index)" v-show="!isSelf">
+                <Icon :type="isChecked(item.interfaceInfoList)? 'android-checkbox-outline' : 'android-checkbox-outline-blank'"></Icon>
+                全选
+            </a>
             <Tooltip placement="top" v-for="(sub,i) in item.interfaceInfoList" :key="i">
-                <div class="item" :class="['status-'+sub.methodType,sub.flag ? '' : 'disable']" @click="selectInterface(sub)">
+                <div class="item noselect" :class="['status-'+sub.methodType,sub.flag ? '' : 'disable']" @click="selectInterface(sub)">
                     <div class="title">
                         <span class="iconfont" :class="sub.methodType | toIcon"></span> {{sub.name}}
                     </div>
@@ -46,6 +50,27 @@
                     item.flag = !item.flag;
                     this.$emit('on-item-click', JSON.parse(JSON.stringify(this.interfaces)));
                 }
+            },
+            //判断是否是全选状态
+            isChecked(items) {
+                let isChecked = items.find(item => {
+                    return !item.flag
+                })
+                return isChecked === undefined
+            },
+            checkAll(index) {
+                const checkAll = (arr, isCheck) => {
+                    arr.forEach(el => {
+                        el.flag = isCheck
+                    })
+                }
+                let items = this.interfaces[index].interfaceInfoList;
+                if (this.isChecked(items)) {
+                    checkAll(items, false)
+                } else {
+                    checkAll(items, true)
+                }
+                this.$emit('on-item-click', JSON.parse(JSON.stringify(this.interfaces)));
             }
         },
         created() {
@@ -65,6 +90,12 @@
         position: relative;
         .interface-group {
             margin-bottom: 10px;
+            .check-all {
+                color: #969595;
+                &.checked {
+                    color: #007de4;
+                }
+            }
             .item {
                 position: relative;
                 width: 180px;

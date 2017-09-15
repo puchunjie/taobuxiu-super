@@ -6,8 +6,9 @@ import router from './router'
 import Qs from 'qs'
 
 // axios 配置
-axios.defaults.timeout = 5000;
+axios.defaults.timeout = 10000;
 axios.defaults.baseURL = 'http://192.168.0.251'; //配置接口地址
+// axios.defaults.baseURL = 'http://192.168.0.118:8080'; //配置接口地址
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8'; //配置请求头
 axios.defaults.withCredentials = true;
 
@@ -95,7 +96,7 @@ axios.interceptors.response.use(response => {
     }
     Notice.error({
         title: error.message,
-        desc: '对方不想和你说话，并向你抛出了一个异常！你可以再尝试一下，但是一切只能看服务器心情。'
+        desc: '服务器收到宇宙能量的干扰，已经变异成机甲，并向你抛出了一个异常！给技术部的小伙伴发红包可以解决问题。'
     })
     return Promise.reject(error)
 });
