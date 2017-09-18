@@ -74,9 +74,12 @@
         methods: {
             // 打开添加、编辑面板 false为添加true为编辑
             openEdit(isEdit) {
-                this.roleIsEdit = isEdit;
-                if (isEdit) this.apiData.name = this.nodeModel.name;
-                this.rolePanelShow = true;
+                // 是否选中节点？
+                if (this.nodeModel != null) {
+                    this.roleIsEdit = isEdit;
+                    if (isEdit) this.apiData.name = this.nodeModel.name;
+                    this.rolePanelShow = true;
+                }
             },
             // 新增角色
             addNode: function() {
@@ -190,6 +193,7 @@
             left: 0;
             background-color: #fff;
             padding: 10px 20px;
+            // overflow-x: hidden;
             .action-btn {
                 position: absolute;
                 right: 10px;

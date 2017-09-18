@@ -6,7 +6,8 @@
         </Spin>
         <div class="group-content">
             <div class="group-head">
-                <Button size="small" type="primary" @click.native="groupShow.is = true"><Icon type="plus-circled"></Icon>添加分组</Button>
+                接口分组
+                <Button size="small" class="add" type="primary" @click.native="groupShow.is = true"><Icon type="plus-circled"></Icon>添加分组</Button>
             </div>
             <transition-group enter-active-class="animated zoomInLeft" leave-active-class="animated zoomOutRight">
                 <div class="group-item" v-for="(panel,index) in groupList" :key="panel.groupId" :class="{'active':activeGroup === index}" @click="selectGroup(index)">
@@ -89,12 +90,17 @@
         methods: {
             //接口绑定分组
             bindingGroup(index) {
-                // 接口信息
-                let interfaceData = JSON.parse(JSON.stringify(this.poolList[index]));
-                // 从pool里移除，加入group
-                this.poolList.splice(index, 1);
-                // 当前选中group
-                this.groupList[this.activeGroup].interfaceList.push(interfaceData);
+                // 如果存在分组
+                if (this.groupList.length > 0) {
+                    // 接口信息
+                    let interfaceData = JSON.parse(JSON.stringify(this.poolList[index]));
+                    // 从pool里移除，加入group
+                    this.poolList.splice(index, 1);
+                    // 当前选中group
+                    this.groupList[this.activeGroup].interfaceList.push(interfaceData);
+                }else{
+                    this.$Message.warning('请先建立接口分组')
+                }
             },
             //解除绑定
             unBlind(parent, child) {
@@ -235,13 +241,21 @@
             height: 100%;
             left: 0;
             background-color: #fff;
+            // overflow-x: hidden;
             .group-head {
+                position: relative;
                 width: 100%;
                 height: 50px;
                 line-height: 30px;
-                text-align: right;
+                text-align: center;
                 padding: 10px;
+                font-size: 16px;
                 border-bottom: 1px solid #ddd;
+                button.add{
+                    position: absolute;
+                    right: 10px;
+                    top: 12px;
+                }
             }
             .group-item {
                 width: 340px;
@@ -357,10 +371,7 @@
             background-color: #fff;
             padding: 10px 20px;
             margin-left: 370px;
-            overflow-x: hidden;
-            &::-webkit-scrollbar {
-                width: 0;
-            }
+            // overflow-x: hidden;
             .head {
                 position: relative;
                 widows: 100%;

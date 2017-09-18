@@ -207,3 +207,7 @@ select {
     /* Non-prefixed version, currently
     not supported by any browser */
 }
+
+*::-webkit-scrollbar {
+    width: 0;
+}

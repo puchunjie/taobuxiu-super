@@ -18,7 +18,7 @@
                         <BreadcrumbItem v-for="(tag,index) in activeMenu.path" :key="index">{{ tag }}</BreadcrumbItem>
                     </Breadcrumb>
                 </div>
-                <div class="layout-content" :style="{'height':contentHeight+'px'}">
+                <div class="layout-content" :style="{'min-height':contentHeight+'px'}">
                      <router-view></router-view>
                 </div>
             </Col>
@@ -115,10 +115,6 @@
         margin: 15px;
         overflow-x: hidden;
         border-radius: 4px;
-    }
-    
-    .layout-content::-webkit-scrollbar {
-        width: 0;
     }
     
     .layout-content-main {
