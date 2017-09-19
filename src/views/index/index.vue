@@ -18,7 +18,7 @@
                         <BreadcrumbItem v-for="(tag,index) in activeMenu.path" :key="index">{{ tag }}</BreadcrumbItem>
                     </Breadcrumb>
                 </div>
-                <div class="layout-content" :style="{'min-height':contentHeight+'px'}">
+                <div class="layout-content" :style="{'min-height':contentHeight + 'px'}">
                      <router-view></router-view>
                 </div>
             </Col>

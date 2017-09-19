@@ -9,11 +9,14 @@ import '../static/css/animate.css'
 import axios from './http'
 import store from './store/store'
 import moment from 'vue-moment-jalaali'
-import * as filters from '@/utils/filters'
+import * as filters from '@/utils/filters' //过滤器
+import tools from '@/utils/tools' //全局方法
 
 Object.keys(filters).forEach(key => {
     Vue.filter(key, filters[key])
 })
+
+Vue.use(tools);
 
 Vue.use(iView)
 Vue.use(moment)

@@ -1,7 +1,7 @@
 <template>
     <div class="ad-container">
         <Card v-for="(item,index) in allAdList" :key="item.groupId" style="margin-bottom:10px">
-            <p slot="title">{{ item.groupName }}</p>
+            <p slot="title">{{ item.groupName }}<Icon class="preview" type="eye" @click.native="imgView(item.previewImg)"></Icon></p>
             <div slot="extra" style="margin-top:-4px">
                 <!-- <Button type="info" icon="code-download" style="margin-right:10px" @click="testData(item.groupId)">测试</Button> -->
                 <Button type="error" icon="trash-a" style="margin-right:10px" @click.native="delGroup(index,item.groupId)">删除</Button>
@@ -56,7 +56,7 @@
             </Form>
         </Modal>
     
-        <Modal title="查看图片" v-model="visible">
+        <Modal title="查看图片" v-model="visible" width="1200">
             <img :src="viewImg" v-if="visible" style="width: 100%">
         </Modal>
     </div>
@@ -275,6 +275,11 @@
 
 <style lang="less" scoped>
     .ad-container {
+        .preview{
+            margin-left: 20px;
+            font-size: 18px;
+            cursor: pointer;
+        }
         .mt10 {
             margin-top: 10px;
         }

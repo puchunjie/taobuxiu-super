@@ -1,9 +1,5 @@
 <template>
     <div class="interface-container">
-        <Spin fix v-if="!saveLoading">
-            <Icon type="load-c" size=18 class="spin-icon-load"></Icon>
-            <div>{{ loadingText }}...</div>
-        </Spin>
         <div class="group-content">
             <div class="group-head">
                 接口分组
@@ -73,7 +69,6 @@
         },
         data() {
             return {
-                saveLoading: false,
                 loadingText: '数据加载中',
                 inerfaceShow: {
                     is: false
@@ -195,7 +190,6 @@
             //接口分组绑定
             saveGroup() {
                 this.loadingText = '保存中';
-                this.saveLoading = false;
                 let jsonObject = {
                     groupList: this.groupList,
                     defaultList: this.poolList
@@ -208,9 +202,6 @@
                     } else {
                         this.$Message.error('保存失败!');
                     }
-                    this.saveLoading = true;
-                }).catch(error => {
-                    this.saveLoading = true;
                 })
             },
             // 获取接口列表
@@ -219,7 +210,6 @@
                     if (res.code === 1000) {
                         this.poolList = res.data.interfaceList;
                         this.groupList = res.data.groupList;
-                        this.saveLoading = true;
                     }
                 })
             }
@@ -233,12 +223,13 @@
 <style lang="less" scoped>
     .interface-container {
         position: relative;
-        widows: 100%;
+        width: 100%;
         height: 100%;
         .group-content {
             position: absolute;
             width: 350px;
-            height: 100%;
+            height: auto;
+            min-height: 600px;
             left: 0;
             background-color: #fff;
             // overflow-x: hidden;
@@ -368,6 +359,7 @@
         .interface-content {
             position: relative;
             height: 100%;
+            min-height: 600px;
             background-color: #fff;
             padding: 10px 20px;
             margin-left: 370px;

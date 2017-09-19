@@ -11,6 +11,57 @@ export const uploadApi = 'http://192.168.0.251:8080/fileUpload/images';
  */
 export const login = '/login/userLogin';
 
+// *********************************用户管理*********************************
+/**
+ * 添加、编辑用户
+ * path: /sys/auth/user/bindUserRole
+ * method: POST
+ * params: {
+ *      jsonObject: {
+ *          id: '',//编辑用
+ *          name
+ *          password
+ *          mobile
+ *          realName
+ *          roleList: [{
+ *              roleId
+ *              flag
+ *          }]
+ *      }//json字符串
+ * }
+ */
+export const createUser = '/sys/auth/user/bindUserRoles'
+
+/**
+ * 获取用户列表
+ * path: /sys/auth/user/findRoleList
+ * method: POST
+ * params: {
+ *      currentPage,
+ *      pageSize 
+ * }
+ */
+export const userList = '/sys/auth/user/findRoleList'
+
+/**
+ * 查询用户信息
+ * path: /sys/auth/user/findRole
+ * method: POST
+ * params: {
+ *      id: 不传为所有角色
+ * }
+ */
+export const getUserInfo = '/sys/auth/user/findRole'
+
+/**
+ * 获取角色列表
+ * path: /sys/auth/user/findRole
+ * method: POST
+ * params: {
+ *      id:  不传为所有角色
+ * }
+ */
+export const getRoleList = '/sys/auth/user/findRole'
 
 // *********************************权限管理*********************************
 /**

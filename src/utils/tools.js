@@ -1,13 +1,51 @@
-export const accMul = (arg1, arg2) => {
-    let m = 0;
-    let s1 = arg1.toString();
-    let s2 = arg2.toString();
-    try {
-        m += s1.split(".")[1].length
-    } catch (e) {}
-    try {
-        m += s2.split(".")[1].length
-    } catch (e) {}
+export default {
+    install(Vue, options) {
+        //列表定时push方法，配合animate.css实现列表的动态插入效果
+        Vue.prototype.animateList = function(data, vm, time) {
+            time = time || 100
+            let i = 0;
+            let target = data.length;
+            (function add() {
+                if (i === target) return;
+                vm.push(data[i]);
+                i++;
+                setTimeout(add, time);
+            })();
+        };
 
-    return Number(s1.replace(".", "")) * Number(s2.replace(".", "")) / Math.pow(10, m)
+        Vue.prototype.debounce = function(action, idle) {
+            var last
+            return function() {
+                var ctx = this,
+                    args = arguments
+                clearTimeout(last)
+                last = setTimeout(function() {
+                    action.apply(ctx, args)
+                }, idle)
+            }
+        };
+
+        Vue.prototype.throttle = function(fn, threshhold, scope) {
+            threshhold || (threshhold = 250);
+            let last,
+                timer;
+            return function() {
+                let context = scope || this;
+
+                let now = +new Date(),
+                    args = arguments;
+                if (last && now - last + threshhold < 0) {
+                    // hold on to it
+                    clearTimeout(deferTimer);
+                    timer = setTimeout(function() {
+                        last = now;
+                        fn.apply(context, args);
+                    }, threshhold);
+                } else {
+                    last = now;
+                    fn.apply(context, args);
+                }
+            };
+        };
+    }
 }

@@ -1,9 +1,5 @@
 <template>
     <div class="jurisdiction-container">
-        <Spin fix v-if="!ajaxLoad">
-            <Icon type="load-c" size=18 class="spin-icon-load"></Icon>
-            <div>Loading...</div>
-        </Spin>
         <div class="left-tree">
             <Affix :offset-top="50">
                 <ul class="action-btn" :class="{'on':nodeModel}">
@@ -55,7 +51,6 @@
                         trigger: 'blur'
                     }]
                 },
-                ajaxLoad: false,
                 parentNodeModel: [], //当前点击节点父亲对象
                 nodeModel: null, // 当前点击节点对象
                 ztreeDataSource: [], //树数据
@@ -157,7 +152,6 @@
                         let userData = res.data;
                         delete userData.interfaceInfoList;
                         this.ztreeDataSource = [userData];
-                        this.ajaxLoad = true;
                     }
                 })
             },
