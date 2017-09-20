@@ -8,7 +8,6 @@ import '../static/css/iview.css'
 import '../static/css/animate.css'
 import axios from './http'
 import store from './store/store'
-import moment from 'vue-moment-jalaali'
 import * as filters from '@/utils/filters' //过滤器
 import tools from '@/utils/tools' //全局方法
 
@@ -19,7 +18,6 @@ Object.keys(filters).forEach(key => {
 Vue.use(tools);
 
 Vue.use(iView)
-Vue.use(moment)
 Vue.prototype.api = api; //所有接口列表挂载
 Vue.prototype.$http = axios;
 Vue.config.productionTip = false

@@ -282,3 +282,181 @@ export const removeAd = '/sys/ad/delAdInfo';
  * }
  */
 export const addAd = '/sys/ad/saveAd';
+
+
+// *********************************应用管理*********************************
+/**
+ * 添加基础计量单位
+ * path: /sys/unit/saveUnit
+ * method: POST
+ * params: {
+ *      type:   
+ *      cName: 
+ *      eName:
+ * }
+ */
+export const addUnit = '/sys/unit/saveUnit'
+
+/**
+ * 更新计量单位，用于修改，删除
+ * path: /sys/unit/updateUnit
+ * method: POST
+ * params{
+ *      id:
+ *      type:   
+ *      cName: 
+ *      eName:
+ *      status:  
+ * }
+ */
+export const updateUnit = '/sys/unit/updateUnit'
+
+/**
+ * 查询基础计量单位列表
+ * path: /sys/unit/queryUnitPage
+ * method: POST
+ * params: {
+ *      currentPage,
+ *      pageSize
+ * }
+ */
+export const getAllUnits = '/sys/unit/queryUnitPage'
+
+export const G_getAllUnits = '/sys/unit/queryUnitList'
+
+/**
+ * 查询品类计量单位信息
+ * path: /sys/ironAndUnit/fingIronAndUnitPage
+ * method: POST
+ * params: {
+ *      currentPage,
+ *      pageSize   
+ * }
+ */
+export const getAllIronUnit = '/sys/ironAndUnit/findIronAndUnitPage'
+
+/**
+ * 更新计量单位品类信息
+ * path: /sys/ironAndUnit/updateIronAndUnit
+ * method: POST
+ * params: {
+ *      id: 
+ *      ironId: 
+ *      ironName:  
+ * }
+ */
+export const updateIronUnit = '/sys/ironAndUnit/updateIronAndUnit'
+
+// -----------------------------------品类---------------------------------
+
+/**
+ * 添加品类信息
+ * path: /sys/ironTypes/saveIronTypes
+ * method: POST
+ * params: {
+ *      name:
+ *      notice:
+ * }
+ */
+export const addType = '/sys/ironTypes/saveIronTypes'
+
+/**
+ * 更新品类信息
+ * path: /sys/ironTypes/updateIronTypes
+ * method: POST
+ * params: {
+ *      id:
+ *      name:
+ *      notice:
+ *      status:
+ * }
+ */
+export const updateType = '/sys/ironTypes/updateIronTypes'
+
+
+/**
+ * 查询品类信息
+ * path: /sys/ironTypes/findIronTypesPage
+ * method: POST
+ * params: {
+ *      currentPage
+ *      pageSize
+ * }
+ */
+export const getTypes = '/sys/ironTypes/findIronTypesPage'
+
+export const G_getTypes = '/sys/ironTypes/findIronTypes'
+
+// -----------------------------------表面---------------------------------
+/**
+ * 添加表面信息
+ * path: /sys/surface/saveSurface
+ * method: POST
+ * params: {
+ *      name:
+ *      notice:
+ * }
+ */
+export const addSurface = '/sys/surface/saveSurface'
+
+/**
+ * 更新表面信息
+ * path: /sys/surface/updateSurFace
+ * method: POST
+ * params: {
+ *      id:
+ *      name:
+ *      notice:
+ *      status:
+ * }
+ */
+export const updateSurFace = '/sys/surface/updateSurFace'
+
+
+/**
+ * 查询表面信息
+ * path: /sys/surface/findSurfacePage
+ * method: POST
+ * params: {
+ *      currentPage
+ *      pageSize
+ * }
+ */
+export const getSurFaces = '/sys/surface/findSurfacePage'
+
+// -----------------------------------材质---------------------------------
+/**
+ * 添加表面信息
+ * path: /bussiness/surface/saveMaterials
+ * method: POST
+ * params: {
+ *      name:
+ *      notice:
+ * }
+ */
+export const addMaterials = '/bussiness/surface/saveMaterials'
+
+/**
+ * 更新表面信息
+ * path: /bussiness/surface/updateSurFace
+ * method: POST
+ * params: {
+ *      id:
+ *      name:
+ *      notice:
+ *      status:
+ * }
+ */
+export const updateMaterials = '/bussiness/surface/updateMaterials'
+
+
+/**
+ * 查询表面信息
+ * path: /bussiness/surface/findMaterialsPage
+ * method: POST
+ * params: {
+ *      currentPage
+ *      pageSize
+ * }
+ */
+export const getMaterials = '/bussiness/surface/findMaterialsPage'

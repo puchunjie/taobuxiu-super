@@ -50,5 +50,16 @@ export default [{
             name: '角色绑定',
             router: { name: 'userManagement' }
         }]
+    },
+    {
+        name: '应用',
+        icon: 'icon-admin',
+        children: [{
+            name: '计量单位配置',
+            router: { name: 'unitManagement' }
+        }, {
+            name: '分类数据配置',
+            router: { name: 'dataManagement' }
+        }]
     }
 ]

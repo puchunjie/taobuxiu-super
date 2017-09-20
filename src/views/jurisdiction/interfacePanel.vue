@@ -88,6 +88,7 @@
 <style lang="less" scoped>
     .interface-content {
         position: relative;
+        min-height: 600px;
         .interface-group {
             margin-bottom: 10px;
             .check-all {

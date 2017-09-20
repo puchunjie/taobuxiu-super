@@ -96,13 +96,13 @@
             </td>
             <td>
               <!-- <Button type="info">详情</Button> -->
-              <Button type="warning" @click.native="openUserPanel(true,item.id)">编辑</Button>
+              <Button type="warning" @click.native="openUserPanel(true,item.id)" size="small">编辑</Button>
               <!-- <Button type="error">删除</Button> -->
             </td>
           </tr>
         </tbody>
       </table>
-      <Page class="page-count" :page-size="filterData.pageSize" :total="totalCount" @on-change="setPage"></Page>
+      <Page class="page-count" size="small" :page-size="filterData.pageSize" :total="totalCount" @on-change="setPage"></Page>
     </div>
   
     <!-- 添加、修改用户 -->

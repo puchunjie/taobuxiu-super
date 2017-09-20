@@ -361,12 +361,12 @@
             height: 100%;
             min-height: 600px;
             background-color: #fff;
-            padding: 10px 20px;
+            padding: 0 20px;
             margin-left: 370px;
             // overflow-x: hidden;
             .head {
                 position: relative;
-                widows: 100%;
+                width: 100%;
                 height: 50px;
                 line-height: 50px;
                 font-size: 20px;

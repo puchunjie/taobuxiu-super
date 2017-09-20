@@ -6,7 +6,8 @@
     "private": true,
     "scripts": {
         "dev": "node build/dev-server.js",
-        "build": "node build/build.js"
+        "build": "node build/build.js",
+        "analyz": "NODE_ENV=production npm_config_report=true npm run build"
     },
     "dependencies": {
         "axios": "^0.16.1",
@@ -58,7 +59,7 @@
         "vue-template-compiler": "^2.2.1",
         "vuedraggable": "^2.14.1",
         "webpack": "^2.2.1",
-        "webpack-bundle-analyzer": "^2.2.1",
+        "webpack-bundle-analyzer": "^2.9.0",
         "webpack-dev-middleware": "^1.10.0",
         "webpack-hot-middleware": "^2.16.1",
         "webpack-merge": "^2.6.1"
