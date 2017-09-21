@@ -426,19 +426,19 @@ export const getSurFaces = '/sys/surface/findSurfacePage'
 
 // -----------------------------------材质---------------------------------
 /**
- * 添加表面信息
- * path: /bussiness/surface/saveMaterials
+ * 添加材质信息
+ * path: /sys/materials/saveMaterials
  * method: POST
  * params: {
  *      name:
  *      notice:
  * }
  */
-export const addMaterials = '/bussiness/surface/saveMaterials'
+export const addMaterials = '/sys/materials/saveMaterials'
 
 /**
- * 更新表面信息
- * path: /bussiness/surface/updateSurFace
+ * 更新材质信息
+ * path: /sys/materials/updateMaterials
  * method: POST
  * params: {
  *      id:
@@ -447,16 +447,53 @@ export const addMaterials = '/bussiness/surface/saveMaterials'
  *      status:
  * }
  */
-export const updateMaterials = '/bussiness/surface/updateMaterials'
+export const updateMaterials = '/sys/materials/updateMaterials'
 
 
 /**
- * 查询表面信息
- * path: /bussiness/surface/findMaterialsPage
+ * 查询材质信息
+ * path: /sys/materials//findMaterialsPage
  * method: POST
  * params: {
  *      currentPage
  *      pageSize
  * }
  */
-export const getMaterials = '/bussiness/surface/findMaterialsPage'
+export const getMaterials = '/sys/materials//findMaterialsPage'
+
+// -----------------------------------产地---------------------------------
+/**
+ * 添加产地信息
+ * path: /sys/proPlaces/saveProPlaces
+ * method: POST
+ * params: {
+ *      name:
+ *      notice:
+ * }
+ */
+export const addProPlaces = '/sys/proPlaces/saveProPlaces'
+
+/**
+ * 更新产地信息
+ * path: /sys/proPlaces/updateProPlaces
+ * method: POST
+ * params: {
+ *      id:
+ *      name:
+ *      notice:
+ *      status:
+ * }
+ */
+export const updateProPlaces = '/sys/proPlaces/updateProPlaces'
+
+
+/**
+ * 查询产地信息
+ * path: /sys/proPlaces/findProPlacesPage
+ * method: POST
+ * params: {
+ *      currentPage
+ *      pageSize
+ * }
+ */
+export const getProPlaces = '/sys/proPlaces/findProPlacesPage'

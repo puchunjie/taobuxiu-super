@@ -18,6 +18,9 @@
                         <Button size="small" type="error" @click="deleteItem(item)">删除</Button>
                         </Col>
                     </Row>
+                    <Row v-if="list.length == 0">
+                        <Col class-name="col" span="24">暂无数据</Col>
+                    </Row>
                 </div>
                 <Page class="page-count" size="small" :total="totalCount" :page-size="apiData.pageSize" @on-change="changePage"></Page>
             </div>
@@ -50,7 +53,7 @@
         },
         data() {
             return {
-                ref: 'form'+ new Date().getTime(),
+                ref: 'form' + new Date().getTime(),
                 show: false,
                 isEdit: false,
                 loading: false,
@@ -141,11 +144,11 @@
                             if (res.code === 1000) {
                                 this.getList();
                                 this.$Message.success('操作成功！');
+                                this.show = false;
                             } else {
-                                this.$Message.error('操作失败！');
+                                this.$Message.error(res.message);
                             }
                             this.loading = false;
-                            this.show = false;
                         })
     
                     } else {

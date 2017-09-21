@@ -7,8 +7,9 @@ import Qs from 'qs'
 
 // axios 配置
 axios.defaults.timeout = 10000;
-axios.defaults.baseURL = 'http://192.168.0.251'; //配置接口地址
-axios.defaults.baseURL = 'http://192.168.0.128:8080'; //配置接口地址
+// axios.defaults.baseURL = 'http://192.168.0.251'; //配置接口地址
+// axios.defaults.baseURL = 'http://192.168.0.128:8080'; //配置接口地址
+// axios.defaults.baseURL = 'http://192.168.0.138:8080'; //配置接口地址
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8'; //配置请求头
 axios.defaults.withCredentials = true;
 
@@ -38,6 +39,15 @@ axios.interceptors.response.use(response => {
                 router.replace({
                     path: 'login',
                     query: { redirect: router.currentRoute.fullPath }
+                })
+            }
+        })
+    } else if (response.data.code === 1002) {
+        Modal.error({
+            content: '操作权限不够，请充值！',
+            onOk() {
+                router.replace({
+                    path: '/'
                 })
             }
         })

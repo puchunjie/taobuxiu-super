@@ -106,7 +106,7 @@
     </div>
   
     <!-- 添加、修改用户 -->
-    <Modal v-model="userInfoShow" :title="userEdit ? '编辑用户' : '添加用户'" @on-cancel="resetData">
+    <Modal v-model="userInfoShow" :title="userEdit ? '编辑用户' : '添加用户'" @on-cancel="resetData"  :mask-closable="false">
       <Form ref="userInfo" :model="userData" :rules="addRule" :label-width="80">
         <FormItem label="昵称" prop="name">
           <Input v-model="userData.name" placeholder="用户昵称"></Input>
