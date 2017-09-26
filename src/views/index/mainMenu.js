@@ -60,6 +60,9 @@ export default [{
         }, {
             name: '分类数据配置',
             router: { name: 'dataManagement' }
+        }, {
+            name: '关联配置管理',
+            router: { name: 'relationManagement' }
         }]
     }
 ]

@@ -322,7 +322,7 @@ export const updateUnit = '/sys/unit/updateUnit'
  */
 export const getAllUnits = '/sys/unit/queryUnitPage'
 
-export const G_getAllUnits = '/sys/unit/queryUnitList'
+export const G_getAllUnits = '/demands/query/queryUnitList'
 
 /**
  * 查询品类计量单位信息
@@ -385,7 +385,7 @@ export const updateType = '/sys/ironTypes/updateIronTypes'
  */
 export const getTypes = '/sys/ironTypes/findIronTypesPage'
 
-export const G_getTypes = '/sys/ironTypes/findIronTypes'
+export const G_getTypes = '/demands/query/findIronTypes'
 
 // -----------------------------------表面---------------------------------
 /**
@@ -423,6 +423,8 @@ export const updateSurFace = '/sys/surface/updateSurFace'
  * }
  */
 export const getSurFaces = '/sys/surface/findSurfacePage'
+
+export const G_getSurFaces = '/demands/query/findSurFace'
 
 // -----------------------------------材质---------------------------------
 /**
@@ -497,3 +499,38 @@ export const updateProPlaces = '/sys/proPlaces/updateProPlaces'
  * }
  */
 export const getProPlaces = '/sys/proPlaces/findProPlacesPage'
+
+// -----------------------------------关联数据---------------------------------
+/**
+ * 保存关联分组（品类、表面）
+ * path: /sys/ironAndSurfaceAndSpecification/saveIronAndSurface
+ * method: POST
+ * params : {
+ *          ironTypeId,ironTypeName,surfaceId,surfaceName
+ * }
+ */
+export const saveIronAndSurface = '/sys/ironAndSurfaceAndSpecification/saveIronAndSurface'
+
+/**
+ * 关联数据分组查询
+ * path: /demands/query/findIronAndSurface
+ * method:POST
+ * params: {}
+ */
+export const getIronAndSurface = '/demands/query/findIronAndSurface'
+
+
+/**
+ * 根据分组查询规格
+ * path: /demands/query/findIronAndSurfaceAndSpecificationlist
+ * params : { surface,ironType }
+ */
+export const getGGlist = '/demands/query/findIronAndSurfaceAndSpecificationlist'
+
+
+/**
+ * 保存表面品类规格信息
+ * path:/sys/ironAndSurfaceAndSpecification/saveIronAndSurfaceAndSpecification
+ * params{ironType,surface,height,width,length}
+ */
+export const addGG = '/sys/ironAndSurfaceAndSpecification/saveIronAndSurfaceAndSpecification'

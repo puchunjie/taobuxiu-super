@@ -51,6 +51,11 @@ const router = new Router({
                     path: 'dataManagement',
                     name: 'dataManagement',
                     component: resolve => require(['@/views/application/dataManagement/index'], resolve),
+                },
+                {
+                    path: 'relationManagement',
+                    name: 'relationManagement',
+                    component: resolve => require(['@/views/application/relationManagement/index'], resolve),
                 }
             ]
         },
