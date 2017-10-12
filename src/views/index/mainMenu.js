@@ -49,20 +49,28 @@ export default [{
         children: [{
             name: '角色绑定',
             router: { name: 'userManagement' }
+        }, {
+            name: '商家用户管理',
+            router: { name: 'businessManagement' }
         }]
     },
     {
         name: '应用',
         icon: 'icon-admin',
         children: [{
-            name: '计量单位配置',
-            router: { name: 'unitManagement' }
-        }, {
-            name: '分类数据配置',
-            router: { name: 'dataManagement' }
-        }, {
-            name: '关联配置管理',
-            router: { name: 'relationManagement' }
-        }]
+                name: '计量单位配置',
+                router: { name: 'unitManagement' }
+            }, {
+                name: '分类数据配置',
+                router: { name: 'dataManagement' }
+            }, {
+                name: '关联配置管理',
+                router: { name: 'relationManagement' }
+            },
+            {
+                name: '卖家基础信息管理',
+                router: { name: 'sellerBaseManagement' }
+            }
+        ]
     }
 ]

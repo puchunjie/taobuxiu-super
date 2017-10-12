@@ -94,7 +94,6 @@
                     let type = this.ironTypes.find(val => {
                         return val.id == nowVal
                     })
-                    console.log(type)
                     this.dataApi.ironName = type.name;
                 }
             },

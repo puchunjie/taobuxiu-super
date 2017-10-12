@@ -11,6 +11,19 @@ export const uploadApi = 'http://192.168.0.251:8080/fileUpload/images';
  */
 export const login = '/login/userLogin';
 
+
+
+/**
+ * 地址选择省，市，区
+ */
+export const findAdress = ''
+
+export const findProvince = '/demands/query/findProvince'
+
+export const findCity = '/demands/query/findCity'
+
+export const findArea = '/demands/query/findArea'
+
 // *********************************用户管理*********************************
 /**
  * 添加、编辑用户
@@ -62,6 +75,28 @@ export const getUserInfo = '/sys/auth/user/findRole'
  * }
  */
 export const getRoleList = '/sys/auth/user/findRole'
+
+
+/**
+ * 获取商家用户列表
+ * path: /sys/buserInfo/findBuserInfoPage
+ * method: POST
+ * params:
+ */
+export const getBusiness = '/sys/buserInfo/findBuserInfoPage'
+
+/**
+ * 查询商家详情
+ * path: /sys/buserInfo/findBuserInfoById
+ * params: bUserId
+ */
+export const getBusinessInfo = '/sys/buserInfo/findBuserInfoById'
+
+/**
+ * 修改商家信息
+ * path: /sys/buserInfo/updateBuserInfo
+ */
+export const eidtBusiness = '/sys/buserInfo/updateBuserInfo'
 
 // *********************************权限管理*********************************
 /**
@@ -499,6 +534,64 @@ export const updateProPlaces = '/sys/proPlaces/updateProPlaces'
  * }
  */
 export const getProPlaces = '/sys/proPlaces/findProPlacesPage'
+
+
+// -----------------------------------仓库---------------------------------
+/**
+ * 添加产地信息
+ * path: /sys/storeHouse/saveStoreHouse
+ * method: POST
+ * params: {
+ *      name:
+ *      notice:
+ * }
+ */
+export const saveStoreHouse = '/sys/storeHouse/saveStoreHouse'
+
+/**
+ * 更新擦库信息
+ * path: /sys/storeHouse/updateStoreHouse
+ * method: POST
+ * params: {
+ *      id:
+ *      name:
+ *      notice:
+ *      status:
+ * }
+ */
+export const updateStoreHouse = '/sys/storeHouse/updateStoreHouse'
+
+/**
+ * 删除仓库信息
+ * path: /sys/storeHouse/updateStoreHouse
+ * method: POST
+ * params: {
+ *      id:
+ *      name:
+ *      notice:
+ *      status:
+ * }
+ */
+
+export const deleteStoreHouse = '/sys/storeHouse/deleteStoreHouse'
+
+
+/**
+ * 查询仓库信息
+ * path: /sys/storeHouse/findStoreHousePage
+ * method: POST
+ * params: {
+ *      currentPage
+ *      pageSize
+ * }
+ */
+export const getHouse = '/sys/storeHouse/findStoreHousePage'
+
+// -----------------------------------优惠信息---------------------------------
+export const findProInfoPage = '/sys/proInfoModel/findProInfoPage'
+export const saveProInfoModel = '/sys/proInfoModel/saveProInfoModel'
+export const updateProInfoModel = '/sys/proInfoModel/updateProInfoModel'
+export const deleteProInfoModel = '/sys/proInfoModel/deleteProInfoModel'
 
 // -----------------------------------关联数据---------------------------------
 /**

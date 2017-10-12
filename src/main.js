@@ -10,6 +10,7 @@ import axios from './http'
 import store from './store/store'
 import * as filters from '@/utils/filters' //过滤器
 import tools from '@/utils/tools' //全局方法
+import _ from 'lodash'
 
 Object.keys(filters).forEach(key => {
     Vue.filter(key, filters[key])

@@ -39,7 +39,7 @@
       .page-count{
         position: absolute;
         right: 10px;
-        bottom: 10px;
+        bottom: 0;
       }
       .tal{
         text-align: left;
@@ -135,7 +135,6 @@
 
 <script>
   export default {
-    components: {},
     data() {
       return {
         userInfoShow: false,

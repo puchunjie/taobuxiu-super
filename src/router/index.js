@@ -41,7 +41,11 @@ const router = new Router({
                 }, {
                     path: 'userManagement',
                     name: 'userManagement',
-                    component: resolve => require(['@/views/userManagement/index'], resolve),
+                    component: resolve => require(['@/views/userManagement/user/index'], resolve),
+                }, {
+                    path: 'businessManagement',
+                    name: 'businessManagement',
+                    component: resolve => require(['@/views/userManagement/business/index'], resolve),
                 }, {
                     path: 'unitManagement',
                     name: 'unitManagement',
@@ -56,6 +60,11 @@ const router = new Router({
                     path: 'relationManagement',
                     name: 'relationManagement',
                     component: resolve => require(['@/views/application/relationManagement/index'], resolve),
+                },
+                {
+                    path: 'sellerBaseManagement',
+                    name: 'sellerBaseManagement',
+                    component: resolve => require(['@/views/application/sellerBaseInfo/index'], resolve),
                 }
             ]
         },
