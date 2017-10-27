@@ -22,6 +22,11 @@ const router = new Router({
             name: '/',
             component: resolve => require(['@/views/index/index'], resolve),
             children: [{
+                    path: 'ironBuys',
+                    name: 'ironBuys',
+                    component: resolve => require(['@/views/buys/irons/index'], resolve),
+                },
+                {
                     path: 'jurisdiction',
                     name: 'jurisdiction',
                     component: resolve => require(['@/views/jurisdiction/index'], resolve),
@@ -65,6 +70,31 @@ const router = new Router({
                     path: 'sellerBaseManagement',
                     name: 'sellerBaseManagement',
                     component: resolve => require(['@/views/application/sellerBaseInfo/index'], resolve),
+                },
+                {
+                    path: 'dataAggregation',
+                    name: 'dataAggregation',
+                    component: resolve => require(['@/views/jiedanba/dataAggregation/index'], resolve),
+                },
+                {
+                    path: 'buyerRank',
+                    name: 'buyerRank',
+                    component: resolve => require(['@/views/jiedanba/buyerRank/index'], resolve),
+                },
+                {
+                    path: 'sellerRank',
+                    name: 'sellerRank',
+                    component: resolve => require(['@/views/jiedanba/sellerRank/index'], resolve),
+                },
+                {
+                    path: 'regionalRank',
+                    name: 'regionalRank',
+                    component: resolve => require(['@/views/jiedanba/regionalRank/index'], resolve),
+                },
+                {
+                    path: 'ironsRank',
+                    name: 'ironsRank',
+                    component: resolve => require(['@/views/jiedanba/ironsRank/index'], resolve),
                 }
             ]
         },

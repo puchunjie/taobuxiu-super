@@ -37,7 +37,7 @@
         },
         methods: {
             getInterfaces(id) {
-                console.log('当前选中角色roleId为：' + id.roleId);
+                // console.log('当前选中角色roleId为：' + id.roleId);
                 this.$http.post(this.api.getInterfaceById, id).then(res => {
                     if (res.code === 1000) {
                         this.interfaces = res.data.interfaceGroupList;

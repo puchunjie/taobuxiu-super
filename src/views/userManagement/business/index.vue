@@ -58,13 +58,13 @@
                     </i-switch>
                 </FormItem>
                 <FormItem label="注册商户：" class="magin0">
-                    <DatePicker type="date" placement="bottom-end" v-model="apiData.bUStartTime" placeholder="选择起始日期"></DatePicker>
+                    <DatePicker type="daterange" :options="dateOption" v-model="apiData.bUTime" placement="bottom-end" placeholder="选择日期"></DatePicker>
                 </FormItem>
                 <FormItem label="成为诚信商户：" class="magin0">
-                    <DatePicker type="date" placement="bottom-end" v-model="apiData.bFUStartTime" placeholder="选择起始日期"></DatePicker>
+                    <DatePicker type="daterange" :options="dateOption" v-model="apiData.bFUTime" placement="bottom-end" placeholder="选择日期"></DatePicker>
                 </FormItem>
                 <FormItem label="成为担保商户：" class="magin0">
-                    <DatePicker type="date" placement="bottom-end" v-model="apiData.bGUStartTime" placeholder="选择起始日期"></DatePicker>
+                    <DatePicker type="daterange" :options="dateOption" v-model="apiData.bGUTime" placement="bottom-end" placeholder="选择日期"></DatePicker>
                 </FormItem>
             </Form>
             <div style="margin-bottom:10px;text-align:right">
@@ -79,14 +79,14 @@
                 <Button style="float:right;margin-top:10px" size="small" type="info" @click="showInfo(index)">详情</Button>
             </div>
             <div class="card clearfix">
-                <div class="item">入驻时间：</div>
-                <div class="item">注册账号：</div>
+                <div class="item">入驻时间：{{ item.beBuserTime | dateformat }}</div>
+                <div class="item">注册账号：{{ item.buserMobile }}</div>
                 <div class="item">联系人：{{ item.contact }}</div>
                 <div class="item">联系方式：{{ item.contactNum }}</div>
                 <div class="item">办公地址：{{ item.address }}</div>
                 <div class="item">注册资金：{{ item.regMoney }}万</div>
-                <div class="item">负责专员：</div>
-                <div class="item">专员手机：</div>
+                <div class="item">负责专员：{{ item.salesManName }}</div>
+                <div class="item">专员手机：{{ item.salesManMobile }}</div>
             </div>
         </div>
     
@@ -133,9 +133,9 @@
                     name: '',
                     isFU: false,
                     isGU: false,
-                    bUStartTime: '',
-                    bFUStartTime: '',
-                    bGUStartTime: '',
+                    bUTime: ['',''],
+                    bFUTime: ['',''],
+                    bGUTime: ['',''],
                     currentPage: 1,
                     pageSize: 5
                 },
@@ -147,6 +147,37 @@
                     isFaithUser: false,
                     isGuaranteeUser: false,
                     proInfo: ''
+                },
+                dateOption:{
+                    shortcuts: [
+                        {
+                            text: '最近一周',
+                            value () {
+                                const end = new Date();
+                                const start = new Date();
+                                start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
+                                return [start, end];
+                            }
+                        },
+                        {
+                            text: '最近一个月',
+                            value () {
+                                const end = new Date();
+                                const start = new Date();
+                                start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
+                                return [start, end];
+                            }
+                        },
+                        {
+                            text: '最近三个月',
+                            value () {
+                                const end = new Date();
+                                const start = new Date();
+                                start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
+                                return [start, end];
+                            }
+                        }
+                    ]
                 }
             }
         },
@@ -156,9 +187,12 @@
                     name: this.apiData.name.replace(/'/g, ''),
                     isFU: this.apiData.isFU ? 1 : '',
                     isGU: this.apiData.isGU ? 1 : '',
-                    bUStartTime: this.apiData.bUStartTime != '' ? this.apiData.bUStartTime.getTime() : '',
-                    bFUStartTime: this.apiData.bFUStartTime != '' ? this.apiData.bFUStartTime.getTime() : '',
-                    bGUStartTime: this.apiData.bGUStartTime != '' ? this.apiData.bGUStartTime.getTime() : '',
+                    bUStartTime: this.apiData.bUTime[0] != '' && this.apiData.bUTime[0] != null ? this.apiData.bUTime[0].getTime() : '',
+                    bUEndTime: this.apiData.bUTime[1] != '' && this.apiData.bUTime[1] != null ? this.apiData.bUTime[1].getTime() : '',
+                    bFUStartTime: this.apiData.bFUTime[0] != '' && this.apiData.bFUTime[0] != null ? this.apiData.bFUTime[0].getTime() : '',
+                    bFUEndTime: this.apiData.bFUTime[1] != '' && this.apiData.bFUTime[1] != null ? this.apiData.bFUTime[1].getTime() : '',
+                    bGUStartTime: this.apiData.bGUTime[0] != '' && this.apiData.bGUTime[0] != null ? this.apiData.bGUTime[0].getTime() : '',
+                    bGUEndTime: this.apiData.bGUTime[1] != '' && this.apiData.bGUTime[1] != null ? this.apiData.bGUTime[1].getTime() : '',
                     currentPage: this.apiData.currentPage,
                     pageSize: this.apiData.pageSize
                 }
@@ -210,9 +244,9 @@
                     name: '',
                     isFU: false,
                     isGU: false,
-                    bUStartTime: '',
-                    bFUStartTime: '',
-                    bGUStartTime: '',
+                    bUTime: ['',''],
+                    bFUTime: ['',''],
+                    bGUTime: ['',''],
                     currentPage: 1,
                     pageSize: 5
                 }

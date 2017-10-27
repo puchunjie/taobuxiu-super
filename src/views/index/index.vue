@@ -5,8 +5,9 @@
             <Menu ref="menu" :active-name="activeIndex" theme="dark" width="auto" @on-select="openSubpage" :open-names="openArr" style="overflow: hidden;">
                 <div class="layout-logo-left">淘不锈超管后台管理系统</div>
                 <Submenu :name="index" v-for="(item,index) in menu" :key="index">
-                    <template slot="title"><span class="iconfont" :class="item.icon"></span>{{ item.name }}
-</template>
+                    <template slot="title">
+                        <span class="iconfont" :class="item.icon"></span>{{ item.name }}
+                    </template>
                         <MenuItem :name="index+'-'+i" v-for="(sub,i) in item.children" :key="i">{{ sub.name }}</MenuItem>
                     </Submenu>
                 </Menu>
@@ -102,7 +103,6 @@
 
 <style scoped>
     .layout {
-        border: 1px solid #d7dde4;
         background: #f5f7f9;
         position: relative;
     }
@@ -113,7 +113,7 @@
     
     .layout-content {
         margin: 15px;
-        overflow-x: hidden;
+        /* overflow-x: hidden; */
         border-radius: 4px;
     }
     

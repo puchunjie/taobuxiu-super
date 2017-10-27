@@ -3,7 +3,7 @@ export default [{
         icon: 'icon-maijiaqiugou',
         children: [{
                 name: '现货求购管理',
-                router: { name: '' }
+                router: { name: 'ironBuys' }
             },
             {
                 name: '加工求购管理',
@@ -72,5 +72,25 @@ export default [{
                 router: { name: 'sellerBaseManagement' }
             }
         ]
+    },
+    {
+        name: '接单吧统计',
+        icon: 'icon-admin',
+        children: [{
+            name: '交易数据汇总',
+            router: { name: 'dataAggregation' }
+        }, {
+            name: '买方排行分析',
+            router: { name: 'buyerRank' }
+        }, {
+            name: '卖方排行分析',
+            router: { name: 'sellerRank' }
+        }, {
+            name: '热门地区分析',
+            router: { name: 'regionalRank' }
+        }, {
+            name: '货品数据分析',
+            router: { name: 'ironsRank' }
+        }]
     }
 ]

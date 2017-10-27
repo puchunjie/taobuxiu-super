@@ -627,3 +627,35 @@ export const getGGlist = '/demands/query/findIronAndSurfaceAndSpecificationlist'
  * params{ironType,surface,height,width,length}
  */
 export const addGG = '/sys/ironAndSurfaceAndSpecification/saveIronAndSurfaceAndSpecification'
+
+// -----------------------------------求购查询---------------------------------
+/**
+ * 求购筛选条件筛选
+ * path: /sys/ironBuy/queryIronBuy
+ */
+export const queryIrons = '/sys/ironBuy/queryIronBuy'
+
+// 查询求购详情
+export const findIronOffer = '/demands/ironBuy/queryIronSellInfoPage'
+
+
+// -----------------------------------品类，材质，表面，产地查询---------------------------------
+export const queryPlaces = '/demands/query/findProPlaces'
+
+export const queryIronTypes = '/demands/query/findIronTypes'
+
+export const queryMaterials = '/demands/query/findMaterials'
+
+export const querySurFaces = '/demands/query/findSurFace'
+
+
+// -----------------------------------接单吧数据统计---------------------------------
+export const jd_totalData = '/sys/ironDataStatistic/totalStatisticByTime'
+
+export const jd_buyerRank = '/sys/ironDataStatistic/ironBuyTopTen'
+
+export const jd_sellerRank = '/sys/ironDataStatistic/ironSellTopTen'
+
+export const jd_ironsRank = '/sys/ironDataStatistic/ironBaseRank'
+
+export const jd_regionalRank = '/sys/ironDataStatistic/ironAreaTopFive'

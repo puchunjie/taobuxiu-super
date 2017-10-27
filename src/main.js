@@ -19,6 +19,9 @@ Object.keys(filters).forEach(key => {
 Vue.use(tools);
 
 Vue.use(iView)
+Vue.prototype.$clearData = (data) => {
+    return JSON.parse(JSON.stringify(data))
+}
 Vue.prototype.api = api; //所有接口列表挂载
 Vue.prototype.$http = axios;
 Vue.config.productionTip = false
