@@ -27,6 +27,11 @@ const router = new Router({
                     component: resolve => require(['@/views/buys/irons/index'], resolve),
                 },
                 {
+                    path: 'quality',
+                    name: 'quality',
+                    component: resolve => require(['@/views/buys/quality/index'], resolve),
+                },
+                {
                     path: 'jurisdiction',
                     name: 'jurisdiction',
                     component: resolve => require(['@/views/jurisdiction/index'], resolve),

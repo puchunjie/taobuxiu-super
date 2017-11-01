@@ -12,7 +12,7 @@
         <div class="gg-content">
             <div class="head">
                 {{ activeGroup.ironTypeName }} & {{ activeGroup.surfaceName }}
-                <a class="del">删除本组</a>
+                <a class="del" @click="delGroup()">删除本组</a>
             </div>
             <Form inline style="margin:10px">
                 <FormItem>
@@ -30,7 +30,7 @@
             </Form>
             <div class="gg-list">
                 <p>录入规格:</p>
-                <Tag closable v-for="(tag,index) in GGlist" :key="index">{{ `${tag.height}*${tag.width}*${tag.length}` }}</Tag>
+                <Tag closable color="blue" v-for="(tag,index) in GGlist" :key="index" @on-close="delTag(tag,index)">{{ `${tag.height}*${tag.width}*${tag.length}` }}</Tag>
             </div>
         </div>
         <Modal v-model="groupShow" title="添加关联组">
@@ -81,17 +81,17 @@
             },
             GGapiData() {
                 return {
-                    surface: this.groups[this.activeGroupIndex].surfaceId,
-                    ironType: this.groups[this.activeGroupIndex].ironTypeId
+                    surface: this.activeGroup.surfaceId,
+                    ironType: this.activeGroup.ironTypeId
                 }
             },
             activeGroup() {
-                return this.groups[this.activeGroupIndex]
+                return this.groups[this.activeGroupIndex] ? this.groups[this.activeGroupIndex] : ''
             },
             addGGApi() {
                 return {
-                    surface: this.groups[this.activeGroupIndex].surfaceId,
-                    ironType: this.groups[this.activeGroupIndex].ironTypeId,
+                    surface: this.activeGroup.surfaceId,
+                    ironType: this.activeGroup.ironTypeId,
                     width: this.width,
                     height: this.height,
                     length: this.length
@@ -105,11 +105,34 @@
                         if (res.code === 1000) {
                             this.groupShow = false;
                             this.getGroups();
+                        } else {
+                            this.$Message.error(res.message)
                         }
                     })
                 } else {
                     this.$Message.error('请选择完毕！')
                 }
+            },
+            // 删除分组
+            delGroup() {
+                this.$Modal.confirm({
+                    title: '删除提示！',
+                    content: '是否要删除？删除后将无法撤销！',
+                    onOk: () => {
+                        let params = _.cloneDeep(this.activeGroup);
+                        this.$http.post(this.api.delIronAndSurface, {
+                            ironTypeId: params.ironTypeId,
+                            surfaceId: params.surfaceId
+                        }).then(res => {
+                            if (res.code === 1000) {
+                                this.getGroups();
+                                this.$Message.success('分组已删除')
+                            } else {
+                                this.$Message.error(res.message)
+                            }
+                        })
+                    }
+                })
             },
             selectGroup(index) {
                 this.resetFrom();
@@ -135,19 +158,40 @@
             },
             // 添加规格
             addGG() {
-                if(this.width != '' && this.height != '' && this.length != ''){
-                    this.$http.post(this.api.addGG,this.addGGApi).then(res => {
-                        if(res.code === 1000){
+                if (this.width != '' && this.height != '' && this.length != '') {
+                    this.$http.post(this.api.addGG, this.addGGApi).then(res => {
+                        if (res.code === 1000) {
                             this.resetFrom();
                             this.getGGlist();
                             this.$Message.success('添加成功')
+                        } else {
+                            this.$Message.error(res.message)
                         }
                     })
-                }else{
+                } else {
                     this.$Message.error('请输入正确的信息')
                 }
             },
-            resetFrom(){
+            //删除规格
+            delTag(tag) {
+                this.$Modal.confirm({
+                    title: '删除提示！',
+                    content: '是否要删除？删除后将无法撤销！',
+                    onOk: () => {
+                        let params = _.cloneDeep(tag);
+                        params.status = 0;
+                        this.$http.post(this.api.delGG, params).then(res => {
+                            if (res.code === 1000) {
+                                this.getGGlist();
+                                this.$Message.success('已删除.')
+                            } else {
+                                this.$Message.error(res.message)
+                            }
+                        })
+                    }
+                })
+            },
+            resetFrom() {
                 this.width = '';
                 this.length = '';
                 this.height = '';

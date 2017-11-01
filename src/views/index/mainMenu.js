@@ -1,13 +1,13 @@
 export default [{
-        name: '求购',
+        name: '业务管理',
         icon: 'icon-maijiaqiugou',
         children: [{
                 name: '现货求购管理',
                 router: { name: 'ironBuys' }
             },
             {
-                name: '加工求购管理',
-                router: { name: '' }
+                name: '质检申请管理',
+                router: { name: 'quality' }
             }
         ]
     },
@@ -74,7 +74,7 @@ export default [{
         ]
     },
     {
-        name: '接单吧统计',
+        name: '数据统计',
         icon: 'icon-admin',
         children: [{
             name: '交易数据汇总',

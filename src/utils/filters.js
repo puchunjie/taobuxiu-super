@@ -38,7 +38,46 @@ export const statusStr = (val) => {
             return '已失效'
             break;
         default:
-            return '全部'
+            return '失效'
+            break;
+    }
+}
+
+// 报价状态
+export const offerStr = (val) => {
+    switch (val * 1) {
+        case 0:
+            return '待报价'
+            break;
+        case 1:
+            return '已报价'
+            break;
+        case 2:
+            return '已成交'
+            break;
+        case 3:
+            return '未中标'
+            break;
+        case 4:
+            return '已忽略'
+            break;
+        default:
+            return '失效'
+            break;
+    }
+}
+
+// 中标状态
+export const isOfferStatus = (val) => {
+    switch (val * 1) {
+        case 2:
+            return '中标'
+            break;
+        case 3:
+            return '未中标'
+            break;
+        default:
+            return '未知'
             break;
     }
 }

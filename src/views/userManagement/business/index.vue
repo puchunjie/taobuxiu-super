@@ -74,8 +74,8 @@
         <div class="item-group" v-for="(item,index) in list" :key="item.id">
             <div class="head">
                 {{ item.companyName }}
-                <span class="iconfont icon-cheng" v-show="item.isFU == 1"></span>
-                <span class="iconfont icon-bao" v-show="item.isGU == 1"></span>
+                <span class="iconfont icon-cheng" style="color:#F5A623" v-show="item.isFaithUser == 1"></span>
+                <span class="iconfont icon-bao" style="color:#C16BD6" v-show="item.isGuaranteeUser == 1"></span>
                 <Button style="float:right;margin-top:10px" size="small" type="info" @click="showInfo(index)">详情</Button>
             </div>
             <div class="card clearfix">

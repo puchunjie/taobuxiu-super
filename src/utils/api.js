@@ -18,11 +18,11 @@ export const login = '/login/userLogin';
  */
 export const findAdress = ''
 
-export const findProvince = '/demands/query/findProvince'
+export const findProvince = '/api/query/findProvince'
 
-export const findCity = '/demands/query/findCity'
+export const findCity = '/api/query/findCity'
 
-export const findArea = '/demands/query/findArea'
+export const findArea = '/api/query/findArea'
 
 // *********************************用户管理*********************************
 /**
@@ -357,7 +357,7 @@ export const updateUnit = '/sys/unit/updateUnit'
  */
 export const getAllUnits = '/sys/unit/queryUnitPage'
 
-export const G_getAllUnits = '/demands/query/queryUnitList'
+export const G_getAllUnits = '/api/query/queryUnitList'
 
 /**
  * 查询品类计量单位信息
@@ -420,7 +420,7 @@ export const updateType = '/sys/ironTypes/updateIronTypes'
  */
 export const getTypes = '/sys/ironTypes/findIronTypesPage'
 
-export const G_getTypes = '/demands/query/findIronTypes'
+export const G_getTypes = '/api/query/findIronTypes'
 
 // -----------------------------------表面---------------------------------
 /**
@@ -459,7 +459,7 @@ export const updateSurFace = '/sys/surface/updateSurFace'
  */
 export const getSurFaces = '/sys/surface/findSurfacePage'
 
-export const G_getSurFaces = '/demands/query/findSurFace'
+export const G_getSurFaces = '/api/query/findSurFace'
 
 // -----------------------------------材质---------------------------------
 /**
@@ -605,20 +605,22 @@ export const deleteProInfoModel = '/sys/proInfoModel/deleteProInfoModel'
 export const saveIronAndSurface = '/sys/ironAndSurfaceAndSpecification/saveIronAndSurface'
 
 /**
- * 关联数据分组查询
- * path: /demands/query/findIronAndSurface
- * method:POST
- * params: {}
+ * 删除分组
  */
-export const getIronAndSurface = '/demands/query/findIronAndSurface'
+export const delIronAndSurface = '/sys/ironAndSurfaceAndSpecification/deleteIronAndSurface'
+
+/**
+ * 关联数据分组查询
+ */
+export const getIronAndSurface = '/api/query/findIronAndSurface'
 
 
 /**
  * 根据分组查询规格
- * path: /demands/query/findIronAndSurfaceAndSpecificationlist
+ * path: /sys/ironAndSurfaceAndSpecification/findIronAndSurface
  * params : { surface,ironType }
  */
-export const getGGlist = '/demands/query/findIronAndSurfaceAndSpecificationlist'
+export const getGGlist = '/sys/ironAndSurfaceAndSpecification/findIronAndSurface'
 
 
 /**
@@ -628,25 +630,34 @@ export const getGGlist = '/demands/query/findIronAndSurfaceAndSpecificationlist'
  */
 export const addGG = '/sys/ironAndSurfaceAndSpecification/saveIronAndSurfaceAndSpecification'
 
+/**
+ * 删除0,修改1表面品类规格信息
+ */
+export const delGG = '/sys/ironAndSurfaceAndSpecification/updateIronAndSurfaceAndSpecification'
+
 // -----------------------------------求购查询---------------------------------
 /**
  * 求购筛选条件筛选
- * path: /sys/ironBuy/queryIronBuy
+ * path: /sys/ironBuy/queryIronBuy           
  */
 export const queryIrons = '/sys/ironBuy/queryIronBuy'
 
 // 查询求购详情
-export const findIronOffer = '/demands/ironBuy/queryIronSellInfoPage'
+export const findIronOffer = '/sys/ironBuy/queryIronSellByIronBuyId'
+
+//删除求购
+export const deleteIron = '/sys/ironBuy/deleteIronBuyInfo'
+
 
 
 // -----------------------------------品类，材质，表面，产地查询---------------------------------
-export const queryPlaces = '/demands/query/findProPlaces'
+export const queryPlaces = '/api/query/findProPlaces'
 
-export const queryIronTypes = '/demands/query/findIronTypes'
+export const queryIronTypes = '/api/query/findIronTypes'
 
-export const queryMaterials = '/demands/query/findMaterials'
+export const queryMaterials = '/api/query/findMaterials'
 
-export const querySurFaces = '/demands/query/findSurFace'
+export const querySurFaces = '/api/query/findSurFace'
 
 
 // -----------------------------------接单吧数据统计---------------------------------
@@ -659,3 +670,8 @@ export const jd_sellerRank = '/sys/ironDataStatistic/ironSellTopTen'
 export const jd_ironsRank = '/sys/ironDataStatistic/ironBaseRank'
 
 export const jd_regionalRank = '/sys/ironDataStatistic/ironAreaTopFive'
+
+// -----------------------------------质检---------------------------------
+export const get_quality = '/sys/ironBuy/queryQCInfo'
+
+export const get_actQua = '/sys/ironBuy/updateQC'
