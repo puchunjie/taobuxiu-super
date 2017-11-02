@@ -77,6 +77,7 @@
                 <span class="iconfont icon-cheng" style="color:#F5A623" v-show="item.isFaithUser == 1"></span>
                 <span class="iconfont icon-bao" style="color:#C16BD6" v-show="item.isGuaranteeUser == 1"></span>
                 <Button style="float:right;margin-top:10px" size="small" type="info" @click="showInfo(index)">详情</Button>
+                <Button style="float:right;margin-top:10px;margin-right:10px;" size="small" type="info" @click="showRangeInfo(index)">报价经营范围</Button>
             </div>
             <div class="card clearfix">
                 <div class="item">入驻时间：{{ item.beBuserTime | dateformat }}</div>
@@ -121,14 +122,22 @@
                 </FormItem>
             </Form>
         </Modal>
+        <Modal title="报价经营范围" v-model="showRange" loading :mask-closable="false" @on-ok="saveScope">
+            <rang v-if="showRange" :id= "activeItem.id" ref="scope"></rang>
+        </Modal>
     </div>
 </template>
 
 <script>
+import rang from './rangInfor';
     export default {
+        components: {
+            rang
+        },
         data() {
             return {
                 showEdit: false,
+                showRange: false,
                 apiData: {
                     name: '',
                     isFU: false,
@@ -220,6 +229,9 @@
                 this.editData.proInfo = data.proInfo;
                 this.showEdit = true;
             },
+            showRangeInfo(i) {
+                this.showRange = true;
+            },
             edit(){
                 let params = _.cloneDeep(this.editData);
                 params.isFaithUser = params.isFaithUser ? 1 : 0;
@@ -256,7 +268,12 @@
                 this.apiData.currentPage = 1;
                 this.apiData.name = value;
                 this.getBusinesses();
-            }, 500)
+            }, 500),
+            //  保存经营范围
+            saveScope() {
+                this.$refs.scope.saveScope();
+                this.showRange = false;
+            }
         },
         watch: {
             pipApi(a,b) {

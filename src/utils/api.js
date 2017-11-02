@@ -98,6 +98,19 @@ export const getBusinessInfo = '/sys/buserInfo/findBuserInfoById'
  */
 export const eidtBusiness = '/sys/buserInfo/updateBuserInfo'
 
+/**
+ * 超管查询用户经营范围
+ * path: /sys/ironBuy/queryBussinessScopeByUserId
+ */
+export const scopeByUserId = '/sys/ironBuy/queryBussinessScopeByUserId'
+
+/**
+ * 超管保存用户经营范围
+ * path: /sys/ironBuy/saveBussinessScopeByUserId
+ */
+export const saveScopeByUserId = '/sys/ironBuy/saveBussinessScopeByUserId'
+
+
 // *********************************权限管理*********************************
 /**
  * 查询权限列表
