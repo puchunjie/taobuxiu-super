@@ -88,7 +88,7 @@
                 <div class="info" v-if="activeItem.buy">
                     <p>求购内容：</p>
                     <p>{{ `${activeItem.ironTypeName}/${activeItem.materialName}/${activeItem.surfaceName}/${activeItem.proPlacesName} (收货城市：${activeItem.locationName})` }}</p>
-                    <p>规格：{{ activeItem.specifications == '' ? `${activeItem.height}*${activeItem.length}*${activeItem.width}`: activeItem.specifications }}</p>
+                    <p>规格：{{ activeItem.specifications == '' ? `${activeItem.height}*${activeItem.width}*${activeItem.length}`: activeItem.specifications }}</p>
                     <p v-show="activeItem.tolerance != ''">公差：{{ activeItem.tolerance }}</p>
                     <p>备注：{{ activeItem.remark }}</p>
                 </div>
@@ -155,7 +155,7 @@
                     },
                     {
                         title: '卖家公司名',
-                        key: 'contact'
+                        key: 'companyName'
                     },
                     {
                         title: '报价',

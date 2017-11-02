@@ -19,14 +19,14 @@ export default new Vuex.Store({
     },
     mutations: {
         [types.LOGIN]: (state, payload) => {
-            Vue.ls.set('authorization', payload.authorization);
-            Vue.ls.set('loginId', payload.loginId);
+            Vue.ls.set('authorization_bg', payload.authorization);
+            Vue.ls.set('loginId_bg', payload.loginId);
             state.authorization = payload.authorization;
             state.loginId = payload.loginId;
         },
         [types.LOGOUT]: (state) => {
-            Vue.ls.remove('authorization');
-            Vue.ls.remove('loginId');
+            Vue.ls.remove('authorization_bg');
+            Vue.ls.remove('loginId_bg');
             state.authorization = undefined;
             state.loginId = undefined;
         }

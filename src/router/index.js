@@ -10,8 +10,8 @@ Vue.use(Router);
 
 
 // 页面刷新时，重新赋值token
-if (Vue.ls.get('authorization')) {
-    store.commit(types.LOGIN, { authorization: Vue.ls.get('authorization'), loginId: Vue.ls.get('loginId') })
+if (Vue.ls.get('authorization_bg')) {
+    store.commit(types.LOGIN, { authorization: Vue.ls.get('authorization_bg'), loginId: Vue.ls.get('loginId_bg') })
 }
 
 const router = new Router({
