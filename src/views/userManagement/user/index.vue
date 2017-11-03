@@ -55,12 +55,14 @@
         <FormItem prop="name" label="昵称：">
           <Input type="text" v-model="filterData.name" @on-blur="onFilter" placeholder="请输入..."></Input>
         </FormItem>
-        <FormItem prop="mobile" label="用户名：">
+        <FormItem prop="mobile" label="用户账号：">
           <Input type="text" v-model="filterData.mobile" @on-blur="onFilter" placeholder="请输入..."></Input>
         </FormItem>
-        <!-- <FormItem prop="role" label="角色：">
-                        <Select v-model="filterData.role" placeholder="请选择角色"></Select>
-                      </FormItem> -->
+        <FormItem prop="role" label="角色：">
+          <Select v-model="filterData.roleId" @on-change="onFilter" placeholder="请选择" style="width:150px">
+             <Option v-for="role in roleList" :key="role.roleId" :value="role.roleId">{{ role.roleName }}</Option>
+          </Select>
+        </FormItem>
         <FormItem>
           <Button type="warning" @click.native="resetFilter">清除</Button>
         </FormItem>
@@ -122,8 +124,8 @@
         </FormItem>
         <FormItem label="设置角色" prop="roleList">
           <Select v-model="userData.roleList" multiple placeholder="请选择">
-                          <Option v-for="role in roleList" :key="role.roleId" :value="role.roleId">{{ role.roleName }}</Option>
-                        </Select>
+             <Option v-for="role in roleList" :key="role.roleId" :value="role.roleId">{{ role.roleName }}</Option>
+          </Select>
         </FormItem>
       </Form>
       <div slot="footer">
@@ -142,7 +144,7 @@
         filterData: {
           name: '',
           mobile: '',
-          // role: '',
+          roleId: '',
           pageSize: 10,
           currentPage: 1
         },
@@ -299,6 +301,7 @@
       resetFilter() {
         this.filterData.name = '';
         this.filterData.mobile = '';
+        this.filterData.role = '';
         this.getAllList();
       }
     },

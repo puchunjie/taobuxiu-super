@@ -600,6 +600,15 @@ export const deleteStoreHouse = '/sys/storeHouse/deleteStoreHouse'
  */
 export const getHouse = '/sys/storeHouse/findStoreHousePage'
 
+/**
+ * 查询所有仓库信息
+ * path: /api/query/findStoreHouse
+ * method: POST
+ */
+export const getStroeHouse = '/api/query/findStoreHouse'
+
+
+
 // -----------------------------------优惠信息---------------------------------
 export const findProInfoPage = '/sys/proInfoModel/findProInfoPage'
 export const saveProInfoModel = '/sys/proInfoModel/saveProInfoModel'

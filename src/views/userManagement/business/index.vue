@@ -117,6 +117,14 @@
                 <FormItem label="成为担保商家" v-if="activeItem.beGuaranteeUserTime != ''">
                     {{ activeItem.beGuaranteeUserTime | dateformat }}
                 </FormItem>
+                <FormItem label="QQ" >
+                    <Input v-model="editData.qq" placeholder="请输入qq"></Input>
+                </FormItem>
+                <FormItem label="仓库">
+                    <Select v-model="editData.storeHouseName" size="small" style="width:200px">
+                        <Option v-for="item in houseList" :key="item.id" :value="item.id">{{ item.name }}</Option>
+                    </Select>
+                </FormItem>
                 <FormItem label="商户优惠信息">
                     <Input type="textarea" :autosize="{minRows: 2,maxRows: 5}" v-model="editData.proInfo" placeholder="请输入..."></Input>
                 </FormItem>
@@ -149,12 +157,15 @@ import rang from './rangInfor';
                     pageSize: 5
                 },
                 list: [],
+                houseList: [],
                 totalCount: 0,
                 activeIndex: 0,
                 editData:{
                     userId: '',
                     isFaithUser: false,
                     isGuaranteeUser: false,
+                    qq: '',
+                    storeHouseName:'',
                     proInfo: ''
                 },
                 dateOption:{
@@ -221,15 +232,19 @@ import rang from './rangInfor';
                 })
             },
             showInfo(i) {
+                this.getStroeHouse();
                 this.activeIndex = i;
                 let data = _.cloneDeep(this.activeItem);
                 this.editData.userId = data.userId;
                 this.editData.isFaithUser = data.isFaithUser == 1;
                 this.editData.isGuaranteeUser = data.isGuaranteeUser == 1;
                 this.editData.proInfo = data.proInfo;
+                this.editData.storeHouseName = data.storeHouseName;
+                this.editData.qq = data.qq;
                 this.showEdit = true;
             },
             showRangeInfo(i) {
+                this.getHouse();
                 this.showRange = true;
             },
             edit(){
@@ -249,6 +264,14 @@ import rang from './rangInfor';
             // 分页
             pageChange(page) {
                 this.apiData.currentPage = page;
+            },
+            // 获取仓库
+            getStroeHouse() {
+                this.$http.post(this.api.getStroeHouse).then(res => {
+                    if(res.code === 1000){
+                        this.houseList = res.data;      
+                    }
+                })
             },
             // 清空筛选
             reset() {
@@ -284,7 +307,7 @@ import rang from './rangInfor';
             }
         },
         created() {
-            this.getBusinesses()
+            this.getBusinesses();
         }
     }
 </script>
