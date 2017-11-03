@@ -244,7 +244,6 @@ import rang from './rangInfor';
                 this.showEdit = true;
             },
             showRangeInfo(i) {
-                this.getHouse();
                 this.showRange = true;
             },
             edit(){
