@@ -170,7 +170,7 @@
                     }
                 }).then(res => {
                     if(res.code === 1000){
-                        this.$Message.success(res.message);
+                        this.$Message.success('操作成功！');
                         this.list[i].applyStatus = data.applyStatus;
                     }else{
                         this.$Message.error(res.message);
