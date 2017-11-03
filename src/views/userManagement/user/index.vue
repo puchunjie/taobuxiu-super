@@ -72,10 +72,10 @@
     <div class="list-table">
       <table>
         <colgroup>
-          <col width="160">
+          <col width="260">
           <col width="160">
           <col width="100">
-          <col width="1000">
+          <col width="900">
         </colgroup>
         <thead>
           <tr>
