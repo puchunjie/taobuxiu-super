@@ -19,10 +19,10 @@ export default {
                 this.$ls.set('rand', rand);
             }
             // 建立WebSocket链接
-            let ws = new WebSocket(this.$api.ws + '/iron?' + this.$store.state.loginId + rand);
+            let ws = new WebSocket(this.api.ws + '/quality?' + this.$store.state.loginId + rand);
 
             ws.onopen = function(evt) {
-                // console.log("消息推送链接成功");
+                //  console.log("消息推送链接成功");
             };
 
             ws.onmessage = function(evt) {
@@ -39,20 +39,24 @@ export default {
             if (window.Notification)
                 Notification.requestPermission();
         },
-        notify(msg) {
+        notify(data) {
             let _this = this;
-            let title = msg.title;
-            let body = msg.body;
-            let icon = 'http://tbxoss.oss-cn-hangzhou.aliyuncs.com/2017/10/24/jdb_' + msg.code + '.png';
+            let title = data.title;
+            let body = data.body;
             if (window.Notification && Notification.permission == 'granted') {
                 let notif = new Notification(title, {
                     body: body, //通知的具体内容
-                    icon: icon,
                     requireInteraction: true
                 });
                 notif.onclick = () => {
-                    // 1 求购信息推送 2 报价消息推送 3 中标 4报价修正 5放弃报价
-                    this.$router.push('/buys/index');
+                    // 1 求购消息推送 2 质检消息推送 
+                    if(data.code == 1){
+                        //  跳转到求购
+                        this.$router.push('/ironBuys');
+                    }else{
+                        //  跳转到质检
+                        this.$router.push('/quality');
+                    }
                     window.focus();
                     notif.close();
                 }

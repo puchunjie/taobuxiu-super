@@ -1,5 +1,13 @@
 export const uploadApi = 'http://192.168.0.251:8080/fileUpload/images';
 
+
+// WebSocket链接
+export let ws = '';
+if (process.env.NODE_ENV == 'development') {
+     ws = 'ws://192.168.0.251:8080/websocket'
+} else {
+    ws = 'ws://120.55.63.70:8080/websocket';
+}
 /**
  * 登录
  * path: /login/userLogin
@@ -75,6 +83,13 @@ export const getUserInfo = '/sys/auth/user/findRole'
  * }
  */
 export const getRoleList = '/sys/auth/user/findRole'
+
+
+/*
+* 专员管理查询
+* path:/sys/saleman/findSalemanBind
+*/
+export const getSalemanBind = '/sys/saleman/findSalemanBind'
 
 
 /**
