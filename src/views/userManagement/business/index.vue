@@ -243,7 +243,7 @@ import rang from './rangInfor';
                 this.editData.qq = data.qq;
                 this.showEdit = true;
             },
-            showRangeInfo(i) {
+            showRangeInfo() {
                 this.showRange = true;
             },
             edit(){
