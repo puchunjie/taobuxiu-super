@@ -60,7 +60,7 @@
         </FormItem>
         <FormItem prop="role" label="角色：">
           <Select v-model="filterData.roleId" @on-change="onFilter" placeholder="请选择" style="width:150px">
-             <Option v-for="role in roleList" :key="role.roleId" :value="role.roleId">{{ role.roleName }}</Option>
+             <Option v-for="role in [{roleName:'不限',roleId:''},...roleList]" :key="role.roleId" :value="role.roleId">{{ role.roleName }}</Option>
           </Select>
         </FormItem>
         <FormItem>

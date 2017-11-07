@@ -142,7 +142,6 @@
 
 <template>
     <div class="scope-container">
-        <p class="tit">经营范围</p>
         <div class="group" v-for="(item,index) in list" :key="index">
             <div class="head">
                 {{ item.title }}
@@ -171,22 +170,22 @@
                     title: '种类',
                     key: 'ironType',
                     arr: [],
-                    api: this.api.queryPlaces
+                    api: this.api.queryIronTypes
                 }, {
                     title: '材质',
                     key: 'material',
                     arr: [],
-                    api: this.api.queryIronTypes
+                    api: this.api.queryMaterials
                 }, {
                     title: '表面',
                     key: 'surface',
                     arr: [],
-                    api: this.api.queryMaterials
+                    api: this.api.querySurFaces
                 }, {
                     title: '产地',
                     key: 'proPlace',
                     arr: [],
-                    api: this.api.querySurFaces
+                    api: this.api.queryPlaces
                 }],
                 apiData: {
                     ironType: [],

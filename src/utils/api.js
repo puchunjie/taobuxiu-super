@@ -94,12 +94,23 @@ export const getRoleList = '/sys/auth/user/findRole'
  */
 export const getSalemanBind = '/sys/saleman/findSalemanBind'
 
+/*
+ * 超管查询专员信息
+ * path:/sys/saleman/findSalemanBind
+ */
+export const findSalemanInfos = '/sys/saleman/findSalemanInfo'
 
 /*
  * 超管查询绑定管理
  * /sys/saleman/findCompangWithSaleman
  */
 export const findCompangWithSaleman = '/sys/saleman/findCompangWithSaleman'
+
+/*
+ * 超管进行商户绑定
+ * /sys/saleman/findCompangWithSaleman
+ */
+export const updateSalemanInfo = '/sys/saleman/updateSalemanInfo'
 
 /**
  * 获取商家用户列表

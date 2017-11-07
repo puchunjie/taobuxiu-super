@@ -56,6 +56,9 @@ export default [{
         }, {
             name: '商家用户管理',
             router: { name: 'businessManagement' }
+        },{
+            name: '平台专员管理',
+            router: {name: 'commissioner'}
         }]
     },
     {

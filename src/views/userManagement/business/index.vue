@@ -121,26 +121,29 @@
                     <Input v-model="editData.qq" placeholder="请输入qq"></Input>
                 </FormItem>
                 <FormItem label="仓库">
-                    <Select v-model="editData.storeHouseName" size="small" style="width:200px">
-                        <Option v-for="item in houseList" :key="item.id" :value="item.id">{{ item.name }}</Option>
-                    </Select>
+                    <!-- <Select v-model="editData.storeHouseId" size="small" style="width:200px">
+                        <Option v-for="item in houseList" :key="item.id" :value="item.id+'-'+item.name">{{ item.name }}</Option>
+                    </Select> -->
+                    <ajaxSelect class="form-input" :api="api.getStroeHouse" :value="editData.storeHouseId+'-'+editData.storeHouseName" @on-select="asyncStore"></ajaxSelect>
                 </FormItem>
                 <FormItem label="商户优惠信息">
                     <Input type="textarea" :autosize="{minRows: 2,maxRows: 5}" v-model="editData.proInfo" placeholder="请输入..."></Input>
                 </FormItem>
             </Form>
         </Modal>
-        <Modal title="报价经营范围" v-model="showRange" loading :mask-closable="false" @on-ok="saveScope">
-            <rang v-if="showRange" :id= "activeItem.id" ref="scope"></rang>
+        <Modal title="报价经营范围" width="900" v-model="showRange" loading :mask-closable="false" @on-ok="saveScope">
+            <rang v-if="showRange" :id= "activeItem.userId" ref="scope"></rang>
         </Modal>
     </div>
 </template>
 
 <script>
 import rang from './rangInfor';
+import ajaxSelect from '@/components/basics/ajaxSelect' 
     export default {
         components: {
-            rang
+            rang,
+            ajaxSelect
         },
         data() {
             return {
@@ -165,6 +168,7 @@ import rang from './rangInfor';
                     isFaithUser: false,
                     isGuaranteeUser: false,
                     qq: '',
+                    storeHouseId:'',
                     storeHouseName:'',
                     proInfo: ''
                 },
@@ -232,24 +236,33 @@ import rang from './rangInfor';
                 })
             },
             showInfo(i) {
-                this.getStroeHouse();
+                // this.getStroeHouse();
                 this.activeIndex = i;
                 let data = _.cloneDeep(this.activeItem);
                 this.editData.userId = data.userId;
                 this.editData.isFaithUser = data.isFaithUser == 1;
                 this.editData.isGuaranteeUser = data.isGuaranteeUser == 1;
                 this.editData.proInfo = data.proInfo;
+                this.editData.storeHouseId = data.storeHouseId;
                 this.editData.storeHouseName = data.storeHouseName;
                 this.editData.qq = data.qq;
                 this.showEdit = true;
             },
-            showRangeInfo() {
+            showRangeInfo(index) {
+                this.activeIndex = index;
                 this.showRange = true;
+            },
+            asyncStore(data) {
+                this.editData.storeHouseId = data.id;
+                this.editData.storeHouseName = data.name;
             },
             edit(){
                 let params = _.cloneDeep(this.editData);
                 params.isFaithUser = params.isFaithUser ? 1 : 0;
                 params.isGuaranteeUser = params.isGuaranteeUser ? 1 : 0;
+                // let storeHouse = params.storeHouseId.split("-");
+                // params.storeHouseId = storeHouse[0];
+                // params.storeHouseName = storeHouse[1];
                 this.$http.post(this.api.eidtBusiness,params).then(res => {
                     if(res.code === 1000){
                         this.$Message.success('修改成功！');

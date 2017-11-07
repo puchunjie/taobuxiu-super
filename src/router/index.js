@@ -61,6 +61,10 @@ const router = new Router({
                     path: 'businessManagement',
                     name: 'businessManagement',
                     component: resolve => require(['@/views/userManagement/business/index'], resolve),
+                },{
+                    path: 'commissioner',
+                    name: 'commissioner',
+                    component: resolve => require(['@/views/userManagement/commissioner/index'], resolve)
                 }, {
                     path: 'unitManagement',
                     name: 'unitManagement',
