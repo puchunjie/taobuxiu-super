@@ -18,7 +18,7 @@ export default {
   },
   methods: {
       getUserInfo() {
-          this.$http.post(this.api.getUserInfo).then(res => {
+          this.$http.post(this.api.getUser).then(res => {
             if (res.code === 1000) {
                 // this.$store.commit(types.SET_USER_INFO, res.data);
                 document.addEventListener('visibilitychange', () => {

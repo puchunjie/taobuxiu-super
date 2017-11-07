@@ -19,7 +19,10 @@ if (process.env.NODE_ENV == 'development') {
  */
 export const login = '/login/userLogin';
 
-
+/**
+ * 获取用户信息
+ */
+export const getUser = '/api/user/findCurrentUser';
 
 /**
  * 地址选择省，市，区
@@ -91,6 +94,12 @@ export const getRoleList = '/sys/auth/user/findRole'
 */
 export const getSalemanBind = '/sys/saleman/findSalemanBind'
 
+
+/*
+* 超管查询绑定管理
+* /sys/saleman/findCompangWithSaleman
+*/
+export const findCompangWithSaleman = '/sys/saleman/findCompangWithSaleman'
 
 /**
  * 获取商家用户列表
