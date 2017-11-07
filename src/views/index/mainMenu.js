@@ -6,6 +6,10 @@ export default [{
                 router: { name: 'ironBuys' }
             },
             {
+                name: '代客发布求购',
+                router: { name: 'valetIron' }
+            },
+            {
                 name: '质检申请管理',
                 router: { name: 'quality' }
             }

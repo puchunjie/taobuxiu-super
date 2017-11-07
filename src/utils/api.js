@@ -694,6 +694,11 @@ export const findIronOffer = '/sys/ironBuy/queryIronSellByIronBuyId'
 //删除求购
 export const deleteIron = '/sys/ironBuy/deleteIronBuyInfo'
 
+// -----------------------------------代客发布求购---------------------------------
+/**
+ * 验证是否有代发权限
+ */
+export const hasJV = '/api/ironBuySubstitute/checkbg'
 
 
 // -----------------------------------品类，材质，表面，产地查询---------------------------------
