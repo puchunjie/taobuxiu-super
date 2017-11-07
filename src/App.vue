@@ -4,45 +4,10 @@
   </div>
 </template>
 
-<script>
-  import {
-    mapGetters
-  } from 'vuex'
-import push from '@/utils/push.js'
-
-export default {
-  name: 'app',
-  mixins: [push],
-  computed: {
-      ...mapGetters(['user', 'base'])
-  },
-  methods: {
-      getUserInfo() {
-          this.$http.post(this.api.getUser).then(res => {
-            if (res.code === 1000) {
-                // this.$store.commit(types.SET_USER_INFO, res.data);
-                document.addEventListener('visibilitychange', () => {
-                let isHidden = document.hidden;
-                if (isHidden) {
-                    this.isFocus = false;
-                } else {
-                    this.isFocus = true;
-                    document.title = this.titleInit;
-                    window.clearInterval(this.stl);
-                    if (!this.isNotice) {
-                    this.notify(this.msg)
-                    }
-                }
-                });
-                this.initScoket();
-            }
-          })
-      }
-  },
-  created () {
-      this.getUserInfo();
+<script>  
+  export default {
+    name: 'app'
   }
-}
 </script>
 
 <style>
@@ -72,26 +37,26 @@ export default {
       transform: rotate(360deg);
     }
   }
-
+  
   .status-0 {
-        background-color: #c16bd6;
-    }
-    
-    .status-1 {
-        background-color: #3fa6e3;
-    }
-    
-    .status-2 {
-        background-color: #66c549;
-    }
-    
-    .status-3 {
-        background-color: #f89d34;
-    }
-    
-    .status-4 {
-        background-color: #ff5c55;
-    }
+    background-color: #c16bd6;
+  }
+  
+  .status-1 {
+    background-color: #3fa6e3;
+  }
+  
+  .status-2 {
+    background-color: #66c549;
+  }
+  
+  .status-3 {
+    background-color: #f89d34;
+  }
+  
+  .status-4 {
+    background-color: #ff5c55;
+  }
 </style>
 
 

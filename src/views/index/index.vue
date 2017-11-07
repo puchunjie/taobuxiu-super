@@ -6,8 +6,8 @@
                 <div class="layout-logo-left">淘不锈超管后台管理系统</div>
                 <Submenu :name="index" v-for="(item,index) in menu" :key="index">
                     <template slot="title">
-                        <span class="iconfont" :class="item.icon"></span>{{ item.name }}
-                    </template>
+                            <span class="iconfont" :class="item.icon"></span>{{ item.name }}
+</template>
                         <MenuItem :name="index+'-'+i" v-for="(sub,i) in item.children" :key="i">{{ sub.name }}</MenuItem>
                     </Submenu>
                 </Menu>
@@ -29,7 +29,12 @@
 
 <script>
     import menu from './mainMenu.js'
+    import {
+        mapGetters
+    } from 'vuex'
+    import push from '@/utils/push.js'
     export default {
+        mixins: [push],
         data() {
             return {
                 menu: menu,
@@ -40,6 +45,7 @@
             }
         },
         computed: {
+            ...mapGetters(['user', 'base']),
             //获取当前选中菜单
             activeMenu() {
                 if (this.activeIndex != '') {
@@ -81,10 +87,32 @@
                 let headerHeight = this.$refs.layoutHeader.clientHeight;
                 let contnetHeight = winHeight - headerHeight - 64;
                 this.contentHeight = contnetHeight;
+            },
+            getUserInfo() {
+                this.$http.post(this.api.getUser).then(res => {
+                    if (res.code === 1000) {
+                        // this.$store.commit(types.SET_USER_INFO, res.data);
+                        document.addEventListener('visibilitychange', () => {
+                            let isHidden = document.hidden;
+                            if (isHidden) {
+                                this.isFocus = false;
+                            } else {
+                                this.isFocus = true;
+                                document.title = this.titleInit;
+                                window.clearInterval(this.stl);
+                                if (!this.isNotice) {
+                                    this.notify(this.msg)
+                                }
+                            }
+                        });
+                        this.initScoket();
+                    }
+                })
             }
         },
         created() {
             this.setActiveMenu();
+            this.getUserInfo();
         },
         mounted() {
             this.$refs.menu.updateActiveName();
