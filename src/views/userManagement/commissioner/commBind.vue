@@ -181,15 +181,10 @@ export default {
       }
     },
     savaBind() {
-      if(this.bindData.salesmanUserId =' '){
-        this.$Message.error('请选择专员');
-        return
-      }else{
         this.$Modal.confirm({
           title: ' 绑定提示！',
           content: '确认绑定？',
           onOk: () => {
-          
             let params = this.$clearData(this.bindData);
             params.users = JSON.stringify(params.users);
             this.$http.post(this.savaBindApi,params).then(res =>{
@@ -202,7 +197,6 @@ export default {
             })
           }
         })
-    }
     }
   },
   created() {

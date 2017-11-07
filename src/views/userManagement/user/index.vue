@@ -301,7 +301,7 @@
       resetFilter() {
         this.filterData.name = '';
         this.filterData.mobile = '';
-        this.filterData.role = '';
+        this.filterData.roleId = '';
         this.getAllList();
       }
     },
