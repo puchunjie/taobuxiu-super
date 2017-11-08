@@ -17,7 +17,7 @@
             ouput(val){
                 let data = {
                     startTime: val[0] != '' ? new Date(val[0]).getTime() : '',
-                    endTime: val[1] != '' ? new Date(val[1]).getTime() : '',
+                    endTime: val[1] != '' && val[1] != undefined ? new Date(val[1]).getTime() : '',
                 }
                 this.$emit('date-change',data);
             }

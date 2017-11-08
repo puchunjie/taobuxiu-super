@@ -45,7 +45,6 @@
             }
         },
         computed: {
-            ...mapGetters(['user', 'base']),
             //获取当前选中菜单
             activeMenu() {
                 if (this.activeIndex != '') {
