@@ -1,7 +1,7 @@
 import * as types from '@/store/types'
 import { MathRand } from '@/utils/tools.js'
 export default {
-    data() {
+    data (){
         return {
             isFocus: true,
             titleInit: document.title,
@@ -33,10 +33,7 @@ export default {
             };
 
             ws.onclose = function(evt) {
-                console.log("Connection closed.");
-                setTimeout(() => {
-                    _this.initScoket();
-                }, 10000)
+                // console.log("Connection closed.");
             };
 
             if (window.Notification)
@@ -53,10 +50,10 @@ export default {
                 });
                 notif.onclick = () => {
                     // 1 求购消息推送 2 质检消息推送 
-                    if (data.code == 1) {
+                    if(data.code == 1){
                         //  跳转到求购
                         this.$router.push('/ironBuys');
-                    } else {
+                    }else{
                         //  跳转到质检
                         this.$router.push('/quality');
                     }

@@ -104,7 +104,7 @@
           </tr>
         </tbody>
       </table>
-      <Page class="page-count" size="small" :page-size="filterData.pageSize" :total="totalCount" @on-change="setPage"></Page>
+      <Page class="page-count" size="small" :current="filterData.currentPage" :page-size="filterData.pageSize" :total="totalCount" @on-change="setPage"></Page>
     </div>
   
     <!-- 添加、修改用户 -->
@@ -204,6 +204,7 @@
     methods: {
       // 输入筛选框时候调用
       onFilter() {
+        this.filterData.currentPage = 1;
         this.getAllList()
       },
       // 获取用户列表
