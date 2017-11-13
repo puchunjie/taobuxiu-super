@@ -57,7 +57,7 @@
                           <Col class-name="col" span="24">暂无数据</Col>
                       </Row>
                   </div>
-                  <Page class="page-count" size="small" :total="totalCount" :page-size="filterData.pageSize" @on-change="changePage"></Page>
+                  <Page class="page-count" size="small" :total="totalCount" :current="filterData.currentPage" :page-size="filterData.pageSize" @on-change="changePage"></Page>
               </div>
           </Card>
           <div class="bind-main">
@@ -130,11 +130,14 @@ export default {
       })
     },
     onFilter() {
+      this.filterData.currentPage = 1;
       this.getAllList();
+      this.resetBindData();
     },
     changePage(page) {
       this.filterData.currentPage = page;
       this.getAllList();
+      this.resetBindData();
     },
     //  获取专员
     getSalemanInfos() {
@@ -144,13 +147,22 @@ export default {
         }
       })
     },
-    //  晴空筛选数据
+    //  清空筛选数据
     resetFilter() {
       this.filterData.name = '';
       this.filterData.bind = '';
       this.filterData.login = '';
       this.filterData.salesmanUserId = '';
       this.getAllList();
+      this.resetBindData();
+    },
+    //  清空绑定信息
+    resetBindData() {
+      this.bindData.users = [];
+      this.bindData.salesmanUserId = ''
+      this.indeterminate = false;
+      this.checkAll = false; 
+      this.selectLen = 0;
     },
     //  全选
     handleCheckAll(val) {
@@ -165,6 +177,7 @@ export default {
           this.selectLen = this.bindData.users.length;
       } else {
           this.bindData.users = [];
+          this.selectLen = 0;
       }
     },
     checkAllGroupChange(data) {
@@ -191,6 +204,7 @@ export default {
               if(res.code === 1000){
                 this.$Message.success('操作成功！');
                 this.getAllList();
+                this.resetBindData();
               }else{
                 this.$Message.error('操作失败！');
               }

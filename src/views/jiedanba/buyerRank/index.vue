@@ -5,19 +5,31 @@
 </template>
 
 <script>
-  import commonTemplate from '../commonTemplate/index.vue'
+  import commonTemplate from '../commonTemplate/index.vue';
+  import expandRow from './expandRow.vue';
   export default {
     components: {
-      commonTemplate
+      commonTemplate,
+      expandRow
     },
     data() {
       return {
         list:[],
         columns: [{
-          title: '名称',
-          key: 'companyName',
-          ellipsis: true
-        }, {
+            type: 'expand',
+            width: 40,
+            render: (h,params) =>{
+              return h(expandRow,{
+                props: {
+                  row: params.row
+                }
+              })
+            },
+        },{
+            title: '名称',
+            key: 'companyName',
+            ellipsis: true
+          }, {
           title: '地区',
           key: 'address',
           ellipsis: true
@@ -69,7 +81,7 @@
           });
           arr.push(item)
         });
-        return arr
+        return arr;
       }
     },
     methods: {
