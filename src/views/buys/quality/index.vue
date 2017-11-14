@@ -166,7 +166,8 @@
             pageChange(page) {
                 this.apiData.currentPage = page;
             },
-            opt(data,i) {
+            //  处理请求
+            optionFn(data,i) {
                 this.$http.get(this.api.get_actQua,{
                     params:{
                         id: data.id,
@@ -175,25 +176,25 @@
                 }).then(res => {
                     if(res.code === 1000){
                         this.$Message.success('操作成功！');
-                        this.list[i].applyStatus = data.applyStatus;
+                        // this.list[i].applyStatus = data.applyStatus;
+                        this.getData(this.apiData)
                     }else{
                         this.$Message.error(res.message);
                     }
                 })
             },
-            // 处理
+            // 处理质检操作
             act(data,i){
                 if(data.applyStatus == 4){
-                        this.$Modal.confirm({
+                this.$Modal.confirm({
                         title: ' 删除提示！',
                         content: '确认删除质检？',
                         onOk: () => {
-                            this.opt(data,i);
-                            this.getData(this.apiData)
+                            this.optionFn(data,i);
                             }
                         })
                 }else{
-                    this.opt(data,i)
+                    this.optionFn(data,i)
                 }
             }
         },
