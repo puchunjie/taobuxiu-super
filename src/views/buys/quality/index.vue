@@ -35,7 +35,7 @@
                 <span class="iconfont icon-cheng" style="color:#F5A623" v-show="item.isFaithUser == 1"></span>
                 <span class="iconfont icon-bao" style="color:#C16BD6" v-show="item.isGuaranteeUser == 1"></span>
                 <span class="status" :class="'status'+item.applyStatus ">{{ item.applyStatus | statusStr }}</span>
-                <ButtonGroup style="float:right;margin-top:10px" size="small">
+                <ButtonGroup style="float:right;margin-top:10px" size="small" v-if="item.applyStatus != 4">
                     <Button type="primary" @click="act({id:item.id,applyStatus:1},index)">开始处理</Button>
                     <Button type="primary" @click="act({id:item.id,applyStatus:2},index)">质检完成</Button>
                     <Button type="primary" @click="act({id:item.id,applyStatus:3},index)">取消质检</Button>
@@ -166,8 +166,7 @@
             pageChange(page) {
                 this.apiData.currentPage = page;
             },
-            // 处理
-            act(data,i){
+            opt(data,i) {
                 this.$http.get(this.api.get_actQua,{
                     params:{
                         id: data.id,
@@ -181,6 +180,21 @@
                         this.$Message.error(res.message);
                     }
                 })
+            },
+            // 处理
+            act(data,i){
+                if(data.applyStatus == 4){
+                        this.$Modal.confirm({
+                        title: ' 删除提示！',
+                        content: '确认删除质检？',
+                        onOk: () => {
+                            this.opt(data,i);
+                            this.getData(this.apiData)
+                            }
+                        })
+                }else{
+                    this.opt(data,i)
+                }
             }
         },
         created() {

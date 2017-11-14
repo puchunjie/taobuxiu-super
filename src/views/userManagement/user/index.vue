@@ -117,17 +117,19 @@
           <Input v-model="userData.realName" placeholder="用户真实姓名"></Input>
         </FormItem>
         <FormItem label="账号" prop="mobile" v-if="!userEdit">
-          <Input v-model="userData.mobile" ref="mobile" placeholder="用户手机号"></Input>
+          <Input v-model="userData.mobile" ref="mobile" placeholder="账号"></Input>
         </FormItem>
         <FormItem label="密码" prop="password">
-          <Input v-model="userData.password" type="password" placeholder="用户密码"></Input>
+          <Input v-model="userData.password" type="password" :placeholder="userEdit ? '如需修改密码，请在此输入新密码' : '用户密码'"></Input>
         </FormItem>
         <FormItem label="设置角色" prop="roleList">
           <Select v-model="userData.roleList" multiple placeholder="请选择">
              <Option v-for="role in roleList" :key="role.roleId" :value="role.roleId">{{ role.roleName }}</Option>
           </Select>
         </FormItem>
-        <FormItem label="创建人" prop="createUser" v-if="userEdit">
+      </Form>
+      <Form :label-width="90">
+            <FormItem label="创建人" prop="createUser" v-if="userEdit">
           {{userOtherData.createUser | isEmpty(params = '暂无')}}
         </FormItem>
         <FormItem label="创建时时间" prop="createTime" v-if="userEdit">
