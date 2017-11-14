@@ -9,6 +9,7 @@
                         <Radio label="1">正在处理</Radio>
                         <Radio label="2">已完成</Radio>
                         <Radio label="3">已取消</Radio>
+                        <Radio label="4">已删除</Radio>
                     </RadioGroup>
                 </FormItem>
                 <FormItem label="申请商户：" class="magin0">
@@ -38,6 +39,7 @@
                     <Button type="primary" @click="act({id:item.id,applyStatus:1},index)">开始处理</Button>
                     <Button type="primary" @click="act({id:item.id,applyStatus:2},index)">质检完成</Button>
                     <Button type="primary" @click="act({id:item.id,applyStatus:3},index)">取消质检</Button>
+                    <Button type="primary" @click="act({id:item.id,applyStatus:4},index)">删除质检</Button>
                 </ButtonGroup>
             </div>
             <div class="card clearfix">
@@ -142,6 +144,9 @@
                     case 3:
                         return '已取消 '
                         break;
+                    case 4:
+                        return '已删除'
+                        break;
                     default:
                         break;
                 }
@@ -227,7 +232,7 @@
                     &.status2 {
                         background-color: green;
                     }
-                    &.status3 {
+                    &.status3,&.status4 {
                         background-color: gray;
                     }
                 }

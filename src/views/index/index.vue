@@ -13,7 +13,11 @@
                 </Menu>
             </Col>
             <Col span="20">
-                <div class="layout-header" ref="layoutHeader">test</div>
+                <div class="layout-header" ref="layoutHeader">
+                     <div class="layout-ceiling-main">
+                        <a @click="loginout"><Icon type="log-out" style="margin-right:3px;font-size:14px;"></Icon>退出</a>
+                    </div>   
+                </div>
                 <div class="layout-breadcrumb">
                     <Breadcrumb>
                         <BreadcrumbItem v-for="(tag,index) in activeMenu.path" :key="index">{{ tag }}</BreadcrumbItem>
@@ -29,6 +33,7 @@
 
 <script>
     import menu from './mainMenu.js'
+    import * as types from '@/store/types'
     import {
         mapGetters
     } from 'vuex'
@@ -107,6 +112,14 @@
                         this.initScoket();
                     }
                 })
+            },
+            //  退出登录
+            loginout(data) {
+               this.$store.commit(types.LOGOUT, data);
+                let redirect = decodeURIComponent(this.$route.query.redirect || '/login');
+                this.$router.push({
+                    path: redirect
+                })
             }
         },
         created() {
@@ -183,5 +196,14 @@
         width: 100%;
         height: 100%;
         background-color: #fff;
+    }
+    .layout-ceiling-main{
+        float: right;
+        margin-right: 15px;
+        line-height: 60px;
+    }
+    .layout-ceiling-main a{
+        color: #9ba7b5;
+        font-size: 14px;
     }
 </style>

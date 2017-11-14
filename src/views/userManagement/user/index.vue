@@ -109,7 +109,7 @@
   
     <!-- 添加、修改用户 -->
     <Modal v-model="userInfoShow" :title="userEdit ? '编辑用户' : '添加用户'" @on-cancel="resetData"  :mask-closable="false">
-      <Form ref="userInfo" :model="userData" :rules="addRule" :label-width="80">
+      <Form ref="userInfo" :model="userData" :rules="addRule" :label-width="90">
         <FormItem label="昵称" prop="name">
           <Input v-model="userData.name" placeholder="用户昵称"></Input>
         </FormItem>
@@ -119,13 +119,25 @@
         <FormItem label="账号" prop="mobile" v-if="!userEdit">
           <Input v-model="userData.mobile" ref="mobile" placeholder="用户手机号"></Input>
         </FormItem>
-        <FormItem label="密码" prop="password" v-if="!userEdit">
+        <FormItem label="密码" prop="password">
           <Input v-model="userData.password" type="password" placeholder="用户密码"></Input>
         </FormItem>
         <FormItem label="设置角色" prop="roleList">
           <Select v-model="userData.roleList" multiple placeholder="请选择">
              <Option v-for="role in roleList" :key="role.roleId" :value="role.roleId">{{ role.roleName }}</Option>
           </Select>
+        </FormItem>
+        <FormItem label="创建人" prop="createUser" v-if="userEdit">
+          {{userOtherData.createUser | isEmpty(params = '暂无')}}
+        </FormItem>
+        <FormItem label="创建时时间" prop="createTime" v-if="userEdit">
+          {{userOtherData.createTime | dateformat}}
+        </FormItem>
+        <FormItem label="修改人" prop="updataUser" v-if="userEdit">
+          {{userOtherData.updataUser | isEmpty(params = '暂无')}}
+        </FormItem>
+        <FormItem label="修改时间" prop="updataTime" v-if="userEdit">
+          {{userOtherData.updataTime | dateformat}}
         </FormItem>
       </Form>
       <div slot="footer">
@@ -136,6 +148,7 @@
 </template>
 
 <script>
+   import { dateformat,isEmpty } from '@/utils/filters'
   export default {
     data() {
       return {
@@ -154,7 +167,13 @@
           realName: '',
           password: '',
           mobile: '',
-          roleList: []
+          roleList: [],
+        },
+        userOtherData: {
+          createUser: '',
+          createTime: '',
+          updataUser: '',
+          updataTime: ''
         },
         roleList: [],
         addRule: {
@@ -174,7 +193,7 @@
             trigger: 'blur'
           }],
           password: [{
-            required: true,
+            required: false,
             message: '密码不能为空',
             trigger: 'blur'
           }],
@@ -240,6 +259,11 @@
             this.userData.name = data.name;
             this.userData.mobile = data.mobile;
             this.userData.realName = data.realName;
+            this.userData.password = data.password;
+            this.userOtherData.createUser = data.createUserName;
+            this.userOtherData.createTime = data.createTime;
+            this.userOtherData.updataUser = data.updateUserName;
+            this.userOtherData.updataTime = data.updateTime;
             res.data.roleList.forEach(el => {
               if (el.flag) {
                 this.userData.roleList.push(el.roleId);

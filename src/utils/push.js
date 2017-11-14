@@ -33,7 +33,7 @@ export default {
             };
 
             ws.onclose = function(evt) {
-                console.log("Connection closed.");
+                // console.log("Connection closed.");
                 setTimeout(() => {
                     _this.initScoket();
                 }, 10000)
@@ -52,8 +52,8 @@ export default {
                     requireInteraction: true
                 });
                 notif.onclick = () => {
-                    // 1 求购消息推送 2 质检消息推送 
-                    if (data.code == 1) {
+                    // 1 求购消息推送 2 质检消息推送 3 中标
+                    if (data.code == 1  || data.code == 3) {
                         //  跳转到求购
                         this.$router.push('/ironBuys');
                     } else {
