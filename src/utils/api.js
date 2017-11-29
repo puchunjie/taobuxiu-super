@@ -1,4 +1,7 @@
 export const uploadApi = 'http://192.168.0.251:8080/fileUpload/images';
+// export const uploadExcelApi = 'http://192.168.0.117:8080/sys/qualiticationmodel/uplodeQualiticationModel';
+export const uploadExcelApi = 'http://192.168.0.251/sys/qualiticationmodel/uplodeQualiticationModel';
+export const excelBaseUrl = 'http://tbxoss.oss-cn-hangzhou.aliyuncs.com/';
 
 
 // WebSocket链接
@@ -649,6 +652,181 @@ export const findProInfoPage = '/sys/proInfoModel/findProInfoPage'
 export const saveProInfoModel = '/sys/proInfoModel/saveProInfoModel'
 export const updateProInfoModel = '/sys/proInfoModel/updateProInfoModel'
 export const deleteProInfoModel = '/sys/proInfoModel/deleteProInfoModel'
+
+
+//-------------------------------开平时间---------------------------------------
+// 查询
+export const findKaipingModelPage = '/sys/kaipingModel/findKaipingModelPage'
+//  新增、修改
+export const saveAndUpdateKaipingModel = '/sys/kaipingModel/saveAndUpdateKaipingModel'
+//  删除
+export const deleteKaipingModel = '/sys/kaipingModel/deleteKaipingModel'
+
+// 查询所有信息
+export const findAllKaiping = '/api/query/findAllKaiping'
+
+
+//  超管修改定开信息
+export const updateDingKai = '/sys/ironBuy/updateDingKai'
+
+// 
+//  超管分页查询现货资源
+export const findSpotGoodsByPage = '/sys/spotGoods/findSpotGoodsByPage'
+
+//  超管管理现货资源
+export const updateSpotGoodsInfo = '/sys/spotGoods/updateSpotGoodsInfo'
+
+
+//  超管分页查询特价资源
+export const findSpecialPriceByPage = '/sys/specialPrice/findSpecialPriceByPage'
+
+//  超管管理特价资源
+export const updateSpeciaPriceInfo = '/sys/specialPrice/updateSpeciaPriceInfo'
+
+// -----------------------------------资源类型管理---------------------------------
+//  新增
+export const saveQualiticationType= '/sys/qualiticationtype/saveQualiticationType'
+
+//  更新
+export const updateQualiticationType = '/sys/qualiticationtype/updateQualiticationType'
+
+//  查询
+export const queryQualiticationtypePage = '/sys/qualiticationtype/queryQualiticationtypePage'
+
+//  删除
+export const deleteQualiticationType = '/sys/qualiticationtype/deleteQualiticationType'
+
+
+// -----------------------------------资源上传EXCEL模板管理-------------------------------
+//  查询
+export const queryQualiticationmodelPage = '/sys/qualiticationmodel/queryQualiticationmodelPage'
+
+//  上传资源模板excel文件
+export const uplodeQualiticationModel = '/sys/qualiticationmodel/uplodeQualiticationModel'
+
+//  更新资源模板信息
+export const updateQualiticationModel = '/sys/qualiticationmodel/updateQualiticationModel'
+
+//  新增资源模板信息
+
+export const saveQualiticationModel = '/sys/qualiticationmodel/saveQualiticationModel'
+
+//  删除
+export const deleteQualificationModel = '/sys/qualiticationmodel/deleteQualificationModel'
+
+//  下载时回写增加次数
+export const updateDownLodeCount = '/sys/qualiticationmodel/updateDownLodeCount'
+
+/**
+ * 删除分组
+ */
+export const queryDingKaiList = '/sys/ironBuy/queryDingKaiList'
+
+
+//  --------------------------系统配置--------------------------
+
+
+//  --------------------------等级--------------------------
+// 删除资源刷新机制_等级
+export const deleteStoreQualiticationLevel = '/sys/storequaliticationlevel/deleteStoreQualiticationLevel'
+// 新增资源刷新机制_等级
+export const saveStoreQualiticationLevel = '/sys/storequaliticationlevel/saveStoreQualiticationLevel'
+// 更新资源刷新机制_等级
+export const updateStoreQualiticationLevel = '/sys/storequaliticationlevel/updateStoreQualiticationLevel'
+// 查询资源刷新机制_等级
+export const storequaliticationlevelPage = '/sys/storequaliticationlevel/storequaliticationlevelPage'
+
+//  --------------------------类型--------------------------
+// 删除资源刷新机制_类型
+export const deleteStoreQualiticationType = '/sys/storequaliticationtype/deleteStoreQualiticationType'
+
+// 新增资源刷新机制_类型
+export const saveStoreQualiticationType = '/sys/storequaliticationtype/saveStoreQualiticationType'
+
+// 更新资源刷新机制_类型
+export const updateStoreQualiticationType = '/sys/storequaliticationtype/updateStoreQualiticationType'
+
+// 查询资源刷新机制_类型
+export const storequaliticationtypePage = '/sys/storequaliticationtype/storequaliticationtypePage'
+
+//  --------------------------规则--------------------------
+// 删除资源刷新机制_规则
+export const deleteStoreRuleType = '/sys/storeruletype/deleteStoreRuleType'
+
+// 新增资源刷新机制_规则
+export const saveStoreRuleType = '/sys/storeruletype/saveStoreRuleType'
+
+// 更新资源刷新机制_规则
+export const updateStoreRuleType = '/sys/storeruletype/updateStoreRuleType'
+
+// 查询资源刷新机制_规则
+export const storeruletypePage = '/sys/storeruletype/storeruletypePage'
+
+//  查询配置规则中所有资源类型
+export const selectStoreQualificationTypeName = '/sys/storeroles/selectStoreQualificationTypeName'
+
+//  分页查询规则配置
+export const selectStoreRolesConfigurationPage = '/sys/storeroles/selectStoreRolesConfigurationPage'
+
+//  配置默认规则               
+export const saveStoreRolesConfiguration = '/sys/storeroles/saveStoreRolesConfiguration'
+
+//  编辑默认规则               
+export const updateStoreRolesConfiguration = '/sys/storeroles/updateStoreRolesConfiguration'
+
+//  获取默认规则名称           
+export const selectFagRuleName = '/sys/storeroles/selectFagRuleName'
+
+//  批量应用刷新规则           
+export const updateStoreRules = '/sys/storeroles/updateStoreRules'
+
+//  获取默认配置规则集合  
+export const selectFagRuleNameList = '/sys/storeroles/selectFagRuleNameList'
+
+//  删配置规则
+export const deleteStoreRoles= '/sys/storeroles/deleteStoreRoles' 
+
+
+
+
+// -----------------------------------基础数据排序配置---------------------------------
+//  基础参数排序修改
+export const updateBaseSort = '/sys/baseSort/updateBaseSort'
+
+//  基础参数排序查询
+export const findBaseSortList = '/sys/baseSort/findBaseSortList'
+
+//  基础参数排序设为默认
+export const setBaseSortZero = '/sys/baseSort/setBaseSortZero'
+
+// -----------------------------------资源类型配置---------------------------------
+
+//  查询资源类型信息            
+export const selectStoreQualificationTypeInfo = '/sys/dynamicResource/selectStoreQualificationTypeInfo'
+
+//  分页查询配置信息            
+export const selectDynamicResourcelPage = '/sys/dynamicResource/selectDynamicResourcelPage'
+
+//  保存配置信息                
+export const saveDynamicResourcel = '/sys/dynamicResource/saveDynamicResourcel'
+
+//  更新配置信息                
+export const updateDynamicResourcel = '/sys/dynamicResource/updateDynamicResourcel'
+
+//   删除配置信息                
+export const deleteDynamicResourcel = '/sys/dynamicResource/deleteDynamicResourcel'
+
+//-----------------时间开关-----------
+// 分页查询时间开关
+export const selectStoreTimePage = '/sys/storetime/selectStoreTimePage'
+
+export const updateStoreTime = '/sys/storetime/updateStoreTime'
+
+//  设为无限制                  
+export const updateStoreTimeParamById = '/sys/storetime/updateStoreTimeParamById'
+
+/// 更改开关状态                
+export const updateStoreTimeStatusById = '/sys/storetime/updateStoreTimeStatusById'
 
 // -----------------------------------关联数据---------------------------------
 /**

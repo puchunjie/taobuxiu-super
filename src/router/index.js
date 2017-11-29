@@ -50,10 +50,6 @@ const router = new Router({
                     name: 'adManage',
                     component: resolve => require(['@/views/marketing/adManage'], resolve),
                 }, {
-                    path: 'special',
-                    name: 'special',
-                    component: resolve => require(['@/views/specialResources/index'], resolve),
-                }, {
                     path: 'userManagement',
                     name: 'userManagement',
                     component: resolve => require(['@/views/userManagement/user/index'], resolve),
@@ -86,9 +82,34 @@ const router = new Router({
                     component: resolve => require(['@/views/application/sellerBaseInfo/index'], resolve),
                 },
                 {
+                    path: 'resourceType',
+                    name: 'resourceType',
+                    component: resolve => require(['@/views/fileManagement/resourceType/index'],resolve)
+                },
+                {
+                    path:'resourceDownloadRecord',
+                    name: 'resourceDownloadRecord',
+                    component: resolve => require(['@/views/fileManagement/resourceDownloadRecord/index'],resolve),
+                },
+                {
                     path: 'dataAggregation',
                     name: 'dataAggregation',
                     component: resolve => require(['@/views/jiedanba/dataAggregation/index'], resolve),
+                },
+                {
+                    path: 'dkplan',
+                    name: 'dkplan',
+                    component: resolve => require(['@/views/resourceManagement/dkplan/index'], resolve),
+                },
+                {
+                    path: 'specialOffer',
+                    name: 'specialOffer',
+                    component: resolve => require(['@/views/resourceManagement/specialOffer/index'], resolve),
+                },
+                {
+                    path: 'stockResources',
+                    name: 'stockResources',
+                    component: resolve => require(['@/views/resourceManagement/stockResources/index'], resolve),
                 },
                 {
                     path: 'buyerRank',
@@ -109,6 +130,26 @@ const router = new Router({
                     path: 'ironsRank',
                     name: 'ironsRank',
                     component: resolve => require(['@/views/jiedanba/ironsRank/index'], resolve),
+                },
+                {
+                    path:'resourceRefresh',
+                    name: 'resourceRefresh',
+                    component: resolve => require(['@/views/system/resourceRefresh/index'],resolve),
+                },
+                {
+                    path: 'resourceOpenTime',
+                    name: 'resourceOpenTime',
+                    component: resolve => require(['@/views/system/resourceOpenTime/index'],resolve)
+                },
+                {
+                    path: 'baseDataSort',
+                    name: 'baseDataSort',
+                    component: resolve => require(['@/views/system/baseDataSort/index'],resolve),
+                },
+                {
+                    path: 'resourceTypeConfig',
+                    name: 'resourceTypeConfig',
+                    component: resolve => require(['@/views/system/resourceTypeConfig/index'],resolve)
                 }
             ]
         },

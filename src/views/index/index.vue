@@ -6,8 +6,8 @@
                 <div class="layout-logo-left">淘不锈超管后台管理系统</div>
                 <Submenu :name="index" v-for="(item,index) in menu" :key="index">
                     <template slot="title">
-                            <span class="iconfont" :class="item.icon"></span>{{ item.name }}
-</template>
+                            <span class="iconfont menuicon" :class="item.icon"></span>{{ item.name }}
+                    </template>
                         <MenuItem :name="index+'-'+i" v-for="(sub,i) in item.children" :key="i">{{ sub.name }}</MenuItem>
                     </Submenu>
                 </Menu>
@@ -205,5 +205,9 @@
     .layout-ceiling-main a{
         color: #9ba7b5;
         font-size: 14px;
+    }
+    .menuicon{
+        margin-right: 4px;
+        vertical-align: middle;
     }
 </style>
