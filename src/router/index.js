@@ -150,6 +150,11 @@ const router = new Router({
                     path: 'resourceTypeConfig',
                     name: 'resourceTypeConfig',
                     component: resolve => require(['@/views/system/resourceTypeConfig/index'],resolve)
+                },
+                {
+                    path: 'buyerOptionConfig',
+                    name: 'buyerOptionConfig',
+                    component: resolve => require(['@/views/buyerOptionConfig/optionConfig/index'],resolve)
                 }
             ]
         },

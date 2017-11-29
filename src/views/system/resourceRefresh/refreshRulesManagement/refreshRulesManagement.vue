@@ -42,7 +42,6 @@
                 <Option v-for="d in 30" :value="d" :key="d">{{ d }}</Option>
             </Select>天 
             <TimePicker type="time" v-model="dataApi.time" format="HH’mm’ss" confirm placeholder="选择时间" size="small" style="width: 168px;display:inline-block;margin-left:10px;"></TimePicker>
-              <!-- <Input type="text" v-model="itemApi.determineTime" size="small" placeholder="请输入..."></Input> -->
           </FormItem>
           <FormItem label="备注说明:" prop="remark">
               <Input type="text" v-model="itemApi.remark" size="small" placeholder="请输入..."></Input>

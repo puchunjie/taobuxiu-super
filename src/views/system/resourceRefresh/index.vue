@@ -7,10 +7,10 @@
   </div>
 </template>
 <script>
-import refreshType from './refreshType.vue'
-import refreshRank from './refreshRank.vue'
-import refreshRules from './refreshRulesManagement.vue'
-import refreshRulesConfig from './refreshRulesConfig'
+import refreshType from './refreshType/refreshType.vue'
+import refreshRank from './refreshRank/refreshRank.vue'
+import refreshRules from './refreshRulesManagement/refreshRulesManagement.vue'
+import refreshRulesConfig from './refreshRulesConfig/refreshRulesConfig.vue'
 export default {
   components: {
     refreshType,

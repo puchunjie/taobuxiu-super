@@ -85,6 +85,14 @@ export default [{
             }
         ]
     },{
+        name: '买家操作参数配置',
+        icon: '',
+        children: [{
+            name: '买家操作参数配置',
+            router: {name: 'buyerOptionConfig'}
+        }]
+    },
+    {
         name: '文件管理',
         icon: 'icon-wenjian',
         children:[{
