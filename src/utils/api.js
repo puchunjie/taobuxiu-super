@@ -816,7 +816,7 @@ export const updateDynamicResourcel = '/sys/dynamicResource/updateDynamicResourc
 //   删除配置信息                
 export const deleteDynamicResourcel = '/sys/dynamicResource/deleteDynamicResourcel'
 
-//-----------------时间开关-----------
+//-----------------时间开关----------------------------------
 // 分页查询时间开关
 export const selectStoreTimePage = '/sys/storetime/selectStoreTimePage'
 
@@ -827,6 +827,19 @@ export const updateStoreTimeParamById = '/sys/storetime/updateStoreTimeParamById
 
 /// 更改开关状态                
 export const updateStoreTimeStatusById = '/sys/storetime/updateStoreTimeStatusById'
+
+//-------------------------------订单有效确认时间选项----------------------------------
+//  分页查询订单有效确认时间选项        
+export const storerSubOrderPage = '/sys/storesuborder/storerSubOrderPage'
+
+//  新增订单有效确认时间选项            
+export const saveStorerSubOrder = '/sys/storesuborder/saveStorerSubOrder'
+
+//  更新订单有效确认时间选项            
+export const updateStorerSubOrder = '/sys/storesuborder/updateStorerSubOrder'
+
+//  删除订单有效确认时间选项            
+export const deleteStorerSubOrder = '/sys/storesuborder/deleteStorerSubOrder'
 
 // -----------------------------------关联数据---------------------------------
 /**

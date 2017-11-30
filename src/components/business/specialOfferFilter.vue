@@ -361,8 +361,8 @@ import City from '@/components/basics/adress/citySelect.vue'
                 data.widthMax = this.detail.widthMax;
                 data.heightMin = this.detail.heightMin;
                 data.heightMax = this.detail.heightMax;
-                data.lengthMin = this.detail.lengthMax;
-                data.lengthMax = this.detail.lengthMin;
+                data.lengthMin = this.detail.lengthMin;
+                data.lengthMax = this.detail.lengthMax;
                 data.tolenceMin = this.detail.tolenceMin;
                 data.tolenceMax = this.detail.tolenceMax;
                 data.specifications = this.detail.specifications;

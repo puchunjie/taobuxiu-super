@@ -15,7 +15,7 @@
         </Row>
         <Row v-for="(item,index) in list" :key="item.id">
             <Col class-name="col" span="4">{{ item.name }}</Col>
-            <Col class-name="col" span="4">{{item.determineTime | formatDuring}}</Col>
+            <Col class-name="col" span="4">{{item.determineTime | formatDuring(params = 1)}}</Col>
             <Col class-name="col" span="4">{{ item.remark | isEmpty(params ='暂无')}}</Col>
             <Col class-name="col" span="4">{{ item.updateUser}}</Col>
             <Col class-name="col" span="4">{{ item.updateTime | dateformat}}</Col>
@@ -39,7 +39,7 @@
           </FormItem>
           <FormItem label="时间单元:" prop="determineTime">
             <Select style="width:120px" v-model="dataApi.date" size="small" placeholder="选择天数">
-                <Option v-for="d in 30" :value="d" :key="d">{{ d }}</Option>
+                <Option v-for="(d ,i) in 31" :value="i" :key="i">{{ i }}</Option>
             </Select>天 
             <TimePicker type="time" v-model="dataApi.time" format="HH’mm’ss" confirm placeholder="选择时间" size="small" style="width: 168px;display:inline-block;margin-left:10px;"></TimePicker>
           </FormItem>
@@ -102,14 +102,18 @@ export default {
           let day = this.dataApi.date;
           let time = dataToTime(this.dataApi.time);
           let days,times;
-          if(day!= '' && day != undefined) {
+          if(day!= '' && day != undefined && day != NaN) {
               days = day * 24 * 60 * 60 * 1000
+          }else{
+              days = 0;
           }
-          if(time != '' && time != undefined) {
+          if(time != '' && time != undefined && time != NaN) {
               let h = parseFloat(time.split(':')[0].toString());
               let m = parseFloat(time.split(':')[1].toString())
               let s = parseFloat(time.split(':')[2].toString())
-              times = (h * 60 * 60 *1000) + (m*60*1000) + (s*1000)
+              times = (h * 60 * 60 *1000) + (m * 60 * 1000) + (s * 1000)
+          }else{
+              times = 0;
           }
           return days + times
       }
@@ -122,6 +126,12 @@ export default {
             }
         })
     },
+    resetDataApi(){
+        this.dataApi ={
+          date: '',
+          time: ''
+      }
+    },
     openModel(isEdit,item) {
       this.isEdit = isEdit;
       if(isEdit = isEdit){
@@ -132,6 +142,12 @@ export default {
           determineTime: item.determineTime,
           remark: item.remark
         }
+        //  处理毫秒转换、显示 天、时分秒
+        let editTime = formatDuring(this.itemApi.determineTime,3).split('-');
+        this.dataApi = {
+            date: editTime[0] != '' ? editTime[0]*1 : '',
+            time: editTime[1] != '' ? editTime[1] : ''
+        }
       }else{
         this.itemApi = {
           id: '',
@@ -139,6 +155,7 @@ export default {
           determineTime: '',
           remark: ''
         }
+        this.resetDataApi();
       }
       this.show = true;
     },
@@ -164,6 +181,11 @@ export default {
                   params.id = this.editItem.id;
                   params.name = this.itemApi.name;
                   params.remark = this.itemApi.remark;
+                  
+                  this.dataApi ={
+                      date: '',
+                      time: ''
+                  }
               }
               let apiUrl = this.isEdit ? this.updateApi : this.addApi;
               this.$http.post(apiUrl,params).then(res => {

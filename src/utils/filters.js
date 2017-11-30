@@ -183,21 +183,13 @@ export const typeData = (val) => {
   }
 }
 
-// 为空处理
-export const isEmpty = (value, params) => {
-  if (value != '') {
-    return value
-  } else {
-    return params ? params : '全部'
-  }
-}
- 
+//  资源开放时间配置状态
 export const nowStatus = (val) => {
   switch (val * 1){
     case 1:
       return '开放中'
       break;
-    case 2:
+    case 0:
       return '已闭市'
       break;
     case 3:
@@ -230,20 +222,53 @@ export const dealRestDay = (val) => {
 
 // 时间戳转时分秒
 export const dataToTime = (val, fromatStr = 'yyyy-MM-dd hh:mm:ss') => {
-  var time = df.format(new Date(val), fromatStr)
-  if(time != '' || time != NaN){
-    var t = time.split(' ');
-    return t[1];
+  if(val != ''){
+    var time = df.format(new Date(val), fromatStr)
+    if(time != '' || time != NaN){
+      var t = time.split(' ');
+      return t[1];
+    }
+  }else{
+    return 0
   }
 }
 //  将毫秒转为天时分秒
-export const formatDuring = (mss) => {
+/*
+*params 1、 转为 天时分秒
+*params 2、 转为 时分秒
+*params 3、 转为 天-时:分:秒
+params 转为 时:分:秒
+*/
+export const formatDuring = (mss, params) => {
+    function addZero(n){
+      return n < 10 ? '0' + n : n
+    }
     var days = parseInt(mss / (1000 * 60 * 60 * 24));
     var hours = parseInt((mss % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     var minutes = parseInt((mss % (1000 * 60 * 60)) / (1000 * 60));
     var seconds = (mss % (1000 * 60)) / 1000;
-    return days + " 天 " + hours + " 小时 " + minutes + " 分钟 " + seconds + " 秒 ";
+    if(params == 1){
+      return days + " 天 " + hours + " 小时 " + addZero(minutes) + " 分钟 " + addZero(seconds) + " 秒 ";
+    }else if (params == 2){
+      return hours + " 小时 " + addZero(minutes) + " 分钟 " + addZero(seconds) + " 秒 "
+    }else if(params === 3){
+      return days + '-' + addZero(hours) + ':' + addZero(minutes) + ':' + addZero(seconds)
+    }else{
+      return addZero(hours) + ':' + addZero(minutes) + ':' + addZero(seconds)
+    }
 }
+// 将天时分转天时分
+
+
+// 为空处理
+export const isEmpty = (value, params) => {
+  if (value != '') {
+    return value
+  } else {
+    return params ? params : '全部'
+  }
+}
+
 // //接口类型转换图标
 export const dateformat = (value, fromatStr = 'yyyy-MM-dd hh:mm') => {
   return df.format(new Date(value), fromatStr)
