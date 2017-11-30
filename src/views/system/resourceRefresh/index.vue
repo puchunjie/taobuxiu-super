@@ -76,6 +76,7 @@ export default {
     font-size: 14px;
     &.active{
       color: #2d8cf0;
+      cursor: default;
       &:before{
         content: '';
         position: absolute;

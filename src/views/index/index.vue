@@ -115,11 +115,8 @@
             },
             //  退出登录
             loginout(data) {
-               this.$store.commit(types.LOGOUT, data);
-                let redirect = decodeURIComponent(this.$route.query.redirect || '/login');
-                this.$router.push({
-                    path: redirect
-                })
+                this.$store.commit(types.LOGOUT, data);
+                window.location.href = '/login';
             }
         },
         created() {
