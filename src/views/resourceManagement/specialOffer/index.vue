@@ -103,7 +103,6 @@
         //  获取列表
         getAllList(params) {
             this.$http.post(this.api.findSpecialPriceByPage,params).then(res => {
-              console.log(res);
                 if(res.code === 1000){
                     this.list = res.data.list
                     this.totalCount = res.data.totalCount
@@ -111,7 +110,6 @@
             })
         },
         optionBtn(id,flag) {
-            console.log(id)
             this.$Modal.confirm({
                 title:'操作提示',
                 content: '操作提示',

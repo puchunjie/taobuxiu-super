@@ -60,11 +60,6 @@
                                 <Option v-for="(item,inex) in kpList" :value="item.id" :key="item.id" >{{item.name}}</Option>
                             </Select>
                         </FormItem>
-                        <FormItem label="是否含税" :label-width="100" class="magin0">
-                            <Select style="width: 130px" v-model="detail.taxType">
-                                <Option v-for="(item,inex) in taxType" :value="item.id" :key="item.id" >{{item.name}}</Option>
-                            </Select>
-                        </FormItem>
                         <FormItem label="厚度：" class="magin0">
                             <input type="number" class="ivu-input" v-model="detail.heightMin" @keyup="setInputClears" placeholder="请输入..." style="width:100px">
                         </FormItem>
@@ -98,6 +93,11 @@
                         </FormItem>
                         <FormItem label="公差" class="magin0" >
                             <input type="number" class="ivu-input" v-model="detail.tolerance" @keyup="setInputClear" placeholder="请输入..." style="width:100px">
+                        </FormItem>
+                        <FormItem label="是否含税" :label-width="100" class="magin0">
+                            <Select style="width: 130px" v-model="detail.taxType">
+                                <Option v-for="(item,inex) in taxType" :value="item.id" :key="item.id" >{{item.name}}</Option>
+                            </Select>
                         </FormItem>
                     </Form>
                 </div>

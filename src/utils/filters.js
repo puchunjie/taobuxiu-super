@@ -232,6 +232,8 @@ export const dataToTime = (val, fromatStr = 'yyyy-MM-dd hh:mm:ss') => {
     return 0
   }
 }
+
+
 //  将毫秒转为天时分秒
 /*
 *params 1、 转为 天时分秒
@@ -257,8 +259,6 @@ export const formatDuring = (mss, params) => {
       return addZero(hours) + ':' + addZero(minutes) + ':' + addZero(seconds)
     }
 }
-// 将天时分转天时分
-
 
 // 为空处理
 export const isEmpty = (value, params) => {

@@ -111,15 +111,9 @@
 </template>
 <script>
 export default {
-  props: {
-    title: String,
-    addApi: String,
-    deleteApi: String,
-    updateApi: String,
-    getApi: String
-  },
   data () {
     return {
+        title: '资源刷新机制_规则',
         ref: 'form' + new Date().getTime(),
         refdefault: 'form' + new Date().getTime(),
         show: false,
@@ -230,7 +224,7 @@ export default {
       }
     },
     getAllList() {
-        this.$http.post(this.getApi,this.filterData).then(res => {
+        this.$http.post(this.api.selectStoreRolesConfigurationPage,this.filterData).then(res => {
             if(res.code === 1000){
                 this.list = res.data.list;
                 this.totalCount = res.data.totalCount

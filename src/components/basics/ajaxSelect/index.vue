@@ -1,5 +1,5 @@
 <template>
-    <i-select filterable v-model="select" @on-change="asyncValue" :clearable="false">
+    <i-select filterable v-model="select" @on-change="asyncValue" clearable="false">
         <i-option v-for="item in list" :key="item.id" :value="item.id+'-'+item.name">{{ item.name }}</i-option>
     </i-select>
 </template>

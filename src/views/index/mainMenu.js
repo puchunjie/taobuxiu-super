@@ -86,7 +86,7 @@ export default [{
         ]
     },{
         name: '买家操作参数配置',
-        icon: '',
+        icon: 'icon-maijia',
         children: [{
             name: '买家操作参数配置',
             router: {name: 'buyerOptionConfig'}

@@ -723,6 +723,10 @@ export const updateDownLodeCount = '/sys/qualiticationmodel/updateDownLodeCount'
 export const queryDingKaiList = '/sys/ironBuy/queryDingKaiList'
 
 
+//   资源模版下载记录
+export const findExcelDownHistory = '/sys/resourcedown/findExcelDownHistory'
+
+
 //  --------------------------系统配置--------------------------
 
 

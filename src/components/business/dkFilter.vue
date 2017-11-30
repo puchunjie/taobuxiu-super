@@ -7,7 +7,8 @@
                 </div>
                 <div class="body">
                     <div class="item clearfix">
-                        <a class="tag" :class="{ 'active':group.activeIndex == i} " @click="group.activeIndex = i" v-for="(item,i) in group.list" :key="i">{{ item.name }}</a>
+                        <div class="showtag"><a class="tag" v-if="index === 0" :class="{ 'active':group.activeIndex == i}" @click="group.activeIndex = i" v-for="(item,i) in handleList" :key="i" v-show="!!exclude ? item.isLock : true">{{ item.name }}</a></div>
+                        <a class="tag" :class="{ 'active':group.activeIndex == i} " @click="group.activeIndex = i" v-for="(item,i) in group.list" :key="i" >{{ item.name }}</a>
                     </div>
                 </div>
                 <div class="foot">
@@ -88,12 +89,12 @@
                         <FormItem label="" class="magin0" style="margin-left: -84px">
                             <input type="number" class="ivu-input" v-model="detail.tolenceMax" @keyup="setInputClears" placeholder="请输入..." style="width:100px">
                         </FormItem>
-                        <FormItem label="规格" class="magin0" >
+                        <!-- <FormItem label="规格" class="magin0" >
                             <input type="number" class="ivu-input" v-model="detail.specifications" @keyup="setInputClear" placeholder="请输入..." style="width:100px">
                         </FormItem>
                         <FormItem label="公差" class="magin0" >
                             <input type="number" class="ivu-input" v-model="detail.tolerance" @keyup="setInputClear" placeholder="请输入..." style="width:100px">
-                        </FormItem>
+                        </FormItem> -->
                     </Form>
                 </div>
                 <div class="foot">
@@ -135,7 +136,9 @@
 import City from '@/components/basics/adress/citySelect.vue'
     export default {
         props: {
-            exclude: Object
+            exclude: {
+                type: Array
+            }
         },
         components: {
            City 
@@ -357,7 +360,24 @@ import City from '@/components/basics/adress/citySelect.vue'
             },
             placeHolder(){
               return this.detail.provinceName != '' ? this.detail.provinceName+' / '+this.detail.cityName : '请选择地区'
-          }  
+          },
+          handleList() {
+            if (!!this.exclude) {
+                let list = this.$clearData(this.filterData[0].list);
+                list.map(item => {
+                    if (!!this.exclude) {
+                        item.isLock = _.findIndex(this.exclude, el => {
+                            return el == item.name
+                        }) >= 0
+                    } else {
+                        item.isLock = false
+                    }
+                })
+                return list
+            } else {
+                return this.list
+            }
+            }  
         },
         methods: {
             resetGroup(group) {
@@ -391,6 +411,7 @@ import City from '@/components/basics/adress/citySelect.vue'
                     tolerance: ''
                 }
                 this.dateValue = ['','']
+                this.placeHolder
             },
             // 获取品类
             getIronTypes() {
@@ -523,6 +544,14 @@ import City from '@/components/basics/adress/citySelect.vue'
         position: relative;
         margin: 0 8px;
         border-bottom: 1px dashed #dedede;
+        &:first-child{
+            .showtag a{
+                display: inline-block;
+            }
+            a{
+                display:none;
+            }
+        }
         &:last-child {
             border-bottom: none;
         }

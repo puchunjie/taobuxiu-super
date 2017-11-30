@@ -56,32 +56,38 @@
                             </Select>
                         </FormItem>
                         <FormItem label="厚度：" class="magin0">
-                            <input type="number" class="ivu-input" v-model="detail.heightMin"  placeholder="请输入..." style="width:100px">
+                            <input type="number" class="ivu-input" :disabled="dis" @keyup="setInputClears" v-model="detail.heightMin"  placeholder="请输入..." style="width:100px">
                         </FormItem>
                         <div class="split" style="">-</div>
                         <FormItem label="" class="magin0" style="margin-left: -80px">
-                            <input type="number" class="ivu-input" v-model="detail.heightMax"  placeholder="请输入..." style="width:100px">
+                            <input type="number" class="ivu-input" :disabled="dis" @keyup="setInputClears" v-model="detail.heightMax"  placeholder="请输入..." style="width:100px">
                         </FormItem>
                         <FormItem label="宽度：" class="magin0">
-                            <input type="number" class="ivu-input" v-model="detail.widthMin"  placeholder="请输入..." style="width:100px">
+                            <input type="number" class="ivu-input" :disabled="dis" @keyup="setInputClears" v-model="detail.widthMin"  placeholder="请输入..." style="width:100px">
                         </FormItem>
                         <div class="split" style="">-</div>
                         <FormItem label="" class="magin0" style="margin-left: -80px">
-                            <input type="number" class="ivu-input" v-model="detail.widthMax"  placeholder="请输入..." style="width:100px">
+                            <input type="number" class="ivu-input" :disabled="dis" @keyup="setInputClears" v-model="detail.widthMax"  placeholder="请输入..." style="width:100px">
                         </FormItem>
                         <FormItem label="长度：" class="magin0">
-                            <input type="number" class="ivu-input" v-model="detail.lengthMin"  placeholder="请输入..." style="width:100px">
+                            <input type="number" class="ivu-input" :disabled="dis" @keyup="setInputClears" v-model="detail.lengthMin"  placeholder="请输入..." style="width:100px">
                         </FormItem>
                         <div class="split" style="">-</div>
                         <FormItem label="" class="magin0" style="margin-left: -80px">
-                            <input type="number" class="ivu-input" v-model="detail.lengthMax"  placeholder="请输入..." style="width:100px">
+                            <input type="number" class="ivu-input" :disabled="dis" @keyup="setInputClears" v-model="detail.lengthMax"  placeholder="请输入..." style="width:100px">
                         </FormItem>
                         <FormItem label="公差：" class="magin0">
-                            <input type="number" class="ivu-input" v-model="detail.tolenceMin"  placeholder="请输入..." style="width:100px">
+                            <input type="number" class="ivu-input" :disabled="dis" @keyup="setInputClears" v-model="detail.tolenceMin"  placeholder="请输入..." style="width:100px">
                         </FormItem>
                         <div class="split" style="">-</div>
                         <FormItem label="" class="magin0" style="margin-left: -80px">
-                            <input type="number" class="ivu-input" v-model="detail.tolenceMax"  placeholder="请输入..." style="width:100px">
+                            <input type="number" class="ivu-input" :disabled="dis" @keyup="setInputClears" v-model="detail.tolenceMax"  placeholder="请输入..." style="width:100px">
+                        </FormItem>
+                        <FormItem label="规格" class="magin0" >
+                            <input type="number" class="ivu-input" :disabled="diss" @keyup="setInputClear" v-model="detail.specifications"  placeholder="请输入..." style="width:100px">
+                        </FormItem>
+                        <FormItem label="公差" class="magin0" >
+                            <input type="number" class="ivu-input" :disabled="diss" @keyup="setInputClear" v-model="detail.tolerance" placeholder="请输入..." style="width:100px">
                         </FormItem>
                     </Form>
                 </div>
@@ -236,7 +242,10 @@ import City from '@/components/basics/adress/citySelect.vue'
                     lengthMin: '',
                     lengthMax: '',
                     tolenceMin: '',
-                    tolenceMax: ''
+                    tolenceMax: '',
+                    specifications:'',
+                    tolerance:''
+
                 },
                 dateValue: ['', ''],
                 dateOption: {
@@ -297,7 +306,9 @@ import City from '@/components/basics/adress/citySelect.vue'
                 },{
                     name: 'excel发布',
                     id: '2' 
-                }]
+                }],
+                dis: false,
+                diss: false
             }
         },
         created() {
@@ -332,6 +343,8 @@ import City from '@/components/basics/adress/citySelect.vue'
                 data.lengthMax = this.detail.lengthMax;
                 data.tolenceMin = this.detail.tolenceMin;
                 data.tolenceMax = this.detail.tolenceMax;
+                data.specifications = this.detail.specifications;
+                data.tolerance = this.detail.tolerance
                 return data
             },
             placeHolder(){
@@ -364,9 +377,14 @@ import City from '@/components/basics/adress/citySelect.vue'
                     lengthMin: '',
                     lengthMax: '',
                     tolenceMin: '',
-                    tolenceMax: ''
+                    tolenceMax: '',
+                    specifications:'',
+                    tolerance:''
                 }
                 this.dateValue = ['','']
+                this.dis = false;
+                this.diss = false;
+
             },
             // 获取品类
             getIronTypes() {
@@ -404,6 +422,28 @@ import City from '@/components/basics/adress/citySelect.vue'
             selectCity(data) {
                 this.detail.locationId = data.cityId;
                 this.detail.provinceId = data.provinceId;
+            },
+            //  处理如果输入规格、公差，厚度、宽度、长度公差为空
+            setInputClear() {
+                if(this.detail.specifications != '' || this.detail.tolerance != ''){
+                    this.dis = true;
+                    this.detail.widthMin = '';
+                    this.detail.widthMax = '';
+                    this.detail.heightMin = '';
+                    this.detail.heightMax = '';
+                    this.detail.lengthMax = '';
+                    this.detail.lengthMin= '';
+                    this.detail.tolenceMin = '';
+                    this.detail.tolenceMax = '';
+                };
+            },
+            //  处理如果输入厚度、宽度、长度公差，规格、公差为空
+            setInputClears() {
+                if(this.detail.widthMin != '' || this.detail.widthMax != '' || this.detail.heightMin != '' || this.detail.heightMax != '' || this.detail.lengthMin != '' || this.detail.tolenceMin != '' || this.detail.tolenceMax != ''){
+                    this.diss = true;
+                    this.detail.specifications = '';
+                    this.detail.tolerance = ''
+                }
             }
         },
         watch: {

@@ -57,15 +57,9 @@
 <script>
 import {formatDuring, dataToTime} from '@/utils/filters'
 export default {
-  props: {
-    title: String,
-    addApi: String,
-    deleteApi: String,
-    updateApi: String,
-    getApi: String
-  },
   data () {
     return {
+      title: '资源刷新机制_规则',
       ref: 'form' + new Date().getTime(),
       isEdit: false,
       show: false,
@@ -164,13 +158,14 @@ export default {
         this.getList();
     },
     getList() {
-      this.$http.post(this.getApi,this.apiData).then(res =>{
+      this.$http.post(this.api.storeruletypePage,this.apiData).then(res =>{
         if(res.code === 1000){
           this.list = res.data.list;
           this.totalCount = res.data.totalCount
         }
       })
     },
+    // 编辑，新增提交表单
     handleSubmit() {
       this.$refs[this.ref].validate((valid) => {
           if(valid){
@@ -187,7 +182,7 @@ export default {
                       time: ''
                   }
               }
-              let apiUrl = this.isEdit ? this.updateApi : this.addApi;
+              let apiUrl = this.isEdit ? this.api.updateStoreRuleType : this.api.saveStoreRuleType;
               this.$http.post(apiUrl,params).then(res => {
                   if(res.code === 1000){
                       this.getList();
@@ -212,7 +207,7 @@ export default {
               let params = {
                   id: item.id
               }
-              this.$http.post(this.deleteApi, params).then(res => {
+              this.$http.post(this.api.deleteStoreRuleType, params).then(res => {
                   if(res.code === 1000){
                       this.getList();
                       this.$Message.success('删除成功')

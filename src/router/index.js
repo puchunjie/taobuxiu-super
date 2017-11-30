@@ -134,7 +134,40 @@ const router = new Router({
                 {
                     path:'resourceRefresh',
                     name: 'resourceRefresh',
+                    redirect: '/resourceRefresh/type',
                     component: resolve => require(['@/views/system/resourceRefresh/index'],resolve),
+                    meta: {
+                        requireAuth: true
+                    },
+                    children: [{
+                        path: 'rank',
+                        name: 'rank',
+                        component: resolve => require(['@/views/system/resourceRefresh/refreshRank/index'],resolve),
+                        meta: {
+                            requireAuth: true
+                        }
+                    },{
+                        path: 'rulesConfig',
+                        name: 'rulesConfig',
+                        component: resolve => require(['@/views/system/resourceRefresh/refreshRulesConfig/index'],resolve),
+                        meta: {
+                            requireAuth: true
+                        }
+                    },{
+                        path: 'rules',
+                        name: 'rules',
+                        component: resolve => require(['@/views/system/resourceRefresh/refreshRulesManagement/index'],resolve),
+                        meta: {
+                            requireAuth: true
+                        }
+                    },{
+                        path: 'type',
+                        name: 'type',
+                        component: resolve => require(['@/views/system/resourceRefresh/refreshType/index'],resolve),
+                        meta: {
+                            requireAuth: true
+                        }
+                    }]
                 },
                 {
                     path: 'resourceOpenTime',
