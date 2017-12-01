@@ -13,22 +13,11 @@
                         <a @click="updateDingKai(item.id,2)">立即下架</a> 
                         <a @click="updateDingKai(item.id,3)">删除资源</a>
                     </template>
-                    <template v-else-if="item.status == '0'">
+                    <template v-else-if="item.status == '0' || item.status == '2' || item.status == '3'">
                         <a @click="updateDingKai(item.id,4)">立即上架</a>
                         <a @click="updateDingKai(item.id,3)">删除资源</a>
                     </template>
-                    <template v-else-if="item.status == '2'">
-                        <a @click="updateDingKai(item.id,4)">立即上架</a>
-                        <a @click="updateDingKai(item.id,3)">删除资源</a>
-                    </template>
-                    <template v-else-if="item.status == '3'">
-                        <a @click="updateDingKai(item.id,4)">立即上架</a>
-                        <a @click="updateDingKai(item.id,3)">删除资源</a>
-                    </template>
-                    <template v-else-if="item.status == '7'">
-                        <a @click="updateDingKai(item.id,4)">立即上架</a>
-                    </template>
-                    <template v-else-if="item.status == '9'">
+                    <template v-else-if="item.status == '7' || item.status == '9'">
                         <a @click="updateDingKai(item.id,4)">立即上架</a>
                     </template>
                     <template v-else>

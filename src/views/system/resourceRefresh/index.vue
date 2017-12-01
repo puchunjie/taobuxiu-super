@@ -1,7 +1,7 @@
 <template>
   <div class="router-wrap">
     <div class="router-nav">
-      <a class="tab-item" :class="{'active':activeTab == i}" @click="routerGo(i)" v-for="(tab,i) in routerTabs" :key="i">{{ tab.name }}</a>
+      <a class="tab-item" :class="{'active':activeTab == i}" @click="goPage(i)" v-for="(tab,i) in routerTabs" :key="i">{{ tab.name }}</a>
     </div>
     <div class="router-page">
       <router-view></router-view>
@@ -52,7 +52,7 @@ export default {
       }
   },
   methods: {
-      routerGo(i) {
+      goPage(i) {
           this.activeTab = i;
           this.$router.push({
               name: this.routerPath
