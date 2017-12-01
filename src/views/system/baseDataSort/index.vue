@@ -212,6 +212,7 @@ export default {
         sort: data.sortIndex
       }
     },
+    //  设为默认
     setData(data) {
       this.$Modal.confirm({
         title: '设为默认提示!',

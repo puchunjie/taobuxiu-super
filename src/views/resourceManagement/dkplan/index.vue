@@ -93,7 +93,8 @@ export default {
                 }
             })
         },
-        //  删除
+        //  更新资源 上架 下架 删除资源
+        //  1:刷新资源 2:立即下架(超管下架) 3:超管删除资源 4:上架
         updateDingKai(id,flag) {
             this.$Modal.confirm({
                 title: '操作提示',

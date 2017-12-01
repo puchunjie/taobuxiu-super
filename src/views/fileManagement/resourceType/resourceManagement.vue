@@ -49,10 +49,6 @@
 export default {
     props: {
         title: String,
-        getListApi: String,
-        addApi: String,
-        updateApi: String,
-        deleteApi: String
     },
     data () {
         return {
@@ -84,7 +80,7 @@ export default {
     methods: {
         //  获取列表
         getList() {
-            this.$http.post(this.getListApi,this.apiData).then(res => {
+            this.$http.post(this.api.queryQualiticationtypePage,this.apiData).then(res => {
                 if(res.code === 1000){
                     this.list = res.data.list;
                     this.totalCount =res.data.totalCount;
@@ -125,7 +121,7 @@ export default {
                       params.name = this.itemApi.name;
                       params.remark = this.itemApi.remark;
                   }
-                  let apiUrl = this.isEdit ? this.updateApi : this.addApi;
+                  let apiUrl = this.isEdit ? this.api.updateQualiticationType : this.api.saveQualiticationType;
                   this.$http.post(apiUrl,params).then(res => {
                       if(res.code === 1000){
                           this.getList();
@@ -150,7 +146,7 @@ export default {
                 let params = {
                     id: item.id
                 }
-                this.$http.post(this.deleteApi, params).then(res => {
+                this.$http.post(this.api.deleteQualiticationType, params).then(res => {
                     if(res.code === 1000){
                         this.getList();
                         this.$Message.success('删除成功')

@@ -98,6 +98,7 @@ export default {
         this.apiData.currentPage = page;
         this.getList();
     },
+    //  获取列表
     getList() {
       this.$http.post(this.api.storequaliticationlevelPage,this.apiData).then(res =>{
         if(res.code === 1000){
@@ -106,6 +107,7 @@ export default {
         }
       })
     },
+    //  编辑、新增表单提交
     handleSubmit() {
       this.$refs[this.ref].validate((valid) => {
           if(valid){

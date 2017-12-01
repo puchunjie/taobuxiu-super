@@ -106,6 +106,7 @@ export default {
         }
       })
     },
+    // 编辑，新增提交表单
     handleSubmit() {
       this.$refs[this.ref].validate((valid) => {
           if(valid){

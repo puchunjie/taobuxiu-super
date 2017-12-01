@@ -69,13 +69,6 @@ import * as types from '@/store/store'
 export default {
     props: {
         title: String,
-        getListApi: String,
-        addApi: String,
-        updateApi: String,
-        uploadApi: String,
-        getTypeApi: String,
-        deleteApi: String,
-        downloadApi: String
     },
     data () {
         return {
@@ -144,7 +137,7 @@ export default {
     methods: {
         //  获取列表
         getList() {
-            this.$http.post(this.getListApi, this.apiData).then(res => {
+            this.$http.post(this.api.queryQualiticationmodelPage, this.apiData).then(res => {
                 if(res.code === 1000){
                     this.list = res.data.list;
                     this.totalCount = res.data.totalCount
@@ -153,7 +146,7 @@ export default {
         },
         //  获取资源类型列表
         getTypeList() {
-            this.$http.post(this.getTypeApi,this.typeApi).then(res => {
+            this.$http.post(this.api.queryQualiticationtypePage,this.typeApi).then(res => {
                 if(res.code === 1000){
                     this.typeList = res.data.list;
                 }
@@ -208,7 +201,7 @@ export default {
                         params.modelUrl = this.itemApi.modelUrl;
                         params.remark = this.itemApi.remark;
                     }
-                    let apiUrl = this.isEdit ? this.updateApi : this.addApi;
+                    let apiUrl = this.isEdit ? this.api.updateQualiticationModel : this.api.saveQualiticationModel;
                     this.$http.post(apiUrl, params).then(res => {
                         if(res.code === 1000){
                             this.getList();
@@ -242,7 +235,6 @@ export default {
                     title: '错误提示',
                     content: res.message
                 })
-                // this.$Message.error(res.message)
             }
             this.itemApi.modelName = res.data.modelName;
             this.itemApi.modelUrl = res.data.modelUrl
@@ -265,10 +257,10 @@ export default {
                 id: item.id,
                 downLodeCount: item.downLodeCount
             }
-            this.$http.post(this.downloadApi, params).then(res => {
+            this.$http.post(this.api.updateDownLodeCount, params).then(res => {
                 if(res.code === 1000){
                     this.getList();
-                    window.open(this.api.excelBaseUrl + item.modelUrl);
+                    window.location.href = this.api.excelBaseUrl + item.modelUrl
                 }                
             })
         },
@@ -281,7 +273,7 @@ export default {
                   let params = {
                       id: item.id
                   }
-                  this.$http.post(this.deleteApi,params).then(res => {
+                  this.$http.post(this.api.deleteQualificationModel,params).then(res => {
                       if(res.code === 1000){
                           this.getList();
                           this.$Message.success('删除成功')

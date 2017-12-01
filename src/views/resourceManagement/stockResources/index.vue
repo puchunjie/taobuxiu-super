@@ -95,7 +95,6 @@ export default {
         //  更新资源 上架 下架 删除资源
         //  1:刷新资源 2:立即下架(超管下架) 3:超管删除资源 4:上架
         updateSpotGoodsInfo(id,flag) {
-            console.log(id)
             this.$Modal.confirm({
                 title: '操作提示！',
                 content: '操作后不可修改，确认操作？',

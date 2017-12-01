@@ -308,7 +308,7 @@ export default {
             remark: item.remark 
         }
     },
-    //  保持编辑资源刷新机制_规则配置 
+    //  保存编辑资源刷新机制_规则配置 
     handleSubmit() {
       this.$refs[this.ref].validate((valid) => {
             if(valid){

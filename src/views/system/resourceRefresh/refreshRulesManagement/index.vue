@@ -219,11 +219,7 @@ export default {
               })
             }
         })
-    },
-    openDefault() {
-        console.log('设置默认')
     }
-
   },
   created () {
     this.getList();
