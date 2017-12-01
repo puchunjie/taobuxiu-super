@@ -68,12 +68,12 @@
     <Modal v-model="show" title="编辑资源刷新机制_规则配置" :closable="false" :mask-closable="false">
       <Form :label-width="80" :ref="ref" :model="itemApi" :rules="editRules">
          <FormItem prop="storeQualificationTypeId" label="资源类型">
-            <Select v-model="itemApi.storeQualificationTypeId"  placeholder="请选择" style="width:150px">
+            <Select v-model="itemApi.storeQualificationTypeId" :disabled="isEdit" placeholder="请选择" style="width:150px">
                 <Option v-for="item in typeData" :key="item.id" :value="item.id" >{{ item.name }}</Option>
             </Select>
           </FormItem>
           <FormItem prop="ironTypeId" label="资源品类">
-            <Select v-model="itemApi.ironTypeId"  placeholder="请选择" style="width:150px">
+            <Select v-model="itemApi.ironTypeId" :disabled="isEdit" placeholder="请选择" style="width:150px">
               <Option v-for="item in ironTypes" :key="item.id" :value="item.id">{{ item.name }}</Option>
             </Select>
           </FormItem>
@@ -117,6 +117,7 @@ export default {
         ref: 'form' + new Date().getTime(),
         refdefault: 'form' + new Date().getTime(),
         show: false,
+        isEdit: false,
         showDefault: false,
         ironTypes: [],
         filterData: {
@@ -300,6 +301,7 @@ export default {
     //  编辑资源刷新机制_规则配置
     openModel(item){
         this.show = true;
+        this.isEdit = true;
         this.itemApi = {
             id: item.id,
             storeQualificationTypeId: item.storeQualificationTypeId,

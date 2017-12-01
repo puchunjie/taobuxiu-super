@@ -34,7 +34,7 @@
             <Page class="page-count" size="small" :total="totalCount" :page-size="apiData.pageSize" @on-change="changePage"></Page>
         </div>
     </Card>
-    <Modal v-model="show" :title="isEdit?`编辑${title}`:`更新${title}`" :closable="false" :mask-closable="false">
+    <Modal v-model="show" :title="isEdit?`编辑${title}`:`新增${title}`" :closable="false" :mask-closable="false">
         <Form :label-width="80" :ref="ref" :model="itemApi" :rules="rules" style="position:relative">
             <FormItem label="资源类型" prop="qualificationName" v-if="!isEdit">
                  <Select v-model="itemApi.qualificationName">
@@ -48,7 +48,7 @@
             </FormItem>
             <FormItem label="模板文件" prop="modelName">
                 <Input v-model="itemApi.modelName" disabled size="small" placeholder="请选择上传文件"></Input>
-                  <Upload :action="uploadApi" :headers="uplaodHeader" :before-upload="beforeUpload" :max-size="1024" :data="uploadParams" :format="['xlsx']" :show-upload-list="false" :on-exceeded-size="handleMaxSize" :on-success="handleSuccess" :on-format-error="handleFormatError" style="display:inline-block;width: 60px;"> 
+                  <Upload :action="api.uploadApi" :headers="uplaodHeader" :before-upload="beforeUpload" :max-size="1024" :data="uploadParams" :format="['xlsx']" :show-upload-list="false" :on-exceeded-size="handleMaxSize" :on-success="handleSuccess" :on-format-error="handleFormatError" style="display:inline-block;width: 60px;"> 
                     <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
                   </Upload>  
             </FormItem>

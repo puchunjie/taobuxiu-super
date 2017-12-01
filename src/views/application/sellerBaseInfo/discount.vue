@@ -42,10 +42,6 @@
     export default {
         props: {
             title: String,
-            getListApi: String,
-            addApi: String,
-            updateApi: String,
-            deleteApi:String
         },
         data() {
             return {
@@ -75,7 +71,7 @@
         methods: {
             // 获取数据列表
             getList() {
-                this.$http.post(this.getListApi, this.apiData).then(res => {
+                this.$http.post(this.api.findProInfoPage, this.apiData).then(res => {
                     if (res.code === 1000) {
                         this.list = res.data.list;
                         this.totalCount = res.data.totalCount;
@@ -110,7 +106,7 @@
                         let params = {
                             id: item.id
                         }
-                        this.$http.post(this.deleteApi, params).then(res => {
+                        this.$http.post(this.api.deleteProInfoModel, params).then(res => {
                             if (res.code === 1000) {
                                 this.getList();
                                 this.$Message.success('删除成功！');
@@ -130,7 +126,7 @@
                         if (this.isEdit) {
                             params.id = this.editItem.id;
                         }
-                        let apiUrl = this.isEdit ? this.updateApi : this.addApi
+                        let apiUrl = this.isEdit ? this.api.updateProInfoModel : this.api.saveProInfoModel
                         this.$http.post(apiUrl, params).then(res => {
                             if (res.code === 1000) {
                                 this.getList();

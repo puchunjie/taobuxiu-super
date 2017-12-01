@@ -29,7 +29,7 @@
             <Page class="page-count" size="small" :total="totalCount" :page-size="apiData.pageSize" @on-change="changePage"></Page>
         </div>
     </Card>
-    <Modal v-model="show" :title="isEdit?`编辑${title}`:`添加${title}`" :closable="false" :mask-closable="false">
+    <Modal v-model="show" :title="isEdit?`编辑${title}`:`新增${title}`" :closable="false" :mask-closable="false">
         <Form :label-width="80" :ref="ref" :model="itemApi" :rules="rules">
             <FormItem label="资源类型" prop="name">
                 <Input type="text" v-model="itemApi.name" size="small" placeholder="请输入..."></Input>

@@ -1,10 +1,8 @@
 <template>
   <div>
-      <storehouse title="仓库" :getListApi="api.getHouse" :addApi="api.saveStoreHouse" :updateApi="api.updateStoreHouse" :deleteApi="api.deleteStoreHouse">
-        </storehouse>
-        <discount title="优惠信息模板" :getListApi="api.findProInfoPage" :addApi="api.saveProInfoModel" :updateApi="api.updateProInfoModel" :deleteApi="api.deleteProInfoModel">
-        </discount>
-        <kpTime title="开平时间选项" :getListApi="api.findKaipingModelPage" :saveAndUpdateApi="api.saveAndUpdateKaipingModel" :deleteApi="api.deleteKaipingModel"></kpTime>
+    <storehouse title="仓库"></storehouse>
+    <discount title="优惠信息模板"></discount>
+    <kpTime title="开平时间选项"></kpTime>
   </div>
 </template>
 

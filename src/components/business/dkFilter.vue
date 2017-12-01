@@ -7,7 +7,7 @@
                 </div>
                 <div class="body">
                     <div class="item clearfix">
-                        <div class="showtag"><a class="tag" v-if="index === 0" :class="{ 'active':group.activeIndex == i}" @click="group.activeIndex = i" v-for="(item,i) in handleList" :key="i" v-show="!!exclude ? item.isLock : true">{{ item.name }}</a></div>
+                        <div class="showtag" v-if="index === 0"><a class="tag" :class="{ 'active':group.activeIndex == i}" @click="group.activeIndex = i" v-for="(item,i) in handleList" :key="i" v-show="!!exclude ? item.isLock : true">{{ item.name }}</a></div>
                         <a class="tag" :class="{ 'active':group.activeIndex == i} " @click="group.activeIndex = i" v-for="(item,i) in group.list" :key="i" >{{ item.name }}</a>
                     </div>
                 </div>
@@ -62,32 +62,32 @@
                             </Select>
                         </FormItem>
                         <FormItem label="厚度：" class="magin0">
-                            <input type="number" class="ivu-input" v-model="detail.heightMin" @keyup="setInputClears" placeholder="请输入..." style="width:100px">
+                            <input type="number" class="ivu-input" v-model="detail.heightMin"  placeholder="请输入..." style="width:100px">
                         </FormItem>
                         <div class="split">-</div>
                         <FormItem label="" class="magin0" style="margin-left: -84px">
-                            <input type="number" class="ivu-input" v-model="detail.heightMax" @keyup="setInputClears" placeholder="请输入..." style="width:100px">
+                            <input type="number" class="ivu-input" v-model="detail.heightMax"  placeholder="请输入..." style="width:100px">
                         </FormItem>
                         <FormItem label="宽度：" class="magin0">
-                            <input type="number" class="ivu-input" v-model="detail.widthMin" @keyup="setInputClears" placeholder="请输入..." style="width:100px">
+                            <input type="number" class="ivu-input" v-model="detail.widthMin"  placeholder="请输入..." style="width:100px">
                         </FormItem>
                         <div class="split">-</div>
                         <FormItem label="" class="magin0" style="margin-left: -84px">
-                            <input type="number" class="ivu-input" v-model="detail.widthMax" @keyup="setInputClears" placeholder="请输入..." style="width:100px">
+                            <input type="number" class="ivu-input" v-model="detail.widthMax"  placeholder="请输入..." style="width:100px">
                         </FormItem>
                         <FormItem label="长度：" class="magin0">
-                            <input type="number" class="ivu-input" v-model="detail.lengthMin" @keyup="setInputClears" placeholder="请输入..." style="width:100px">
+                            <input type="number" class="ivu-input" v-model="detail.lengthMin"  placeholder="请输入..." style="width:100px">
                         </FormItem>
                         <div class="split">-</div>
                         <FormItem label="" class="magin0" style="margin-left: -84px">
-                            <input type="number" class="ivu-input" v-model="detail.lengthMax" @keyup="setInputClears" placeholder="请输入..." style="width:100px">
+                            <input type="number" class="ivu-input" v-model="detail.lengthMax"  placeholder="请输入..." style="width:100px">
                         </FormItem>
                         <FormItem label="公差：" class="magin0">
-                            <input type="number" class="ivu-input" v-model="detail.tolenceMin" @keyup="setInputClears" placeholder="请输入..." style="width:100px">
+                            <input type="number" class="ivu-input" v-model="detail.tolenceMin"  placeholder="请输入..." style="width:100px">
                         </FormItem>
                         <div class="split" style="">-</div>
                         <FormItem label="" class="magin0" style="margin-left: -84px">
-                            <input type="number" class="ivu-input" v-model="detail.tolenceMax" @keyup="setInputClears" placeholder="请输入..." style="width:100px">
+                            <input type="number" class="ivu-input" v-model="detail.tolenceMax"  placeholder="请输入..." style="width:100px">
                         </FormItem>
                         <!-- <FormItem label="规格" class="magin0" >
                             <input type="number" class="ivu-input" v-model="detail.specifications" @keyup="setInputClear" placeholder="请输入..." style="width:100px">
@@ -255,8 +255,6 @@ import City from '@/components/basics/adress/citySelect.vue'
                     lengthMax: '',
                     tolenceMin: '',
                     tolenceMax: '',
-                    specifications: '',
-                    tolerance: ''
                 },
                 dateValue: ['', ''],
                 dateOption: {
@@ -354,29 +352,27 @@ import City from '@/components/basics/adress/citySelect.vue'
                 data.lengthMax = this.detail.lengthMin;
                 data.tolenceMin = this.detail.tolenceMin;
                 data.tolenceMax = this.detail.tolenceMax;
-                data.specifications = this.detail.specifications;
-                data.tolerance = this.detail.tolerance
                 return data
             },
             placeHolder(){
               return this.detail.provinceName != '' ? this.detail.provinceName+' / '+this.detail.cityName : '请选择地区'
-          },
-          handleList() {
-            if (!!this.exclude) {
-                let list = this.$clearData(this.filterData[0].list);
-                list.map(item => {
-                    if (!!this.exclude) {
-                        item.isLock = _.findIndex(this.exclude, el => {
-                            return el == item.name
-                        }) >= 0
-                    } else {
-                        item.isLock = false
-                    }
-                })
-                return list
-            } else {
-                return this.list
-            }
+            },
+            handleList() {
+                if (!!this.exclude) {
+                    let list = this.$clearData(this.filterData[0].list);
+                    list.map(item => {
+                        if (!!this.exclude) {
+                            item.isLock = _.findIndex(this.exclude, el => {
+                                return el == item.name
+                            }) >= 0
+                        } else {
+                            item.isLock = false
+                        }
+                    })
+                    return list
+                } else {
+                    return this.list
+                }
             }  
         },
         methods: {
@@ -407,11 +403,9 @@ import City from '@/components/basics/adress/citySelect.vue'
                     lengthMax: '',
                     tolenceMin: '',
                     tolenceMax: '',
-                    specifications: '',
-                    tolerance: ''
                 }
                 this.dateValue = ['','']
-                this.placeHolder
+                this.detail.provinceName = ''
             },
             // 获取品类
             getIronTypes() {
@@ -458,26 +452,6 @@ import City from '@/components/basics/adress/citySelect.vue'
                 this.detail.locationId = data.cityId;
                 this.detail.provinceId = data.provinceId;
             },
-            //  处理如果输入规格、公差，厚度、宽度、长度公差为空
-            setInputClear() {
-                if(this.detail.specifications != '' || this.detail.tolerance != ''){
-                    this.detail.widthMin = '';
-                    this.detail.widthMax = '';
-                    this.detail.heightMin = '';
-                    this.detail.heightMax = '';
-                    this.detail.lengthMax = '';
-                    this.detail.lengthMin= '';
-                    this.detail.tolenceMin = '';
-                    this.detail.tolenceMax = '';
-                };
-            },
-            //  处理如果输入厚度、宽度、长度公差，规格、公差为空
-            setInputClears() {
-                if(this.detail.widthMin != '' || this.detail.widthMax != '' || this.detail.heightMin != '' || this.detail.heightMax != '' || this.detail.lengthMin != '' || this.detail.tolenceMin != '' || this.detail.tolenceMax != ''){
-                    this.detail.specifications = '';
-                    this.detail.tolerance = ''
-                }
-            }
         },
         watch: {
             filters: _.debounce(function(now) {

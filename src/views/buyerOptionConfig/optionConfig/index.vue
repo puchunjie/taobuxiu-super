@@ -85,7 +85,7 @@ export default {
               let h = parseFloat(time.split(':')[0].toString());
               let m = parseFloat(time.split(':')[1].toString())
               let s = parseFloat(time.split(':')[2].toString())
-              times = (h * 60 * 60 *1000) + (m*60*1000) + (s*1000)
+              times = (h * 60 * 60 *1000) + (m * 60 * 1000) + (s * 1000)
           }
           return times
       }

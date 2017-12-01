@@ -28,10 +28,10 @@ export default {
       activeTab: 0
     }
   },
-    computed: {
-      routerPath() {
-          return this.routerTabs[this.activeTab].pathName
-      }
+  computed: {
+    routerPath() {
+        return this.routerTabs[this.activeTab].pathName
+    }
   },
   created() {
       switch (this.$route.name) {

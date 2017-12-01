@@ -1,5 +1,5 @@
 <template>
-    <Cascader ref='cs' :data="arr" :load-data="loadData" @on-change="exportData" :placeholder="value">
+    <Cascader ref='cs' :data="arr" :load-data="loadData" :clearable="false" @on-change="exportData" :placeholder="value">
     </Cascader>
 </template>
 

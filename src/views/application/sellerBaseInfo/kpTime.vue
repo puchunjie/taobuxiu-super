@@ -40,9 +40,6 @@
 export default {
     props: {
         title: String,
-        getListApi: String,
-        saveAndUpdateApi: String,
-        deleteApi: String
     },
     data () {
         return {
@@ -72,7 +69,7 @@ export default {
     methods: {
         //  获取列表
         getList() {
-            this.$http.post(this.getListApi,this.apiData).then(res => {
+            this.$http.post(this.api.findKaipingModelPage,this.apiData).then(res => {
                 if(res.code === 1000){
                     this.list = res.data.list;
                     this.totalCount = res.data.totalCount
@@ -107,7 +104,7 @@ export default {
                         params.id = this.editItem.id;
                         params.name = this.itemApi.name
                     }
-                    this.$http.post(this.saveAndUpdateApi, params).then(res =>{
+                    this.$http.post(this.api.saveAndUpdateKaipingModel, params).then(res =>{
                         if(res.code === 1000){
                             this.getList();
                             this.$Message.success('操作成功');
@@ -131,7 +128,7 @@ export default {
                     let params = {
                         id: item.id
                     }
-                    this.$http.post(this.deleteApi, params).then(res => {
+                    this.$http.post(this.api.deleteKaipingModel, params).then(res => {
                         if (res.code === 1000) {
                             this.getList();
                             this.$Message.success('删除成功！');
