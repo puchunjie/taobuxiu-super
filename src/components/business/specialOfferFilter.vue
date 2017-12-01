@@ -75,11 +75,11 @@
                             <input type="number" class="ivu-input" v-model="detail.widthMax" @keyup="setInputClears" placeholder="请输入..." style="width:100px">
                         </FormItem>
                         <FormItem label="长度：" class="magin0">
-                            <input type="number" class="ivu-input" v-model="detail.lengthMin" @keyup="setInputClears" placeholder="请输入..." style="width:100px">
+                            <input type="text" class="ivu-input" v-model="detail.lengthMin" @keyup="setInputClears" placeholder="请输入..." style="width:100px">
                         </FormItem>
                         <div class="split">-</div>
                         <FormItem label="" class="magin0" style="margin-left: -84px">
-                            <input type="number" class="ivu-input" v-model="detail.lengthMax" @keyup="setInputClears" placeholder="请输入..." style="width:100px">
+                            <input type="text" class="ivu-input" v-model="detail.lengthMax" @keyup="setInputClears" placeholder="请输入..." style="width:100px">
                         </FormItem>
                         <FormItem label="公差：" class="magin0">
                             <input type="number" class="ivu-input" v-model="detail.tolenceMin" @keyup="setInputClears" placeholder="请输入..." style="width:100px">
