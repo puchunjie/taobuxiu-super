@@ -2,8 +2,8 @@
   <div>
     <div class="filter-container">
       <div class="content">
-        <FilterForm  @on-change="doFilter"></FilterForm>
-              <div class="kp-list">
+        <filterFrom  @on-change="doFilter"></filterFrom>
+        <div class="kp-list">
         <p style="text-align:center" v-show="list.length<=0">暂无数据</p>
         <div class="kp-card" v-for="(item,index) in list" :key="item.resourceId">
              <div class="head">
@@ -41,11 +41,10 @@
                 <div class="item">表面：{{item.surfaceName}}</div>
                 <div class="item">产地：{{item.proPlacesName}}</div>
                 <div class="item">新鲜指数：{{item.recommendPoint}}</div>
-                <div class="item">规格：{{item.height}}*{{item.width}}*{{item.length}}</div>
+                <div class="item">规格：{{ item.specifications != '' ? item.specifications : `${item.height}*${item.width}*${item.length}`}}</div>
                 <div class="item">公差：{{item.tolerance}}</div>
                 <div class="item">仓库：{{ item.storeHouseName }}</div>
                 <div class="item">单价：{{ item.price }}元/吨</div>
-                <div class="item">计划开平时间：{{item.remark}}</div>
                 <div class="item">是否含税：{{item.taxType | taxTypeStatus}}</div>
             </div>
         </div>
@@ -57,10 +56,11 @@
 </template>
 
 <script>
-  import FilterForm from '@/components/business/specialOfferFilter.vue'
+  import filterFrom from '../resourceFilter/specialOfferFilter'
+  import {isEmpty} from '@/utils/filters'
   export default {
     components: {
-      FilterForm
+      filterFrom
     },
     data() {
       return {

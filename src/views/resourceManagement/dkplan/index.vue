@@ -1,6 +1,6 @@
 <template>
   <div>
-      <kdFilter @on-change="doFilter" :exclude="['全部','不锈钢板','不锈钢卷']"></kdFilter>
+      <filterFrom @on-change="doFilter" :exclude="['全部','不锈钢板','不锈钢卷']"></filterFrom>
       <div class="kp-list">
         <p style="text-align:center" v-show="list.length<=0">暂无数据</p>
         <div class="kp-card" v-for="(item,index) in list" :key="item.id">
@@ -51,11 +51,11 @@
   </div>
 </template>
 <script>
-import kdFilter from '@/components/business/dkFilter.vue'
+import filterFrom from '../resourceFilter/planFilter'
 import {dateformat,dkStatus} from '@/utils/filters'
 export default {
     components: {
-        kdFilter,
+        filterFrom,
     },
     data () {
         return {

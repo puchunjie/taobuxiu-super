@@ -27,6 +27,19 @@ export default [{
             name: '特价资源管理',
             router: {name: 'specialOffer'}
         }]
+    },{
+        name: '订单管理',
+        icon: '',
+        children: [{
+            name: '现货订单管理',
+            router: {name: 'stockOrder'}
+        },{
+            name: '定开订单管理',
+            router: {name: 'planOrder'}
+        },{
+            name: '特价订单管理',
+            router: {name: 'specialOrder'}
+        }]
     },
     {
         name: '营销',

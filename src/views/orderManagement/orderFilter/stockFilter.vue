@@ -45,7 +45,7 @@
                             </Select>
                         </FormItem>
                         <FormItem label="更新时间：" class="magin0">
-                            <DatePicker type="daterange" :clearable="false" :options="dateOption" v-model="dateValue" placement="bottom-end" placeholder="选择日期"></DatePicker>
+                            <DatePicker type="daterange" :options="dateOption" :clearable="false" v-model="dateValue" placement="bottom-end" placeholder="选择日期"></DatePicker>
                         </FormItem>
                         <FormItem label="资源地区：" prop="cityId" class="magin0">
                             <City ref="city" @on-pick="selectCity" :value="placeHolder"></City>
@@ -55,49 +55,39 @@
                                 <Option v-for="(item ,index) in storeList" :value="item.id" :key="item.id">{{ item.name }}</Option>
                             </Select>
                         </FormItem>
-                        <FormItem label="计划开平时间：" :label-width="100" class="magin0">
-                            <Select style="width: 130px" v-model="detail.remark">
-                                <Option v-for="(item,inex) in kpList" :value="item.id" :key="item.id" >{{item.name}}</Option>
-                            </Select>
-                        </FormItem>
                         <FormItem label="厚度：" class="magin0">
-                            <input type="number" class="ivu-input" v-model="detail.heightMin" @keyup="setInputClears" placeholder="请输入..." style="width:100px">
-                        </FormItem>
-                        <div class="split">-</div>
-                        <FormItem label="" class="magin0" style="margin-left: -84px">
-                            <input type="number" class="ivu-input" v-model="detail.heightMax" @keyup="setInputClears" placeholder="请输入..." style="width:100px">
-                        </FormItem>
-                        <FormItem label="宽度：" class="magin0">
-                            <input type="number" class="ivu-input" v-model="detail.widthMin" @keyup="setInputClears" placeholder="请输入..." style="width:100px">
-                        </FormItem>
-                        <div class="split">-</div>
-                        <FormItem label="" class="magin0" style="margin-left: -84px">
-                            <input type="number" class="ivu-input" v-model="detail.widthMax" @keyup="setInputClears" placeholder="请输入..." style="width:100px">
-                        </FormItem>
-                        <FormItem label="长度：" class="magin0">
-                            <input type="text" class="ivu-input" v-model="detail.lengthMin" @keyup="setInputClears" placeholder="请输入..." style="width:100px">
-                        </FormItem>
-                        <div class="split">-</div>
-                        <FormItem label="" class="magin0" style="margin-left: -84px">
-                            <input type="text" class="ivu-input" v-model="detail.lengthMax" @keyup="setInputClears" placeholder="请输入..." style="width:100px">
-                        </FormItem>
-                        <FormItem label="公差：" class="magin0">
-                            <input type="number" class="ivu-input" v-model="detail.tolenceMin" @keyup="setInputClears" placeholder="请输入..." style="width:100px">
+                            <input type="number" class="ivu-input" @keyup="setInputClears" v-model="detail.heightMin"  placeholder="请输入..." style="width:100px">
                         </FormItem>
                         <div class="split" style="">-</div>
-                        <FormItem label="" class="magin0" style="margin-left: -84px">
-                            <input type="number" class="ivu-input" v-model="detail.tolenceMax" @keyup="setInputClears" placeholder="请输入..." style="width:100px">
+                        <FormItem label="" class="magin0" style="margin-left: -80px">
+                            <input type="number" class="ivu-input" @keyup="setInputClears" v-model="detail.heightMax"  placeholder="请输入..." style="width:100px">
                         </FormItem>
-                        <FormItem label="规格" class="magin0" >
-                            <input type="number" class="ivu-input" v-model="detail.specifications" @keyup="setInputClear" placeholder="请输入..." style="width:100px">
+                        <FormItem label="宽度：" class="magin0">
+                            <input type="number" class="ivu-input" @keyup="setInputClears" v-model="detail.widthMin"  placeholder="请输入..." style="width:100px">
                         </FormItem>
-                        <FormItem label="公差" class="magin0" >
-                            <input type="number" class="ivu-input" v-model="detail.tolerance" @keyup="setInputClear" placeholder="请输入..." style="width:100px">
+                        <div class="split" style="">-</div>
+                        <FormItem label="" class="magin0" style="margin-left: -80px">
+                            <input type="number" class="ivu-input" @keyup="setInputClears" v-model="detail.widthMax"  placeholder="请输入..." style="width:100px">
                         </FormItem>
-                        <FormItem label="是否含税" :label-width="100" class="magin0">
-                            <Select style="width: 130px" v-model="detail.taxType">
-                                <Option v-for="(item,inex) in taxType" :value="item.id" :key="item.id" >{{item.name}}</Option>
-                            </Select>
+                        <FormItem label="长度：" class="magin0">
+                            <input type="text" class="ivu-input" @keyup="setInputClears" v-model="detail.lengthMin"  placeholder="请输入..." style="width:100px">
+                        </FormItem>
+                        <div class="split" style="">-</div>
+                        <FormItem label="" class="magin0" style="margin-left: -80px">
+                            <input type="text" class="ivu-input" @keyup="setInputClears" v-model="detail.lengthMax"  placeholder="请输入..." style="width:100px">
+                        </FormItem>
+                        <FormItem label="公差：" class="magin0">
+                            <input type="number" class="ivu-input" @keyup="setInputClears" v-model="detail.tolenceMin"  placeholder="请输入..." style="width:100px">
+                        </FormItem>
+                        <div class="split" style="">-</div>
+                        <FormItem label="" class="magin0" style="margin-left: -80px">
+                            <input type="number" class="ivu-input" @keyup="setInputClears" v-model="detail.tolenceMax"  placeholder="请输入..." style="width:100px">
+                        </FormItem>
+                        <FormItem label="规格：" class="magin0" >
+                            <input type="number" class="ivu-input" @keyup="setInputClear" v-model="detail.specifications"  placeholder="请输入..." style="width:100px">
+                        </FormItem>
+                        <FormItem label="公差：" class="magin0" >
+                            <input type="number" class="ivu-input" @keyup="setInputClear" v-model="detail.tolerance" placeholder="请输入..." style="width:100px">
                         </FormItem>
                     </Form>
                 </div>
@@ -139,9 +129,6 @@
 <script>
 import City from '@/components/basics/adress/citySelect.vue'
     export default {
-        props: {
-            exclude: Object
-        },
         components: {
            City 
         },
@@ -191,24 +178,26 @@ import City from '@/components/basics/adress/citySelect.vue'
                             name: '全部',
                             id: ''
                         }, {
-                            name: '上架',
+                            name: '待确认',
                             id: '1'
                         }, {
-                            name: '超管下架',
+                            name: '已成交',
                             id: '2'
                         }, {
-                            name: '系统下架',
+                            name: '卖家未接单',
                             id: '3'
                         }, {
-                            name: '用户下架',
-                            id: '0'
-                        },
-                        {
-                            name: '超管删除',
-                            id: '7'
+                            name: '超时取消订单',
+                            id: '4'
                         },{
-                            name: '用户删除',
-                            id: '9'
+                            name: '买家取消订单',
+                            id: '5'
+                        },{
+                            name: '超管取消订单',
+                            id: '6'
+                        },{
+                            name: '超管删除订单',
+                            id: '7'
                         }],
                         activeIndex: 0
                     },
@@ -248,8 +237,6 @@ import City from '@/components/basics/adress/citySelect.vue'
                     cityId: '',
                     cityName: '',
                     storeHouseId: '',
-                    remark: '',
-                    taxType: '',
                     heightMin: '',
                     heightMax: '',
                     widthMin: '',
@@ -258,8 +245,8 @@ import City from '@/components/basics/adress/citySelect.vue'
                     lengthMax: '',
                     tolenceMin: '',
                     tolenceMax: '',
-                    specifications: '',
-                    tolerance: ''
+                    specifications:'',
+                    tolerance:''
                 },
                 dateValue: ['', ''],
                 dateOption: {
@@ -294,26 +281,25 @@ import City from '@/components/basics/adress/citySelect.vue'
                 },
                 storeList: [],
                 saleManList: [],
-                kpList: [],
                 recommendPointList:[{
                     name: '0',
                     value: '0'
                 },{
-                        name: '1',
-                        value: '1'
-                    },{
-                        name: '2',
-                        value: '2'
-                    },{
-                        name: '3',
-                        value: '3'
-                    },{
-                        name: '4',
-                        value: '4'
-                    },{
-                        name: '5',
-                        value: '5'
-                    }
+                    name: '1',
+                    value: '1'
+                },{
+                    name: '2',
+                    value: '2'
+                },{
+                    name: '3',
+                    value: '3'
+                },{
+                    name: '4',
+                    value: '4'
+                },{
+                    name: '5',
+                    value: '5'
+                }
                 ],
                 publisherTypeList:[{
                     name: '线上发布',
@@ -321,13 +307,6 @@ import City from '@/components/basics/adress/citySelect.vue'
                 },{
                     name: 'excel发布',
                     id: '2' 
-                }],
-                taxType: [{
-                    name: '含税',
-                    id: '1'
-                },{
-                    name: '不含税',
-                    id: '2'
                 }]
             }
         },
@@ -353,10 +332,8 @@ import City from '@/components/basics/adress/citySelect.vue'
                 data.locationId = this.detail.locationId;
                 data.provinceId = this.detail.provinceId;
                 data.locationName = this.detail.locationName;
-                data.provinceName = this.detail.provinceName
+                data.provinceName = this.detail.provinceName;
                 data.storeHouseId = this.detail.storeHouseId;
-                data.remark = this.detail.remark;
-                data.taxType = this.detail.taxType;
                 data.widthMin = this.detail.widthMin;
                 data.widthMax = this.detail.widthMax;
                 data.heightMin = this.detail.heightMin;
@@ -370,7 +347,7 @@ import City from '@/components/basics/adress/citySelect.vue'
                 return data
             },
             placeHolder(){
-              return this.detail.provinceName != '' ? this.detail.provinceName+' / '+this.detail.cityName : '请选择地区'
+              return this.detail.provinceName = '' ? this.detail.provinceName+' / '+this.detail.cityName : '请选择地区'
           }  
         },
         methods: {
@@ -392,8 +369,6 @@ import City from '@/components/basics/adress/citySelect.vue'
                     cityId: '',
                     cityName: '',
                     storeHouseId: '',
-                    remark: '',
-                    taxType: '',
                     heightMin: '',
                     heightMax: '',
                     widthMin: '',
@@ -402,10 +377,11 @@ import City from '@/components/basics/adress/citySelect.vue'
                     lengthMax: '',
                     tolenceMin: '',
                     tolenceMax: '',
-                    specifications: '',
-                    tolerance: ''
+                    specifications:'',
+                    tolerance:''
                 }
                 this.dateValue = ['','']
+
             },
             // 获取品类
             getIronTypes() {
@@ -436,14 +412,6 @@ import City from '@/components/basics/adress/citySelect.vue'
                 this.$http.post(this.api.findSalemanInfos).then(res => {
                     if(res.code === 1000){
                         this.saleManList = res.data;
-                    }
-                })
-            },
-            //  获取开平时间
-            getKp() {
-                this.$http.post(this.api.findAllKaiping).then(res => {
-                    if(res.code === 1000){
-                        this.kpList = res.data;
                     }
                 })
             },
@@ -493,7 +461,6 @@ import City from '@/components/basics/adress/citySelect.vue'
             })
             this.getHouse();
             this.getSalesman();
-            this.getKp();
         }
     }
 </script>

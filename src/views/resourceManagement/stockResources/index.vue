@@ -1,6 +1,6 @@
 <template>
   <div>
-      <stockFilter @on-change="doFilter"></stockFilter>
+      <filterFrom @on-change="doFilter"></filterFrom>
       <div class="kp-list">
         <p style="text-align:center" v-show="list.length<=0">暂无数据</p>
         <div class="kp-card" v-for="(item,index) in list" :key="item.id">
@@ -39,7 +39,7 @@
                 <div class="item">表面：{{item.surfaceName}}</div>
                 <div class="item">产地：{{item.proPlacesName}}</div>
                 <div class="item">新鲜指数：{{item.recommendPoint}}</div>
-                <div class="item">规格：{{item.height}}*{{item.width}}*{{item.length}}</div>
+                <div class="item">规格：{{ item.specifications != '' ? item.specifications : `${item.height}*${item.width}*${item.length}`}}</div>
                 <div class="item">公差：{{item.tolerance}}</div>
                 <div class="item">仓库：{{ item.storeHouseName }}</div>
                 <div class="item">单价：{{ item.price }}元/吨</div>
@@ -50,11 +50,11 @@
   </div>
 </template>
 <script>
-import stockFilter from '@/components/business/stockFilter.vue'
+import filterFrom from '../resourceFilter/stockFilter'
 import {dateformat} from '@/utils/filters'
 export default {
   components: {
-      stockFilter
+      filterFrom
   },
   data () {
         return {

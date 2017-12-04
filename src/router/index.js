@@ -110,6 +110,18 @@ const router = new Router({
                     path: 'stockResources',
                     name: 'stockResources',
                     component: resolve => require(['@/views/resourceManagement/stockResources/index'], resolve),
+                },{
+                    path: 'stockOrder',
+                    name: 'stockOrder',
+                    component: resolve => require(['@/views/orderManagement/stockOrder/index'],resolve)
+                },{
+                    path: 'planOrder',
+                    name: 'planOrder',
+                    component: resolve => require(['@/views/orderManagement/planOrder/index'],resolve)
+                },{
+                    path: 'specialOrder',
+                    name: 'specialOrder',
+                    component: resolve => require(['@/views/orderManagement/specialOrder/index'],resolve)
                 },
                 {
                     path: 'buyerRank',

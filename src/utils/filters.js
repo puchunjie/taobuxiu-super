@@ -249,14 +249,19 @@ export const formatDuring = (mss, params) => {
     var hours = parseInt((mss % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     var minutes = parseInt((mss % (1000 * 60 * 60)) / (1000 * 60));
     var seconds = (mss % (1000 * 60)) / 1000;
-    if(params == 1){
-      return days + " 天 " + hours + " 小时 " + addZero(minutes) + " 分钟 " + addZero(seconds) + " 秒 ";
-    }else if (params == 2){
-      return hours + " 小时 " + addZero(minutes) + " 分钟 " + addZero(seconds) + " 秒 "
-    }else if(params === 3){
-      return days + '-' + addZero(hours) + ':' + addZero(minutes) + ':' + addZero(seconds)
-    }else{
-      return addZero(hours) + ':' + addZero(minutes) + ':' + addZero(seconds)
+    switch (params * 1) {
+      case 1:
+        return days + " 天 " + hours + " 小时 " + addZero(minutes) + " 分钟 " + addZero(seconds) + " 秒 ";
+        break;
+      case 2:
+        return hours + " 小时 " + addZero(minutes) + " 分钟 " + addZero(seconds) + " 秒 ";
+        break;
+      case 3:
+        return days + '-' + addZero(hours) + ':' + addZero(minutes) + ':' + addZero(seconds);
+        break;
+      default:
+        return addZero(hours) + ':' + addZero(minutes) + ':' + addZero(seconds);
+        break
     }
 }
 

@@ -83,10 +83,10 @@
                         <FormItem label="" class="magin0" style="margin-left: -80px">
                             <input type="number" class="ivu-input" @keyup="setInputClears" v-model="detail.tolenceMax"  placeholder="请输入..." style="width:100px">
                         </FormItem>
-                        <FormItem label="规格" class="magin0" >
+                        <FormItem label="规格：" class="magin0" >
                             <input type="number" class="ivu-input"@keyup="setInputClear" v-model="detail.specifications"  placeholder="请输入..." style="width:100px">
                         </FormItem>
-                        <FormItem label="公差" class="magin0" >
+                        <FormItem label="公差：" class="magin0" >
                             <input type="number" class="ivu-input"@keyup="setInputClear" v-model="detail.tolerance" placeholder="请输入..." style="width:100px">
                         </FormItem>
                     </Form>
