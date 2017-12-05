@@ -90,6 +90,11 @@
                         <FormItem label="公差：" class="magin0" >
                             <input type="number" class="ivu-input" @keyup="setInputClear" v-model="detail.tolerance" placeholder="请输入..." style="width:100px">
                         </FormItem>
+                        <FormItem label="是否含税：" class="magin0">
+                            <Select style="width: 130px" v-model="detail.taxType">
+                                <Option v-for="(item,inex) in taxType" :value="item.id" :key="item.id">{{item.name}}</Option>
+                            </Select>
+                        </FormItem>
                     </Form>
                 </div>
                 <div class="foot">
@@ -249,7 +254,8 @@ import City from '@/components/basics/adress/citySelect.vue'
                     tolenceMin: '',
                     tolenceMax: '',
                     specifications:'',
-                    tolerance:''
+                    tolerance:'',
+                    taxType: ''
                 },
                 dateValue: ['', ''],
                 dateOption: {
@@ -302,6 +308,13 @@ import City from '@/components/basics/adress/citySelect.vue'
                 },{
                     name: '5',
                     value: '5'
+                }],
+                taxType: [{
+                    name: '含税',
+                    id: 1
+                },{
+                    name: '不含税',
+                    id: 2
                 }]
             }
         },
@@ -340,6 +353,7 @@ import City from '@/components/basics/adress/citySelect.vue'
                 data.tolenceMax = this.detail.tolenceMax;
                 data.specifications = this.detail.specifications;
                 data.tolerance = this.detail.tolerance
+                data.taxType = this.detail.taxType
                 return data
             },
             placeHolder(){
@@ -375,7 +389,8 @@ import City from '@/components/basics/adress/citySelect.vue'
                     tolenceMin: '',
                     tolenceMax: '',
                     specifications:'',
-                    tolerance:''
+                    tolerance:'',
+                    taxType: ''
                 }
                 this.dateValue = ['','']
 

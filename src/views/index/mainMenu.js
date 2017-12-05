@@ -29,7 +29,7 @@ export default [{
         }]
     },{
         name: '订单管理',
-        icon: '',
+        icon: 'icon-dingdan',
         children: [{
             name: '现货订单管理',
             router: {name: 'stockOrder'}

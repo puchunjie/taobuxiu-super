@@ -58,7 +58,7 @@
                         </FormItem>
                         <FormItem label="计划开平时间：" :label-width="100" class="magin0">
                             <Select style="width: 130px" v-model="detail.remark">
-                                <Option v-for="(item,inex) in kpList" :value="item.id" :key="item.id" >{{item.name}}</Option>
+                                <Option v-for="(item,inex) in kpList" :value="item.name" :key="item.name" >{{item.name}}</Option>
                             </Select>
                         </FormItem>
                         <FormItem label="厚度：" class="magin0">

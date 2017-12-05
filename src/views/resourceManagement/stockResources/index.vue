@@ -86,7 +86,7 @@ export default {
         //  获取列表
         getStockList(params) {
             this.$http.post(this.api.findSpotGoodsByPage,params).then(res => {
-                if(res.code === 1000){
+                if(res.code === 1000) {
                     this.list = res.data.list
                     this.totalCount = res.data.totalCount
                 }
@@ -98,14 +98,14 @@ export default {
             this.$Modal.confirm({
                 title: '操作提示！',
                 content: '操作后不可修改，确认操作？',
-                onOk: () =>{
+                onOk: () => {
                     this.loading = true;
-                    let params ={
+                    let params = {
                         storeInfoId: id,
                         operation: flag
                     }
                     this.$http.post(this.api.updateSpotGoodsInfo, params).then(res => {
-                        if(res.code === 1000){
+                        if(res.code === 1000) {
                             this.getStockList(this.params);
                             this.$Message.success('操作成功')
                         }else{
@@ -115,7 +115,6 @@ export default {
                     })
                 }
             })
-
         }
     }
 }

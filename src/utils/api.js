@@ -845,6 +845,23 @@ export const updateStorerSubOrder = '/sys/storesuborder/updateStorerSubOrder'
 //  删除订单有效确认时间选项            
 export const deleteStorerSubOrder = '/sys/storesuborder/deleteStorerSubOrder'
 
+
+//-------------------------------订单管理----------------------------------
+//  超管分页查询现货订单
+export const findSpotOrdersByPage = '/sys/storeorder/findSpotOrdersByPage'
+//   根据订单编号和状态来更新
+export const updateOrderStatusById = '/sys/storeorder/updateOrderStatusById'
+
+// 根据资源货物编号和类型查找详情
+export const findGoodsInfoById = '/sys/storeorder/findGoodsInfoById'
+
+//  超管分页查询特价订单
+export const findSpecialOrdersByPage = '/sys/storeorder/findSpecialOrdersByPage'
+
+//  超管分页查询定开订单
+export const findOpenPlanOrdersByPage = '/sys/storeorder/findOpenPlanOrdersByPage'
+
+
 // -----------------------------------关联数据---------------------------------
 /**
  * 保存关联分组（品类、表面）

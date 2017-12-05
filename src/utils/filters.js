@@ -202,12 +202,11 @@ export const nowStatus = (val) => {
 }
 // 常规休市日显示
 export const dealRestDay = (val) => {
-  var w = ['','周一', '周二', '周三', '周四', '周五', '周六', '周日']
-
-  function numberToWeek(num) {
-    var str = num.toString();
-    var len = num.toString().length;
-    var C_Num = [];
+  let w = ['','周一', '周二', '周三', '周四', '周五', '周六', '周日'];
+  const numberToWeek = (value) => {
+    let str = value.toString();
+    let len = value.toString().length;
+    let C_Num = [];
     for (var i = 0; i < len; i++) {
       C_Num.push(w[str.charAt(i)]);
     }
@@ -223,9 +222,9 @@ export const dealRestDay = (val) => {
 // 时间戳转时分秒
 export const dataToTime = (val, fromatStr = 'yyyy-MM-dd hh:mm:ss') => {
   if(val != ''){
-    var time = df.format(new Date(val), fromatStr)
+    let time = df.format(new Date(val), fromatStr)
     if(time != '' || time != NaN){
-      var t = time.split(' ');
+      let t = time.split(' ');
       return t[1];
     }
   }else{
@@ -233,6 +232,11 @@ export const dataToTime = (val, fromatStr = 'yyyy-MM-dd hh:mm:ss') => {
   }
 }
 
+
+//  2位数不足10前面补0
+export const addZero = (value) => {
+  return value < 10 ? '0' + value : value
+}
 
 //  将毫秒转为天时分秒
 /*
@@ -242,13 +246,10 @@ export const dataToTime = (val, fromatStr = 'yyyy-MM-dd hh:mm:ss') => {
 params 转为 时:分:秒
 */
 export const formatDuring = (mss, params) => {
-    function addZero(n){
-      return n < 10 ? '0' + n : n
-    }
-    var days = parseInt(mss / (1000 * 60 * 60 * 24));
-    var hours = parseInt((mss % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    var minutes = parseInt((mss % (1000 * 60 * 60)) / (1000 * 60));
-    var seconds = (mss % (1000 * 60)) / 1000;
+    let days = parseInt(mss / (1000 * 60 * 60 * 24));
+    let hours = parseInt((mss % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    let minutes = parseInt((mss % (1000 * 60 * 60)) / (1000 * 60));
+    let seconds = (mss % (1000 * 60)) / 1000;
     switch (params * 1) {
       case 1:
         return days + " 天 " + hours + " 小时 " + addZero(minutes) + " 分钟 " + addZero(seconds) + " 秒 ";
@@ -265,6 +266,64 @@ export const formatDuring = (mss, params) => {
     }
 }
 
+
+//  订单状态
+export const orderStatus = (val) => {
+  switch (val * 1){
+    case 1:
+      return '已确认'
+      break;
+    case 2:
+      return '待确认'
+      break;
+    case 3:
+      return '卖家未接单'
+      break;
+    case 4:
+      return '超时取消订单'
+      break;
+    case 5:
+      return '买家取消订单'
+      break;
+    case 6:
+      return '超管取消订单'
+        break;
+    case 9:
+      return '超管删除订单'
+      break;
+  }
+}
+
+// js时间转化为几天前,几小时前，几分钟前
+export const getDateDiff = (value, now) => {
+  let nowTime = now ? now : new Date().getTime();
+  let result = '';
+  let minute = 1000 * 60;
+  let hour = minute * 60;
+  let day = hour * 24;
+  let halfamonth = day * 15;
+  let month = day * 30;
+  let diffValue = nowTime - value;
+  if (diffValue < 0) { return '刚刚'; }
+  let monthC = diffValue / month;
+  let weekC = diffValue / (7 * day);
+  let dayC = diffValue / day;
+  let hourC = diffValue / hour;
+  let minC = diffValue / minute;
+  if (monthC >= 1) {
+      result = "" + parseInt(monthC) + "月前";
+  } else if (weekC >= 1) {
+      result = "" + parseInt(weekC) + "周前";
+  } else if (dayC >= 1) {
+      result = "" + parseInt(dayC) + "天前";
+  } else if (hourC >= 1) {
+      result = "" + parseInt(hourC) + "小时前";
+  } else if (minC >= 1) {
+      result = "" + parseInt(minC) + "分钟前";
+  } else
+      result = "刚刚";
+  return result;
+}
 // 为空处理
 export const isEmpty = (value, params) => {
   if (value != '') {
