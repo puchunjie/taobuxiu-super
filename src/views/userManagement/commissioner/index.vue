@@ -1,7 +1,7 @@
 <template>
     <div> 
-        <commManagement :getListApi="api.getSalemanBind"></commManagement>
-        <commBind :getBindApi="api.findCompangWithSaleman" :findSaleman="api.findSalemanInfos" :savaBindApi="api.updateSalemanInfo"></commBind>
+        <commManagement></commManagement>
+        <commBind></commBind>
     </div>
 </template>
 <script>
@@ -14,7 +14,7 @@ export default {
    }
 }
 </script>
-<<style lang="less" scoped>
+<style lang="less" scoped>
 .comm-container{
     width: 100%;
     background-color: #fff;

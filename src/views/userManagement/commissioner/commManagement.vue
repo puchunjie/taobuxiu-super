@@ -47,9 +47,6 @@
 </template>
 <script>
 export default {
-    props: {
-        getListApi: String
-    },
     data () {
         return {
             filterData:{
@@ -68,7 +65,7 @@ export default {
         },
          //  获取专员列表
         getList() {
-            this.$http.post(this.getListApi, this.filterData).then(res => {
+            this.$http.post(this.api.getSalemanBind, this.filterData).then(res => {
                 if (res.code === 1000) {
                     this.listData = res.data.list;
                     this.totalCount = res.data.totalCount;

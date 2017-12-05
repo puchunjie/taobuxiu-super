@@ -72,11 +72,6 @@
 </template>
 <script>
 export default {
-  props: {
-    getBindApi: String,
-    findSaleman: String,
-    savaBindApi: String
-  },
   data () {
     return {
       filterData: {
@@ -96,14 +91,14 @@ export default {
       roleStaus: [],
       totalCount: 0,
       stateData: [{
-        val: '2',
-        name: '不限'
-      },{
-        val: '1',
-        name: '已绑定'
-      },{
-        val: '0',
-        name: '未绑定'
+          val: '2',
+          name: '不限'
+        },{
+          val: '1',
+          name: '已绑定'
+        },{
+          val: '0',
+          name: '未绑定'
       }],
       indeterminate: false,
       checkAll: false,
@@ -122,7 +117,7 @@ export default {
   methods: {
     //  获取查询绑定用户
     getAllList() {
-      this.$http.post(this.getBindApi,this.filterData).then(res => {
+      this.$http.post(this.api.findCompangWithSaleman,this.filterData).then(res => {
         if(res.code === 1000){
           this.roleList = res.data.list;
           this.totalCount = res.data.totalCoount;
@@ -141,7 +136,7 @@ export default {
     },
     //  获取专员
     getSalemanInfos() {
-      this.$http.post(this.findSaleman).then(res => {
+      this.$http.post(this.api.findSalemanInfos).then(res => {
         if(res.code === 1000){
           this.saleManList = res.data;
         }
@@ -193,6 +188,7 @@ export default {
           this.checkAll = false;
       }
     },
+    //  确认绑定
     savaBind() {
         this.$Modal.confirm({
           title: ' 绑定提示！',
@@ -200,7 +196,7 @@ export default {
           onOk: () => {
             let params = this.$clearData(this.bindData);
             params.users = JSON.stringify(params.users);
-            this.$http.post(this.savaBindApi,params).then(res =>{
+            this.$http.post(this.api.updateSalemanInfo,params).then(res =>{
               if(res.code === 1000){
                 this.$Message.success('操作成功！');
                 this.getAllList();

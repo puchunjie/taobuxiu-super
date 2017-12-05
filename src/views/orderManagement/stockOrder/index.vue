@@ -43,7 +43,7 @@
                             <countDown :normal="true" :endTime="item.createTime + item.validity" :nowTime="item.serverTime"></countDown>
                         </div>
                     </template>
-                    <template v-else-if="item.status == 6">
+                    <template v-else-if="item.status == 6 || item.status == 5 || item.status == 4">
                         <div class="item">
                             取消时间：{{item.updateTime | dateformat}} 
                         </div>
@@ -51,6 +51,11 @@
                     <template v-else-if="item.status == 9">
                         <div class="item">
                             删除时间：{{item.updateTime | dateformat}} 
+                        </div>
+                    </template>
+                    <template v-else-if="item.status == 1">
+                        <div class="item">
+                            确认时间：{{item.updateTime | dateformat}} 
                         </div>
                     </template>
                 </div>
@@ -66,7 +71,7 @@
                 <div class="info-item">所属商户：{{resourseData.createUser}}</div>
                 <div class="info-item">所属地区：{{resourseData.locationName}}</div>
                 <div class="info-item">计量方式：{{resourseData.measuringType = 1 ? "过磅" : "理计"}}</div>
-                <div class="info-item">推荐指数：{{resourseData.recommendPoint}}</div>
+                <div class="info-item">新鲜指数：{{resourseData.recommendPoint}}</div>
                 <div class="info-item">品类：{{resourseData.ironTypeName}}</div>
                 <div class="info-item">材质：{{resourseData.materialName}}</div>
                 <div class="info-item">表面：{{resourseData.surfaceName}}</div>
@@ -82,7 +87,7 @@
                 <div class="info-item">卖方公司名称：{{contactData.sellMobile}}</div>
             </template> 
             <div slot="footer">
-                <Button type="primary" @click="closed">关闭</Button>
+                <Button type="primary" @click="show = false">关闭</Button>
             </div>
         </Modal>
     </div>
@@ -164,14 +169,14 @@ export default {
                 }
             })
         },
-        //  状态态操作
+        //  订单状态操作
         updateOrderInfo(id,status) {
             this.$Modal.confirm({
                 title: '操作提示！',
                 content: '操作后不可修改，确认操作？',
                 onOk: () => {
                     this.loading = true
-                    let params = {  
+                    let params = {
                         id: id,
                         status: status
                     }
@@ -197,25 +202,25 @@ export default {
                 }
                 this.$http.post(this.api.findGoodsInfoById,params).then(res => {
                     if(res.code === 1000){
-                        this.resourseData.createUser= res.data[0].createUser,
-                        this.resourseData.height= res.data[0].height,
-                        this.resourseData.id= res.data[0].id,
-                        this.resourseData.ironTypeName= res.data[0].ironTypeName,
-                        this.resourseData.length= res.data[0].length,
-                        this.resourseData.locationName= res.data[0].locationName,
-                        this.resourseData.materialName= res.data[0].materialName,
-                        this.resourseData.measuringType= res.data[0].measuringType,
-                        this.resourseData.price= res.data[0].price,
-                        this.resourseData.proPlacesName= res.data[0].proPlacesName,
-                        this.resourseData.recommendPoint= res.data[0].recommendPoint,
-                        this.resourseData.salemanName= res.data[0].salemanName,
-                        this.resourseData.specifications= res.data[0].specifications,
-                        this.resourseData.status= res.data[0].status,
-                        this.resourseData.storeHouseName= res.data[0].storeHouseName,
-                        this.resourseData.surfaceName= res.data[0].surfaceName,
-                        this.resourseData.tolerance= res.data[0].tolerance,
-                        this.resourseData.updateTime= res.data[0].updateTime,
-                        this.resourseData.width= res.data[0].width
+                        this.resourseData.createUser = res.data[0].createUser,
+                        this.resourseData.height = res.data[0].height,
+                        this.resourseData.id = res.data[0].id,
+                        this.resourseData.ironTypeName = res.data[0].ironTypeName,
+                        this.resourseData.length = res.data[0].length,
+                        this.resourseData.locationName = res.data[0].locationName,
+                        this.resourseData.materialName = res.data[0].materialName,
+                        this.resourseData.measuringType = res.data[0].measuringType,
+                        this.resourseData.price = res.data[0].price,
+                        this.resourseData.proPlacesName = res.data[0].proPlacesName,
+                        this.resourseData.recommendPoint = res.data[0].recommendPoint,
+                        this.resourseData.salemanName = res.data[0].salemanName,
+                        this.resourseData.specifications = res.data[0].specifications,
+                        this.resourseData.status = res.data[0].status,
+                        this.resourseData.storeHouseName = res.data[0].storeHouseName,
+                        this.resourseData.surfaceName = res.data[0].surfaceName,
+                        this.resourseData.tolerance = res.data[0].tolerance,
+                        this.resourseData.updateTime = res.data[0].updateTime,
+                        this.resourseData.width = res.data[0].width
                     }
                 })
             }else{
@@ -227,10 +232,6 @@ export default {
                 }
             }
             this.show = true;
-        },
-        // 关闭联系双方、查看资源
-        closed() {
-            this.show = false;
         }
     },
     created () {

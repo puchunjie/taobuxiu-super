@@ -27,7 +27,7 @@
                             <Input type="text" v-model="detail.buyMobile" placeholder="请输入..."></Input>
                         </FormItem>
                         <FormItem label="买方公司：" class="magin0">
-                            <Input type="text" v-model="detail.buybuyCompanyName" placeholder="请输入..."></Input>
+                            <Input type="text" v-model="detail.buyCompanyName" placeholder="请输入..."></Input>
                         </FormItem>
                         <FormItem label="卖方账号：" class="magin0">
                             <Input type="text" v-model="detail.sellMobile" placeholder="请输入..."></Input>
@@ -232,7 +232,6 @@ import City from '@/components/basics/adress/citySelect.vue'
                     sellCompanyName: '',
                     buyId: '',
                     recommendPoint: '',
-                    publisherType: '',
                     provinceId:'',
                     provinceName:'',
                     locationId: '',

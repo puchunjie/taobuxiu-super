@@ -43,7 +43,7 @@
                             <countDown :normal="true" :endTime="item.createTime + item.validity" :nowTime="item.serverTime"></countDown>
                         </div>
                     </template>
-                    <template v-else-if="item.status == 6">
+                    <template v-else-if="item.status == 6 || item.status == 5 || item.status == 4">
                         <div class="item">
                             取消时间：{{item.updateTime | dateformat}} 
                         </div>
@@ -51,6 +51,11 @@
                     <template v-else-if="item.status == 9">
                         <div class="item">
                             删除时间：{{item.updateTime | dateformat}} 
+                        </div>
+                    </template>
+                    <template v-else-if="item.status == 1">
+                        <div class="item">
+                            确认时间：{{item.updateTime | dateformat}} 
                         </div>
                     </template>
                     <div class="item">是否含税：{{item.taxType = 1 ? '含税' : '不含税'}}</div>
@@ -67,7 +72,7 @@
                 <div class="info-item">所属商户：{{resourseData.createUser}}</div>
                 <div class="info-item">所属地区：{{resourseData.locationName}}</div>
                 <div class="info-item">计量方式：{{resourseData.measuringType = 1 ? "过磅" : "理计"}}</div>
-                <div class="info-item">推荐指数：{{resourseData.recommendPoint}}</div>
+                <div class="info-item">新鲜指数：{{resourseData.recommendPoint}}</div>
                 <div class="info-item">品类：{{resourseData.ironTypeName}}</div>
                 <div class="info-item">材质：{{resourseData.materialName}}</div>
                 <div class="info-item">表面：{{resourseData.surfaceName}}</div>
@@ -83,7 +88,7 @@
                 <div class="info-item">卖方公司名称：{{contactData.sellMobile}}</div>
             </template> 
             <div slot="footer">
-                <Button type="primary" @click="closed">关闭</Button>
+                <Button type="primary" @click="show = false">关闭</Button>
             </div>
         </Modal>
     </div>
@@ -165,7 +170,7 @@ export default {
                 }
             })
         },
-        //  状态态操作
+        //  订单状态操作
         updateOrderInfo(id,status) {
             this.$Modal.confirm({
                 title: '操作提示！',
@@ -228,10 +233,6 @@ export default {
                 }
             }
             this.show = true;
-        },
-        // 关闭联系双方、查看资源
-        closed() {
-            this.show = false;
         }
     },
     created () {
