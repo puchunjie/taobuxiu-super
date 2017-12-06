@@ -45,7 +45,7 @@
             </Row>
           </div>
         </div>
-        <Page class="page-count" size="small" :total="totalCount" :page-size="filterData.pageSize" @on-change="changePage"></Page>
+        <Page class="page-count" size="small" :total="totalCount" show-total :current="filterData.currentPage" :page-size="filterData.pageSize" @on-change="changePage"></Page>
     </Card>
   </div>
 </template>

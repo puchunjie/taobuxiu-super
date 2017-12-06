@@ -51,7 +51,7 @@
           </Row>
           </div>
         </div>
-      <Page class="page-count" size="small" :total="totalCount" :page-size="filterData.pageSize" @on-change="changePage"></Page>
+        <Page class="page-count" size="small" :total="totalCount" show-total :current="filterData.currentPage" :page-size="filterData.pageSize" @on-change="changePage"></Page>
       </Card>
       <Modal v-model="show" title="编辑平台资源开放时间" :closable="false" :mask-closable="false">
         <Form :label-width="100" :ref="ref" :model="itemApi">

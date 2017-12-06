@@ -28,7 +28,7 @@
             <Col class-name="col" span="24">暂无数据</Col>
          </Row>
          </div>
-        <Page class="page-count" size="small" :total="totalCount" :page-size="apiData.pageSize" @on-change="changePage"></Page>
+        <Page class="page-count" size="small" :total="totalCount" show-total :current="apiData.currentPage" :page-size="apiData.pageSize" @on-change="changePage"></Page>
       </div>
     </Card>
     <Modal v-model="show" :title="isEdit?`编辑${title}`:`添加${title}`" :closable="false" :mask-closable="false">

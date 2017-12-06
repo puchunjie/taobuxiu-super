@@ -21,7 +21,7 @@
                     </Col>
                 </Row>
             </div>
-            <Page class="page-count" size="small" :total="totalCount" :page-size="dataApi.pageSize" @on-change="changePage"></Page>
+        <Page class="page-count" size="small" :total="totalCount" show-total :current="dataApi.currentPage" :page-size="dataApi.pageSize" @on-change="changePage"></Page>
         </div>
     </Card>
     <Modal v-model="show" :title="isEdit?`编辑订单有效确认时间选项`:`添加订单有效确认时间选项`" :closable="false" :mask-closable="false">

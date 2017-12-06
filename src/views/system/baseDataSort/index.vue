@@ -20,7 +20,7 @@
             </Form>
           </div>
           <Table border :columns="columns" :data="filterList"></Table>
-          <Page class="page-count" size="small" :total="totalCount" :page-size="filterData.pageSize" @on-change="changePage"></Page>
+        <Page class="page-count" size="small" :total="totalCount" show-total :current="filterData.currentPage" :page-size="filterData.pageSize" @on-change="changePage"></Page>
         </Card>
         <Modal v-model="show" title="编辑基础数据排序指数" :closable="false" :mask-closable="false">
             <Form :label-width="100" :ref="ref" :model="itemApi" :rules="rules">

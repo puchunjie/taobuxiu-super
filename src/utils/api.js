@@ -861,6 +861,25 @@ export const findSpecialOrdersByPage = '/sys/storeorder/findSpecialOrdersByPage'
 //  超管分页查询定开订单
 export const findOpenPlanOrdersByPage = '/sys/storeorder/findOpenPlanOrdersByPage'
 
+//--------------------------------订单统计数据-------------------
+//订单统计数据
+export const totalOrderData = '/sys/orderData/totalOrderData'
+
+//  订单买家前十(买家大客户分析)
+export const orderBuyerTopTen = '/sys/orderData/orderBuyerTopTen'
+
+//  订单卖家前十(卖家大客户分析)
+export const orderSellerTopTen = '/sys/orderData/orderSellerTopTen'
+
+//  订单四维分析(货品数据分析)
+export const fourDAnalysis = '/sys/orderData/fourDAnalysis'
+
+//  订单地区前五(地区分析)
+export const orderAreaTopFive = '/sys/orderData/orderAreaTopFive'
+
+//  
+
+
 
 // -----------------------------------关联数据---------------------------------
 /**

@@ -40,6 +40,19 @@ export default [{
             name: '特价订单管理',
             router: {name: 'specialOrder'}
         }]
+    },{
+        name: '合同管理',
+        icon: 'icon-hetong',
+        children: [{
+            name: '合同起草',
+            router: {name: 'draft'}
+        },{
+            name: '合同列表管理',
+            router: {name: 'authList'}
+        },{
+            name: '合同认证信息管理',
+            router: {name: 'authentication'}
+        }]
     },
     {
         name: '营销',
@@ -134,6 +147,9 @@ export default [{
         }, {
             name: '货品数据分析',
             router: { name: 'ironsRank' }
+        },{
+            name: '订单数据统计分析',
+            router: {name: 'orderCountManagement'}
         }]
     },
     {

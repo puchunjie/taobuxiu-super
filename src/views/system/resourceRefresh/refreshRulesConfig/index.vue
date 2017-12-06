@@ -55,7 +55,7 @@
             <Col class-name="col" span="24">暂无数据</Col>
          </Row>
          </div>
-        <Page class="page-count" size="small" :total="totalCount" :page-size="filterData.pageSize" @on-change="changePage"></Page>
+        <Page class="page-count" size="small" :total="totalCount" show-total :current="filterData.currentPage" :page-size="filterData.pageSize" @on-change="changePage"></Page>
       </div>
         <div class="bind-main">
           您已勾选<span>{{selectLen}}</span>资源，批量应用刷新规则：
@@ -182,9 +182,9 @@ export default {
   },
   methods: {
     onFilter() {
-      this.filterData.currentPage = 1;
       this.getAllList();
       this.resetBinder();
+      this.filterData.currentPage = 1;
     },
     changePage(page) {
       this.filterData.currentPage = page;

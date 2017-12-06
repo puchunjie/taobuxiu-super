@@ -142,6 +142,62 @@ const router = new Router({
                     path: 'ironsRank',
                     name: 'ironsRank',
                     component: resolve => require(['@/views/jiedanba/ironsRank/index'], resolve),
+                },{
+                    path: 'orderCountManagement',
+                    name: 'orderCountManagement',
+                    redirect: 'orderCountManagement/orderCount',
+                    component: resolve => require(['@/views/orderCountManagement/index'],resolve),
+                    meta: {
+                        requireAuth: true
+                    },
+                    children: [{
+                        path:'orderCount',
+                        name: 'orderCount',
+                        component: resolve => require(['@/views/orderCountManagement/orderCount/index'],resolve),
+                        meta: {
+                            requireAuth: true
+                        }
+                    },{
+                        path:'buyerCount',
+                        name: 'buyerCount',
+                        component: resolve => require(['@/views/orderCountManagement/buyerCount/index'],resolve),
+                        meta: {
+                            requireAuth: true
+                        }
+                    },{
+                        path:'sellerCount',
+                        name: 'sellerCount',
+                        component: resolve => require(['@/views/orderCountManagement/sellerCount/index'],resolve),
+                        meta: {
+                            requireAuth: true
+                        }
+                    },{
+                        path:'areaCount',
+                        name: 'areaCount',
+                        component: resolve => require(['@/views/orderCountManagement/areaCount/index'],resolve),
+                        meta: {
+                            requireAuth: true
+                        }
+                    },{
+                        path:'goodsCount',
+                        name: 'goodsCount',
+                        component: resolve => require(['@/views/orderCountManagement/goodsCount/index'],resolve),
+                        meta: {
+                            requireAuth: true
+                        }
+                    }]
+                },{
+                    path: 'authentication',
+                    name: 'authentication',
+                    component: resolve => require(['@/views/contractManagement/authentication/index'],resolve)
+                },{
+                    path: 'draft',
+                    name: 'draft',
+                    component: resolve => require(['@/views/contractManagement/draft/index'],resolve)
+                },{
+                    path: 'authList',
+                    name: 'authList',
+                    component: resolve => require(['@/views/contractManagement/authList/index'],resolve)
                 },
                 {
                     path:'resourceRefresh',
