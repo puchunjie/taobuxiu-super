@@ -10,6 +10,7 @@ if (process.env.NODE_ENV == 'development') {
     ws = 'ws://192.168.0.251:8080/websocket'
 } else {
     ws = 'ws://120.55.63.70:8080/websocket';
+    // ws = 'ws://192.168.0.251:8080/websocket'
 }
 /**
  * 登录
@@ -877,9 +878,15 @@ export const fourDAnalysis = '/sys/orderData/fourDAnalysis'
 //  订单地区前五(地区分析)
 export const orderAreaTopFive = '/sys/orderData/orderAreaTopFive'
 
-//  
+//---------------------------合同管理-------------------------------
+//  合同认证信息管理分页查询
+export const queryCheckContractPage = '/common/checkcontract/queryCheckContractPage'
 
+//  电子合同平台用户信息认证
+export const saveCheckContract = '/common/checkcontract/saveCheckContract'
 
+//  电子合同平台用户信息修改
+export const updateCheckContract = '/common/checkcontract/updateCheckContract'
 
 // -----------------------------------关联数据---------------------------------
 /**

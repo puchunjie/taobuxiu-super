@@ -4,10 +4,17 @@
 
 <script>
 export default {
-
+  data () {
+    return {
+      
+    }
+  },
+  methods: {
+    
+}
 }
 </script>
 
-<style>
+<style lang="less" scoped>
 
 </style>

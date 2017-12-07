@@ -1,5 +1,5 @@
 <template>
-    <Cascader ref='cs' :data="arr" :load-data="loadData" :clearable="false" @on-change="exportData" :placeholder="value">
+    <Cascader ref='cs' :data="arr" :load-data="loadData" :clearable="false" @on-change="exportData" :clearData="clearData" :placeholder="value">
     </Cascader>
 </template>
 
@@ -63,6 +63,9 @@
                     cityId: selectedData[1].value,
                     cityName: selectedData[1].label
                 })
+            },
+            clearData() {
+                this.init();
             },
             init() {
                 this.$nextTick(function() {

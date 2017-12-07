@@ -356,7 +356,7 @@ import City from '@/components/basics/adress/citySelect.vue'
                 return data
             },
             placeHolder(){
-              return this.detail.provinceName != '' ? this.detail.provinceName+' / '+this.detail.cityName : '请选择地区'
+              return this.detail.provinceName != '' ? this.detail.provinceName+' / '+ this.detail.cityName : '请选择地区'
             },
             handleList() {
                 if (!!this.exclude) {
@@ -408,6 +408,7 @@ import City from '@/components/basics/adress/citySelect.vue'
                     remark: ''
                 }
                 this.dateValue = ['',''];
+                this.$refs.city.clearData()
             },
             // 获取品类
             getIronTypes() {

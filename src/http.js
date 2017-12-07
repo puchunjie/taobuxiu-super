@@ -8,11 +8,11 @@ import Qs from 'qs'
 // axios 配置
 axios.defaults.timeout = 20000;
 if (process.env.NODE_ENV == 'development')
-    axios.defaults.baseURL = 'http://192.168.0.251';
+    // axios.defaults.baseURL = 'http://192.168.0.251';
     // axios.defaults.baseURL = 'http://192.168.0.132:8080'; //配置接口地址-胡
     // axios.defaults.baseURL = 'http://192.168.0.122:8080'; //配置接口地址-王
     // axios.defaults.baseURL = 'http://192.168.0.114:8080'; //配置接口地址
-    // axios.defaults.baseURL = 'http://192.168.0.117:8080'; //配置接口地址-杭
+    axios.defaults.baseURL = 'http://192.168.0.101:8080'; //配置接口地址-杭
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8'; //配置请求头
 axios.defaults.withCredentials = true;
 
@@ -61,7 +61,7 @@ axios.interceptors.response.use(response => {
     if (error && error.response) {
         switch (error.response.status) {
             case 400:
-                error.message = '请求错误'
+                error.message = '参数格式错误'
                 break
 
             case 401:

@@ -337,3 +337,46 @@ export const isEmpty = (value, params) => {
 export const dateformat = (value, fromatStr = 'yyyy-MM-dd hh:mm') => {
   return df.format(new Date(value), fromatStr)
 }
+
+//   合同用户类型
+export const userTypeStu =(val) =>{
+  switch (val * 1){
+    case 1:
+      return '个人'
+      break;
+    case 2:
+      return '企业'
+      break;
+    case 4:
+      return '平台自身'
+      break;
+    default:
+      return '-'
+      break;
+  }
+}
+//  合同证件类型
+export const certifyTypeStu = (val) => {
+  switch (val * 1){
+    case 1:
+      return '身份证'
+      break;
+    case 2:
+      return '护照'
+      break;
+    case 3:
+      return '军官证'
+      break;
+    case 4:
+      return '营业执照'
+      break;
+    case 5:
+      return '组织机构代码证'
+      break;
+    case 6:
+      return '社会统一信用代码'
+    default:
+      return '-'
+      break;
+  }
+}

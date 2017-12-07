@@ -406,6 +406,7 @@ import City from '@/components/basics/adress/citySelect.vue'
                     tolerance: ''
                 }
                 this.dateValue = ['','']
+                this.$refs.city.clearData()
             },
             // 获取品类
             getIronTypes() {

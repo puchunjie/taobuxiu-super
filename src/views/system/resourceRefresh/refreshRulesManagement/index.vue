@@ -176,7 +176,6 @@ export default {
                   params.id = this.editItem.id;
                   params.name = this.itemApi.name;
                   params.remark = this.itemApi.remark;
-                  
                   this.dataApi ={
                       date: '',
                       time: ''

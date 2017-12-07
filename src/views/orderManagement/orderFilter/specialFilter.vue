@@ -393,7 +393,7 @@ import City from '@/components/basics/adress/citySelect.vue'
                     taxType: ''
                 }
                 this.dateValue = ['','']
-
+                this.$refs.city.clearData()
             },
             // 获取品类
             getIronTypes() {

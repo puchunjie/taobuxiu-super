@@ -116,7 +116,7 @@
             //  退出登录
             loginout(data) {
                 this.$store.commit(types.LOGOUT, data);
-                window.location.href = '/login';
+                window.location.href = '/bg/login';
             }
         },
         created() {
