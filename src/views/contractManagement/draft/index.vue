@@ -1,13 +1,21 @@
 <template>
-  <div>起草合同</div>
+  <div>
+  </div>
 </template>
 
 <script>
-export default {
+  export default {
+    data() {
+      return {
+        
+      }
+    },
+    methods: {
 
-}
+    }
+  }
 </script>
 
-<style lang="less" scoped>
-
+<style lang='less' scoped>
+  
 </style>

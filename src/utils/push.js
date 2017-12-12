@@ -56,9 +56,15 @@ export default {
                     if (data.code == 1  || data.code == 3) {
                         //  跳转到求购
                         this.$router.push('/ironBuys');
-                    } else {
+                    } else if(data.code == 3){
                         //  跳转到质检
                         this.$router.push('/quality');
+                    }else if(data.code == 21 || data.code == 24 || data.code == 27){
+                        this.$router.push('/stockOrder')
+                    }else if(data.code == 22 || data.code == 25 || data.code == 28) {
+                        this.$router.push('/planOrder')
+                    }else if(data.code == 23 || data.code == 26 || data.code == 29) {
+                        this.$router.push('/specialOrder')
                     }
                     window.focus();
                     notif.close();

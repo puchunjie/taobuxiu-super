@@ -64,6 +64,7 @@
                     cityName: selectedData[1].label
                 })
             },
+            //  清除数据
             clearData() {
                 this.init();
             },

@@ -191,6 +191,10 @@ const router = new Router({
                     name: 'authentication',
                     component: resolve => require(['@/views/contractManagement/authentication/index'],resolve)
                 },{
+                    path: 'authDetail-:id-:status',
+                    name: 'authDetail',
+                    component: resolve => require(['@/views/contractManagement/authentication/authDetail/index'],resolve)
+                },{
                     path: 'draft',
                     name: 'draft',
                     component: resolve => require(['@/views/contractManagement/draft/index'],resolve)

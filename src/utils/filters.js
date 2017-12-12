@@ -380,3 +380,61 @@ export const certifyTypeStu = (val) => {
       break;
   }
 }
+
+//  合同状态
+export const contractStatus = (val) => {
+  switch (val) {
+    case 'a':
+        return '需要我的签名'
+        break;
+    case 'b': 
+        return '等待他方签署'
+        break;
+    case 1:
+        return '已完成'
+        break;
+    case 2:
+        return '已作废'
+        break;
+    default:
+        return '全部合同'
+        break
+}
+}
+//  订单状态  
+export const orderSta = (val) => {
+  switch(val) {
+    case 0:
+      return '实单求购'
+      break;
+    case 1:
+      return '现货资源'
+      break;
+    case 2:
+      return '定开计划'
+      break;
+    default:
+      return '特价资源'
+      break
+  }
+}
+//  合同认证状态  
+export const authStatus = (val) => {
+  switch(val*1) {
+    case 0:
+      return '申请保存'
+      break;
+    case 1:
+      return '认证成功'
+      break;
+    case 2:
+      return '认证待审核'
+      break;
+    case 9:
+      return '认证失败'
+      break;
+    default:
+      return '-'
+      break
+  }
+}

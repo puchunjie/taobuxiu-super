@@ -880,13 +880,25 @@ export const orderAreaTopFive = '/sys/orderData/orderAreaTopFive'
 
 //---------------------------合同管理-------------------------------
 //  合同认证信息管理分页查询
-export const queryCheckContractPage = '/common/checkcontract/queryCheckContractPage'
+export const queryCheckContractPage = '/sys/bg/queryContractAuthenticationList'
 
 //  电子合同平台用户信息认证
 export const saveCheckContract = '/common/checkcontract/saveCheckContract'
 
 //  电子合同平台用户信息修改
 export const updateCheckContract = '/common/checkcontract/updateCheckContract'
+
+//  合同列表管理分页查询
+export const queryBgContractInfoPage = '/sys/contractBgManger/queryBgContractInfoPage'
+
+//   根据合同编号获取合同和订单信息
+export const getContractInfoContractId =  '/common/checkcontract/getContractInfoContractId'
+
+// 认证商户单个查询 
+export const queryContractAuthenticationById = '/sys/bg/queryContractAuthenticationById'
+
+//  商户认证信息超管审核
+export const checkContractAuthentication = '/sys/bg/checkContractAuthentication'
 
 // -----------------------------------关联数据---------------------------------
 /**
