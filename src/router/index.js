@@ -197,8 +197,26 @@ const router = new Router({
                 },{
                     path: 'draft',
                     name: 'draft',
-                    component: resolve => require(['@/views/contractManagement/draft/index'],resolve)
-                },{
+                    redirect: 'draft/step1',
+                    component: resolve => require(['@/views/contractManagement/draft/index'],resolve),
+                    children: [{
+                        path: 'step1',
+                        name: 'step1',
+                        component: resolve => require(['@/views/contractManagement/draft/step/step1'],resolve)
+                    },{
+                        path: 'step2-:buyerId',
+                        name: 'step2',
+                        component: resolve => require(['@/views/contractManagement/draft/step/step2'],resolve)
+                    },{
+                        path: 'step3-:buyerId-:sellerId',
+                        name: 'step3',
+                        component: resolve => require(['@/views/contractManagement/draft/step/step3'],resolve)
+                    },{
+                        path: 'step4',
+                        name: 'step4',
+                        component: resolve => require(['@/views/contractManagement/draft/step/step4'],resolve)
+                    }]
+                },,{
                     path: 'authList',
                     name: 'authList',
                     component: resolve => require(['@/views/contractManagement/authList/index'],resolve)

@@ -900,6 +900,21 @@ export const queryContractAuthenticationById = '/sys/bg/queryContractAuthenticat
 //  商户认证信息超管审核
 export const checkContractAuthentication = '/sys/bg/checkContractAuthentication'
 
+//  超管起草合同选择买方分页查询
+export const queryBgBuyContractMangerPage = '/sys/contractBgManger/queryBgBuyContractMangerPage'
+
+//  超管起草合同选择卖方分页查询
+export const queryBgSellContractMangerPage = '/sys/contractBgManger/queryBgSellContractMangerPage'
+
+//  超管起草合同选择签约订单分页查询
+export const queryBgContractOrderPage = '/sys/contractBgManger/queryBgContractOrderPage'
+
+//  超管开始起草合同页面信息
+export const selectBgStartContractInfo = '/sys/contractBgManger/selectBgStartContractInfo'
+
+//  超管保存起草合同信息
+export const saveBgContractInfo = '/sys/contractBgManger/saveBgContractInfo'
+
 // -----------------------------------关联数据---------------------------------
 /**
  * 保存关联分组（品类、表面）

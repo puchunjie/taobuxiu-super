@@ -47,7 +47,7 @@
                     <Col span="2" class="col-title">提交审核时间：</Col>
                     <Col span="22">{{dataApi.updateTime | dateformat}}</Col>
                 </Row>
-                <Row class="row" v-if="getStatus == 2">
+                <Row class="row" v-if="dataApi.status == '9'">
                     <Col span="2" class="col-title">审核失败原因：</Col>
                     <Col span="22">{{dataApi.remark}}</Col>
                 </Row>
@@ -57,7 +57,10 @@
             <p class="title"><span>主体证件资料</span></p>
             <div class="auth-main">
                 <div class="auth-main-header">主体工商证件：</div>
-                <img :src="businessLicense" style="width:180px">
+                <div class="auth-main-img">
+                    <i class="iconfont icon-fangdajing" @click="previewImg(businessLicense)"></i>
+                    <img :src="businessLicense" style="width:180px">
+                </div>
             </div>
         </div>
         <div class="auth-wrap">
@@ -66,11 +69,17 @@
                 <Row>
                     <Col span="5">
                         <div class="auth-main-header">身份证正面照：</div>
-                        <img :src="legalPersonCardPhotoA" style="width:180px">
+                        <div class="auth-main-img">
+                            <i class="iconfont icon-fangdajing" @click="previewImg(legalPersonCardPhotoA)"></i>
+                            <img :src="legalPersonCardPhotoA"  style="width:180px">
+                        </div>
                     </Col>
                     <Col span="5">
                         <div class="auth-main-header">身份证反面照：</div>
-                        <img :src="legalPersonCardPhotoB" style="width:180px">
+                        <div class="auth-main-img">
+                            <i class="iconfont icon-fangdajing" @click="previewImg(legalPersonCardPhotoB)"></i>
+                            <img :src="legalPersonCardPhotoB" style="width:180px">
+                        </div>
                     </Col>
                 </Row>
             </div>
@@ -79,7 +88,10 @@
             <p class="title"><span>企业认证授权书资料</span></p>
             <div class="auth-main">
                 <div class="auth-main-header">授权书资料图：</div>
-                <img :src="businessCertificate" style="width:180px">
+                <div class="auth-main-img">
+                    <i class="iconfont icon-fangdajing" @click="previewImg(businessCertificate)"></i>
+                    <img :src="businessCertificate" style="width:180px">
+                </div>
             </div>
         </div>
         <div class="auth-wrap" v-if="getStatus != 2">
@@ -101,6 +113,14 @@
                 <Button type="primary" @click="unpassHandle" :loading="loading">确认保存</Button>
             </div>
         </Modal>
+        <Modal v-model="imgshow" title="查看大图" :closable="false" :mask-closable="false">
+           <div>
+               <img :src="previewImgUrl" style="max-width:100%;">
+           </div>
+            <div slot="footer">
+                <Button type="primary" @click="imgshow = false">关闭</Button>
+            </div>
+        </Modal>
     </div>
 </template>
 
@@ -111,6 +131,7 @@ import {authStatus,certifyTypeStu,userTypeStu} from '@/utils/filters.js'
             return {
                 ref: 'form' + new Date().getTime(),
                 show: false,
+                imgshow: false,
                 unpassApi: {
                     remark: ''
                 },
@@ -126,7 +147,8 @@ import {authStatus,certifyTypeStu,userTypeStu} from '@/utils/filters.js'
                 businessLicense: '',
                 legalPersonCardPhotoA: '',
                 legalPersonCardPhotoB: '',
-                businessCertificate: ''
+                businessCertificate: '',
+                previewImgUrl: ''
             }
         },
         computed: {
@@ -167,6 +189,8 @@ import {authStatus,certifyTypeStu,userTypeStu} from '@/utils/filters.js'
                             if(res.code === 1000){
                                 this.$Message.success('通过成功')
                                 this.$router.push('/authentication')
+                            }else{
+                                this.$Message.error(res.message)   
                             }
                         })
                         
@@ -189,10 +213,16 @@ import {authStatus,certifyTypeStu,userTypeStu} from '@/utils/filters.js'
                             if(res.code === 1000){
                                 this.$Message.success('操作成功')
                                 this.$router.push('/authentication')
+                            }else{
+                                this.$message.error(res.message)
                             }
                         })
                     }
                 })
+            },
+            previewImg(data) {
+                this.imgshow = true;
+                this.previewImgUrl = data;
             }
         },
         created() {
@@ -233,6 +263,22 @@ import {authStatus,certifyTypeStu,userTypeStu} from '@/utils/filters.js'
             }
             .auth-main-header{
                 margin-bottom: 10px;
+            }
+            .auth-main-img{
+                position: relative;
+                font-size: 0;
+                i{
+                    position: absolute;
+                    bottom: 0px;
+                    left: 140px;
+                    font-size: 26px;
+                    color: #fff;
+                    background-color: rgba(0, 0, 0, .3);
+                    width: 40px;
+                    height: 40px;
+                    line-height: 40px;
+                    text-align: center
+                }
             }
         }
     }

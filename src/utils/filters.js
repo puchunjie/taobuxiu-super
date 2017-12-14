@@ -403,7 +403,7 @@ export const contractStatus = (val) => {
 }
 //  订单状态  
 export const orderSta = (val) => {
-  switch(val) {
+  switch(val*1) {
     case 0:
       return '实单求购'
       break;
@@ -420,18 +420,21 @@ export const orderSta = (val) => {
 }
 //  合同认证状态  
 export const authStatus = (val) => {
-  switch(val*1) {
-    case 0:
+  switch(val) {
+    case '0':
       return '申请保存'
       break;
-    case 1:
+    case '1':
       return '认证成功'
       break;
-    case 2:
+    case '2':
       return '认证待审核'
       break;
-    case 9:
+    case '9':
       return '认证失败'
+      break;
+    case 'd':
+      return '未认证'
       break;
     default:
       return '-'

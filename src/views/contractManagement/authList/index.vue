@@ -31,8 +31,8 @@
                         <Col class-name="col" span="24">暂无数据</Col>
                     </Row>
                 </div>
-            </div>
-            <Page :total="totalCount" class="page-count" @on-change="pageChange" show-total :current="pageData.currentPage" :page-size="pageData.pageSize"></Page>
+            </div> 
+            <Page :total="totalCount" size="small" class="page-count" @on-change="pageChange" show-total :current="pageData.currentPage" :page-size="pageData.pageSize"></Page>
         </Card>
         <Modal v-model="show" title="合同信息" :closable="false" :mask-closable="false">
             <Row class="info">
@@ -162,8 +162,8 @@ import * as types from '@/store/types'
             },
             //  查看
             contractDetail(data) {
-                let token = this.$store.getters.authorization
-                let loginId = this.$store.getters.loginId
+                let token = this.$store.state.authorization
+                let loginId = this.$store.state.loginId
                 let url = 'http://192.168.0.251:8080/contract.jsp?appUserId=100000000000000000000000000000001'+'&loginId='+loginId+'&contractId=' + data.contractId+'&authorization='+token+'&flash=' + Math.random()
                 window.open(url)
             },
