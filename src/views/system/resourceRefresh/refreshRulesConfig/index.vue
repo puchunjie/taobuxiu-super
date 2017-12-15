@@ -92,7 +92,7 @@
       </div>
     </Modal>
     <Modal v-model="showDefault" title="配置默认规则" :closable="false" :mask-closable="false">
-        <Form :label-width="100" :ref="refdefault" :model="defalutApi" >
+        <Form :label-width="100" :ref="refdefault" :model="defalutApi" :rules="defalutRules">
           <FormItem label="当前默认规则：">
             {{defaultRuleName}}
           </FormItem>
@@ -162,12 +162,12 @@ export default {
         defalutApi: {
             storeRuleTypeId: ''
         },
-        // defalutRules: {
-        //     storeRuleTypeId: [{
-        //         required: true,
-        //         message: '请选择规则'
-        //     }]
-        // },
+        defalutRules: {
+            storeRuleTypeId: [{
+                required: true,
+                message: '请选择规则'
+            }]
+        },
         loading: false
     }
   },
@@ -274,7 +274,7 @@ export default {
                     this.showDefault = false;
                     this.$Message.success('操作成功');
                 }else{
-                    this.$Message.error('操作失败')
+                    this.$Message.error(res.message)
                 }
                 this.loading = false
             })

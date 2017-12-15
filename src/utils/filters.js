@@ -293,7 +293,19 @@ export const orderStatus = (val) => {
       break;
   }
 }
-
+// 计量方式转义
+export const measuringStr = (value) => {
+  switch (value) {
+      case 1:
+          return '过磅'
+          break;
+      case 2:
+          return '理计'
+          break;
+      default:
+          break;
+  }
+}
 // js时间转化为几天前,几小时前，几分钟前
 export const getDateDiff = (value, now) => {
   let nowTime = now ? now : new Date().getTime();

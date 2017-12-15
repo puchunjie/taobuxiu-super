@@ -32,12 +32,12 @@
       </div>
     </Card>
     <Modal v-model="show" :title="isEdit?`编辑${title}`:`添加${title}`" :closable="false" :mask-closable="false">
-      <Form :label-width="80" :ref="ref" :model="itemApi" :rules="rules">
+      <Form :label-width="80" :ref="ref" :model="itemApi" class="form-star" :rules="rules">
           <FormItem label="规则名称:" prop="name">
               <Input type="text" v-model="itemApi.name" v-if="isEdit" disabled size="small" placeholder="请输入..."></Input>
               <Input type="text" v-model="itemApi.name" v-else size="small" placeholder="请输入..."></Input>
           </FormItem>
-          <FormItem label="时间单元:" prop="determineTime">
+          <FormItem label="时间单元:">
             <Select style="width:120px" v-model="dataApi.date" size="small" placeholder="选择天数">
                 <Option v-for="(d ,i) in 31" :value="i" :key="i">{{ i }}</Option>
             </Select>天 
@@ -113,13 +113,6 @@ export default {
       }
   },
   methods: {
-    queryIronTypes() {
-        this.$http.get(this.api.queryIronTypes).then(res => {
-            if(res.code === 1000){
-                this.ironTypes = res.data;
-            }
-        })
-    },
     resetDataApi(){
         this.dataApi ={
           date: '',
@@ -169,29 +162,33 @@ export default {
     handleSubmit() {
       this.$refs[this.ref].validate((valid) => {
           if(valid){
-              this.loading = true;
-              let params = JSON.parse(JSON.stringify(this.itemApi));
-              params.determineTime = this.formateMsec
-              if(this.isEdit){
-                  params.id = this.editItem.id;
-                  params.name = this.itemApi.name;
-                  params.remark = this.itemApi.remark;
-                  this.dataApi ={
-                      date: '',
-                      time: ''
-                  }
-              }
-              let apiUrl = this.isEdit ? this.api.updateStoreRuleType : this.api.saveStoreRuleType;
-              this.$http.post(apiUrl,params).then(res => {
-                  if(res.code === 1000){
-                      this.getList();
-                      this.$Message.success('操作成功');
-                      this.show = false;
-                  }else{
-                      this.$Message.error(res.message);
-                  }
-                  this.loading = false
-              })
+              if(this.dataApi.date != '' || this.dataApi.time != ''){
+                this.loading = true;
+                let params = JSON.parse(JSON.stringify(this.itemApi));
+                params.determineTime = this.formateMsec
+                if(this.isEdit){
+                    params.id = this.editItem.id;
+                    params.name = this.itemApi.name;
+                    params.remark = this.itemApi.remark;
+                    this.dataApi ={
+                        date: '',
+                        time: ''
+                    }
+                }
+                let apiUrl = this.isEdit ? this.api.updateStoreRuleType : this.api.saveStoreRuleType;
+                this.$http.post(apiUrl,params).then(res => {
+                    if(res.code === 1000){
+                        this.getList();
+                        this.$Message.success('操作成功');
+                        this.show = false;
+                    }else{
+                        this.$Message.error(res.message);
+                    }
+                    this.loading = false
+                })
+              }else{
+                this.$Message.error('请将时间单元选择完整');
+                }
           }else{
               this.$Message.error('表单验证失败');
           }
@@ -222,12 +219,26 @@ export default {
   },
   created () {
     this.getList();
-    this.queryIronTypes();
   }
   
 }
 </script>
 <style lang="less" scoped>
+.form-star{
+    position: relative;
+    &:before{
+        content: '*';
+        position: absolute;
+        left: 6px;
+        top: 68px;
+        display: inline-block;
+        margin-right: 4px;
+        line-height: 1;
+        font-family: SimSun;
+        font-size: 12px;
+        color: #ed3f14;
+    }
+}
 .card {
     position: relative;
     margin-bottom: 20px;

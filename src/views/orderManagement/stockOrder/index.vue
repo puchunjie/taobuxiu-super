@@ -35,12 +35,12 @@
                     <div class="item">仓库：{{item.storeHouseName}}</div>
                     <div class="item">单价：{{item.price}}元/吨</div>
                     <div class="item">购买数量：{{item.numbers}}</div>
-                    <div class="item">计量方式：{{item.measuringType = 1 ? "过磅" : "理计"}}</div>
+                    <div class="item">计量方式：{{item.measuringType | measuringStr}}</div>
                     <div class="item">交易总额：{{item.allPrice}}元</div>
                     <template v-if="item.status == 2">
                         <div class="item">
                             有效时间： 
-                            <countDown :normal="true" :endTime="item.createTime + item.validity" :nowTime="item.serverTime"></countDown>
+                            <countDown :normal="true" :endTime="item.createTime" :nowTime="item.serverTime"></countDown>
                         </div>
                     </template>
                     <template v-else-if="item.status == 6 || item.status == 5 || item.status == 4">
@@ -70,7 +70,7 @@
                 <div class="info-item">负责专员：{{resourseData.salemanName}}</div>
                 <div class="info-item">所属商户：{{resourseData.createUser}}</div>
                 <div class="info-item">所属地区：{{resourseData.locationName}}</div>
-                <div class="info-item">计量方式：{{resourseData.measuringType = 1 ? "过磅" : "理计"}}</div>
+                <div class="info-item">计量方式：{{resourseData.measuringType | measuringStr}}</div>
                 <div class="info-item">新鲜指数：{{resourseData.recommendPoint}}</div>
                 <div class="info-item">品类：{{resourseData.ironTypeName}}</div>
                 <div class="info-item">材质：{{resourseData.materialName}}</div>
@@ -96,7 +96,6 @@
 <script>
 import filterForm from '../orderFilter/stockFilter'
 import countDown from '@/components/basics/countDown'
-import {orderStatus,dateformat,getDateDiff,dkStatus} from '@/utils/filters.js'
 export default {
     components: {
         filterForm,

@@ -67,7 +67,7 @@ export default {
                         this.$router.push('/specialOrder')
                     }else if(data.code == 31 || data.code == 32 || data.code == 33){
                         this.$router.push('/authentication')
-                    }else if(data.code == 34 || data.code == 35 || data.code == 35){
+                    }else if(data.code == 34 || data.code == 35 || data.code == 36){
                         this.$router.push('/authList')
                     }
                     window.focus();

@@ -20,7 +20,7 @@
                     <Col class-name="col" span="4">{{ item.updateTime | dateformat}}</Col>
                     <Col class-name="col" span="4">{{ item.remark | isEmpty(params ='暂无')}}</Col>
                     <Col class-name="col" span="3">{{ item.updateUser }}</Col>
-                    <Col class-name="col" span="2">{{ item.downloadCount }}</Col>
+                    <Col class-name="col" span="2">{{ item.downLoadCount }}</Col>
                     <Col class-name="col" span="3">
                         <Button size="small" type="warning" @click="openModel(true,item)">更新</Button>
                         <Button size="small" type="warning" @click="download(item)">下载</Button>

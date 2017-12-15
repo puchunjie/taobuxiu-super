@@ -184,9 +184,15 @@ export default {
     }
   },
   watch: {
-    handleData: _.debounce(function(val) {
-        this.getAllList(val)
-    }, 200)
+    'handleData': {
+        handler: _.debounce(function(val, oldVal) {
+            // 是否是翻页操作
+            if(val.currentPage == oldVal.currentPage)
+                this.filterData.currentPage = 1;
+            this.getAllList();
+        }, 200),
+        deep: true
+    }
   },
   methods: {
     resetFilter() {
