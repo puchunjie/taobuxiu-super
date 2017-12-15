@@ -65,8 +65,10 @@ export default {
                         this.$router.push('/planOrder')
                     }else if(data.code == 23 || data.code == 26 || data.code == 29) {
                         this.$router.push('/specialOrder')
-                    }else if(data.code == 31){
+                    }else if(data.code == 31 || data.code == 32 || data.code == 33){
                         this.$router.push('/authentication')
+                    }else if(data.code == 34 || data.code == 35 || data.code == 35){
+                        this.$router.push('/authList')
                     }
                     window.focus();
                     notif.close();

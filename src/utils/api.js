@@ -1,5 +1,4 @@
 export const uploadApi = 'http://192.168.0.251:8080/fileUpload/images';
-// export const uploadExcelApi = 'http://192.168.0.117:8080/sys/qualiticationmodel/uplodeQualiticationModel';
 export const uploadExcelApi = 'http://192.168.0.251/sys/qualiticationmodel/uplodeQualiticationModel';
 export const excelBaseUrl = 'http://tbxoss.oss-cn-hangzhou.aliyuncs.com/';
 

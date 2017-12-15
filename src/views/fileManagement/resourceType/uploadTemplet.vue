@@ -20,7 +20,7 @@
                     <Col class-name="col" span="4">{{ item.updateTime | dateformat}}</Col>
                     <Col class-name="col" span="4">{{ item.remark | isEmpty(params ='暂无')}}</Col>
                     <Col class-name="col" span="3">{{ item.updateUser }}</Col>
-                    <Col class-name="col" span="2">{{ item.downLodeCount }}</Col>
+                    <Col class-name="col" span="2">{{ item.downloadCount }}</Col>
                     <Col class-name="col" span="3">
                         <Button size="small" type="warning" @click="openModel(true,item)">更新</Button>
                         <Button size="small" type="warning" @click="download(item)">下载</Button>
@@ -48,7 +48,7 @@
             </FormItem>
             <FormItem label="模板文件" prop="modelName">
                 <Input v-model="itemApi.modelName" disabled size="small" placeholder="请选择上传文件"></Input>
-                  <Upload :action="api.uploadApi" :headers="uplaodHeader" :before-upload="beforeUpload" :max-size="1024" :data="uploadParams" :format="['xlsx']" :show-upload-list="false" :on-exceeded-size="handleMaxSize" :on-success="handleSuccess" :on-format-error="handleFormatError" style="display:inline-block;width: 60px;"> 
+                  <Upload :action="api.uploadExcelApi" :headers="uplaodHeader" :before-upload="beforeUpload" :max-size="1024" :data="uploadParams" :format="['xlsx']" :show-upload-list="false" :on-exceeded-size="handleMaxSize" :on-success="handleSuccess" :on-format-error="handleFormatError" style="display:inline-block;width: 60px;"> 
                     <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
                   </Upload>  
             </FormItem>
@@ -237,7 +237,7 @@ export default {
                 })
             }
             this.itemApi.modelName = res.data.modelName;
-            this.itemApi.modelUrl = res.data.modelUrl
+            this.itemApi.modelUrl = res.data.modelUrl;
         },
         //  文件格式
         handleFormatError(file) {

@@ -154,7 +154,7 @@ export default {
                     if(this.isEdit){
                         params.id = this.editItem.id;
                         params.name = this.itemApi.name;
-                        params.name = this.itemApi.determineTime;
+                        params.determineTime = this.formateMsec;
                         params.remark = this.itemApi.remark;
                     }
                     let apiUrl = this.isEdit ? this.api.updateStorerSubOrder: this.api.saveStorerSubOrder
@@ -164,7 +164,7 @@ export default {
                             this.getAllList();
                             this.show = false;
                         }else{
-                            this.$Message.error('提交失败')
+                            this.$Message.error(res.message)
                         }
                     this.loading = false;
                     })

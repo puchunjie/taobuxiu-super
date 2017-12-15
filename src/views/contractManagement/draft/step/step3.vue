@@ -36,7 +36,7 @@
                         <Row class="rowHeader">
                             <Col span="24">
                                 <span><Checkbox :label="item.id">&nbsp;</Checkbox></span>
-                                <span>成交时间：{{item.updateTime}}</span>
+                                <span>成交时间：{{item.updateTime | dateformat}}</span>
                                 <span>订单编号：{{item.id}}</span>
                             </Col>
                         </Row>

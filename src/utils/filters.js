@@ -390,10 +390,10 @@ export const contractStatus = (val) => {
     case 'b': 
         return '等待他方签署'
         break;
-    case 1:
+    case '1':
         return '已完成'
         break;
-    case 2:
+    case '0':
         return '已作废'
         break;
     default:
