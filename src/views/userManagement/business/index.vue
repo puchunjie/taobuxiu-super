@@ -76,6 +76,7 @@
                 {{ item.companyName }}
                 <span class="iconfont icon-cheng" style="color:#F5A623" v-show="item.isFaithUser == 1"></span>
                 <span class="iconfont icon-bao" style="color:#C16BD6" v-show="item.isGuaranteeUser == 1"></span>
+                <!-- <span class="iconfont icon-dian" style="color:#2db7f5" v-show="item.isHaveShop == 1"></span> -->
                 <Button style="float:right;margin-top:10px" size="small" type="info" @click="showInfo(index)">详情</Button>
                 <Button style="float:right;margin-top:10px;margin-right:10px;" size="small" type="info" @click="showRangeInfo(index)">报价经营范围</Button>
             </div>
@@ -111,19 +112,25 @@
                         <span slot="close">否</span>
                     </i-switch>
                 </FormItem>
-                <FormItem label="成为诚信商家" v-if="activeItem.beFaithUserTime != ''">
+                <FormItem label="开通店铺">
+                    <i-switch size="large" v-model="editData.isHaveShop">
+                        <span slot="open">是</span>
+                        <span slot="close">否</span>
+                    </i-switch>
+                </FormItem>
+                <FormItem label="成为诚信商家" v-if="activeItem.isFaithUser == 1">
                     {{ activeItem.beFaithUserTime | dateformat }}
                 </FormItem>
-                <FormItem label="成为担保商家" v-if="activeItem.beGuaranteeUserTime != ''">
+                <FormItem label="开通店铺时间" v-if="activeItem.isHaveShop == 1">
+                    {{ activeItem.beHaveShopTime | dateformat }}
+                </FormItem>
+                <FormItem label="成为担保商家" v-if="activeItem.isGuaranteeUser == 1">
                     {{ activeItem.beGuaranteeUserTime | dateformat }}
                 </FormItem>
                 <FormItem label="QQ" >
                     <Input v-model="editData.qq" placeholder="请输入qq"></Input>
                 </FormItem>
                 <FormItem label="仓库">
-                    <!-- <Select v-model="editData.storeHouseId" size="small" style="width:200px">
-                        <Option v-for="item in houseList" :key="item.id" :value="item.id+'-'+item.name">{{ item.name }}</Option>
-                    </Select> -->
                     <ajaxSelect class="form-input" :api="api.getStroeHouse" :value="editData.storeHouseId+'-'+editData.storeHouseName" @on-select="asyncStore"></ajaxSelect>
                 </FormItem>
                 <FormItem label="商户优惠信息">
@@ -157,7 +164,7 @@ import ajaxSelect from '@/components/basics/ajaxSelect'
                     bFUTime: ['',''],
                     bGUTime: ['',''],
                     currentPage: 1,
-                    pageSize: 5
+                    pageSize: 10
                 },
                 list: [],
                 houseList: [],
@@ -167,6 +174,8 @@ import ajaxSelect from '@/components/basics/ajaxSelect'
                     userId: '',
                     isFaithUser: false,
                     isGuaranteeUser: false,
+                    isStore: false,
+                    isHaveShop: false,
                     qq: '',
                     storeHouseId:'',
                     storeHouseName:'',
@@ -242,6 +251,7 @@ import ajaxSelect from '@/components/basics/ajaxSelect'
                 this.editData.userId = data.userId;
                 this.editData.isFaithUser = data.isFaithUser == 1;
                 this.editData.isGuaranteeUser = data.isGuaranteeUser == 1;
+                this.editData.isHaveShop = data.isHaveShop == 1;
                 this.editData.proInfo = data.proInfo;
                 this.editData.storeHouseId = data.storeHouseId;
                 this.editData.storeHouseName = data.storeHouseName;
@@ -260,9 +270,7 @@ import ajaxSelect from '@/components/basics/ajaxSelect'
                 let params = _.cloneDeep(this.editData);
                 params.isFaithUser = params.isFaithUser ? 1 : 0;
                 params.isGuaranteeUser = params.isGuaranteeUser ? 1 : 0;
-                // let storeHouse = params.storeHouseId.split("-");
-                // params.storeHouseId = storeHouse[0];
-                // params.storeHouseName = storeHouse[1];
+                params.isHaveShop = params.isHaveShop ? 1 : 0;
                 this.$http.post(this.api.eidtBusiness,params).then(res => {
                     if(res.code === 1000){
                         this.$Message.success('修改成功！');

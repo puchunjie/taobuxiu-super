@@ -55,7 +55,6 @@
   </div>
 </template>
 <script>
-import {formatDuring, dataToTime} from '@/utils/filters'
 export default {
   data () {
     return {

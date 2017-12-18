@@ -3,7 +3,7 @@
         <filterForm @on-change="doFilter"></filterForm>
         <div class="order-list">
             <p style="text-align:center" v-show="list.length<=0">暂无数据</p>
-            <div class="order-card" v-for="(item,index) in list" :key="item.orderId">
+            <div class="order-card" v-for="item in list" :key="item.orderId">
                 <div class="head">
                     订单编号：{{item.orderId}}
                     <span>负责专员：{{ item.salemanName }}</span>
@@ -29,7 +29,7 @@
                     <div class="item">材质：{{item.materialName}}</div>
                     <div class="item">表面：{{item.surfaceName}}</div>
                     <div class="item">产地：{{item.proPlacesName}}</div>
-                    <div class="item">下单新鲜度：{{item.recommendPoint}}- 最近更新于{{item.createTime | getDateDiff(now = `${item.updateTime}`)}}</div>
+                    <div class="item">下单新鲜度：{{item.recommendPoint}}- 最近更新于{{item.createTime | getDateDiff(now = `${item.recommendTime}`)}}</div>
                     <div class="item">规格：{{ item.specifications != '' ? item.specifications : `${item.height}*${item.width}*${item.length}`}}</div>
                     <div class="item">公差：{{item.tolerance}}</div>
                     <div class="item">仓库：{{item.storeHouseName}}</div>
@@ -40,7 +40,7 @@
                     <template v-if="item.status == 2">
                         <div class="item">
                             有效时间： 
-                            <countDown :normal="true" :endTime="item.createTime" :nowTime="item.serverTime"></countDown>
+                            <countDown :normal="true" :endTime="item.resultTime | dateformatS" :nowTime="item.serverTime"></countDown>
                         </div>
                     </template>
                     <template v-else-if="item.status == 6 || item.status == 5 || item.status == 4">
@@ -72,7 +72,7 @@
                 <div class="info-item">所属商户：{{resourseData.createUser}}</div>
                 <div class="info-item">所属地区：{{resourseData.locationName}}</div>
                 <div class="info-item">计量方式：{{resourseData.measuringType | measuringStr}}</div>
-                <!-- <div class="info-item">是否含税：{{resourseData.numbers}}</div> -->
+                <div class="info-item">是否含税：{{resourseData.taxType | taxTypeStatus}}</div>
                 <div class="info-item">新鲜指数：{{resourseData.recommendPoint}}</div>
                 <div class="info-item">品类：{{resourseData.ironTypeName}}</div>
                 <div class="info-item">材质：{{resourseData.materialName}}</div>
@@ -222,6 +222,7 @@ export default {
                         this.resourseData.tolerance = res.data[0].tolerance,
                         this.resourseData.updateTime = res.data[0].updateTime,
                         this.resourseData.width = res.data[0].width
+                        this.resourseData.taxType = res.data[0].taxType
                     }
                 })
             }else{

@@ -13,7 +13,7 @@
                         <Col class-name="col" span="5">最近操作时间</Col>
                         <Col class-name="col" span="2">操作</Col>
                     </Row>
-                    <Row v-for="(item,index) in list" :key="item.id">
+                    <Row v-for="item in list" :key="item.id">
                         <Col class-name="col" span="4">{{ item.qualificationTypeName }}</Col>
                         <Col class-name="col" span="4">{{ item.storeType | storeType}}</Col>
                         <Col class-name="col" span="4">{{ item.type | typeData}}</Col>

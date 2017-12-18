@@ -37,7 +37,6 @@
 </template>
 
 <script>
-import {authStatus,certifyTypeStu,userTypeStu} from '@/utils/filters.js'
     export default {
         data() {
             return {

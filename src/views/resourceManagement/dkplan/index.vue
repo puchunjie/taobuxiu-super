@@ -3,7 +3,7 @@
       <filterFrom @on-change="doFilter" :exclude="['全部','不锈钢板','不锈钢卷']"></filterFrom>
       <div class="kp-list">
         <p style="text-align:center" v-show="list.length<=0">暂无数据</p>
-        <div class="kp-card" v-for="(item,index) in list" :key="item.id">
+        <div class="kp-card" v-for="item in list" :key="item.id">
              <div class="head">
                 资源编号：{{ item.id }}
                 <span>负责专员：{{ item.salemanName }}</span>
@@ -31,7 +31,7 @@
             <div class="detail clearfix">
                 <div class="item">资源状态：{{item.status | dkStatus}}</div>
                 <div class="item">更新时间：{{item.updateTime | dateformat}}</div>
-                <div class="item">计量方式：{{item.measuringType = 1 ? "过磅" : "理计"}}</div>
+                <div class="item">计量方式：{{item.measuringType | measuringStr}}</div>
                 <div class="item">所属商户：{{ item.companyName }}</div>
                 <div class="item">所在地：{{item.locationName}}</div>
                 <div class="item">品类：{{ item.ironTypeName }}</div>
@@ -52,7 +52,6 @@
 </template>
 <script>
 import filterFrom from '../resourceFilter/planFilter'
-import {dateformat,dkStatus} from '@/utils/filters'
 export default {
     components: {
         filterFrom,

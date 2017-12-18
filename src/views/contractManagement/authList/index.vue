@@ -89,7 +89,9 @@
             <Row class="info">
                 <Col span="5" class="info-title">包含订单：</Col>
                 <Col span="19" >
-                    <p v-for="order in infoData.order" :key="order.orderId">{{order.orderType | orderSta}}&nbsp;&nbsp;&nbsp;&nbsp;{{order.orderId}}</p>
+                    <p v-for="order in infoData.order" :key="order.orderId">
+                        {{order.orderType | orderSta}}&nbsp;&nbsp;&nbsp;&nbsp;{{order.orderId}}
+                    </p>
                 </Col>
             </Row>
             <div slot="footer">

@@ -42,7 +42,7 @@
   </div>
 </template>
 <script>
-import {dateformat,sortType} from '@/utils/filters'
+import {dateformat,sortType} from '@/utils/filters.js'
 export default {
   data () {
     return {

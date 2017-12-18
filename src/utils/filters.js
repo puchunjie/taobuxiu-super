@@ -185,7 +185,7 @@ export const typeData = (val) => {
 
 //  资源开放时间配置状态
 export const nowStatus = (val) => {
-  switch (val * 1){
+  switch (val * 1) {
     case 1:
       return '开放中'
       break;
@@ -202,7 +202,7 @@ export const nowStatus = (val) => {
 }
 // 常规休市日显示
 export const dealRestDay = (val) => {
-  let w = ['','周一', '周二', '周三', '周四', '周五', '周六', '周日'];
+  let w = ['', '周一', '周二', '周三', '周四', '周五', '周六', '周日'];
   const numberToWeek = (value) => {
     let str = value.toString();
     let len = value.toString().length;
@@ -214,20 +214,20 @@ export const dealRestDay = (val) => {
   }
   if (val != '') {
     return numberToWeek(val)
-  }else{
+  } else {
     return '无'
   }
 }
 
 // 时间戳转时分秒
 export const dataToTime = (val, fromatStr = 'yyyy-MM-dd hh:mm:ss') => {
-  if(val != ''){
+  if (val != '') {
     let time = df.format(new Date(val), fromatStr)
-    if(time != '' || time != NaN){
+    if (time != '' || time != NaN) {
       let t = time.split(' ');
       return t[1];
     }
-  }else{
+  } else {
     return 0
   }
 }
@@ -246,30 +246,30 @@ export const addZero = (value) => {
 params 转为 时:分:秒
 */
 export const formatDuring = (mss, params) => {
-    let days = parseInt(mss / (1000 * 60 * 60 * 24));
-    let hours = parseInt((mss % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    let minutes = parseInt((mss % (1000 * 60 * 60)) / (1000 * 60));
-    let seconds = (mss % (1000 * 60)) / 1000;
-    switch (params * 1) {
-      case 1:
-        return days + " 天 " + hours + " 小时 " + addZero(minutes) + " 分钟 " + addZero(seconds) + " 秒 ";
-        break;
-      case 2:
-        return hours + " 小时 " + addZero(minutes) + " 分钟 " + addZero(seconds) + " 秒 ";
-        break;
-      case 3:
-        return days + '-' + addZero(hours) + ':' + addZero(minutes) + ':' + addZero(seconds);
-        break;
-      default:
-        return addZero(hours) + ':' + addZero(minutes) + ':' + addZero(seconds);
-        break
-    }
+  let days = parseInt(mss / (1000 * 60 * 60 * 24));
+  let hours = parseInt((mss % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  let minutes = parseInt((mss % (1000 * 60 * 60)) / (1000 * 60));
+  let seconds = (mss % (1000 * 60)) / 1000;
+  switch (params * 1) {
+    case 1:
+      return days + " 天 " + hours + " 小时 " + addZero(minutes) + " 分钟 " + addZero(seconds) + " 秒 ";
+      break;
+    case 2:
+      return hours + " 小时 " + addZero(minutes) + " 分钟 " + addZero(seconds) + " 秒 ";
+      break;
+    case 3:
+      return days + '-' + addZero(hours) + ':' + addZero(minutes) + ':' + addZero(seconds);
+      break;
+    default:
+      return addZero(hours) + ':' + addZero(minutes) + ':' + addZero(seconds);
+      break
+  }
 }
 
 
 //  订单状态
 export const orderStatus = (val) => {
-  switch (val * 1){
+  switch (val * 1) {
     case 1:
       return '已确认'
       break;
@@ -287,7 +287,7 @@ export const orderStatus = (val) => {
       break;
     case 6:
       return '超管取消订单'
-        break;
+      break;
     case 9:
       return '超管删除订单'
       break;
@@ -296,14 +296,14 @@ export const orderStatus = (val) => {
 // 计量方式转义
 export const measuringStr = (value) => {
   switch (value) {
-      case 1:
-          return '过磅'
-          break;
-      case 2:
-          return '理计'
-          break;
-      default:
-          break;
+    case 1:
+      return '过磅'
+      break;
+    case 2:
+      return '理计'
+      break;
+    default:
+      break;
   }
 }
 // js时间转化为几天前,几小时前，几分钟前
@@ -316,24 +316,26 @@ export const getDateDiff = (value, now) => {
   let halfamonth = day * 15;
   let month = day * 30;
   let diffValue = nowTime - value;
-  if (diffValue < 0) { return '刚刚'; }
+  if (diffValue < 0) {
+    return '刚刚';
+  }
   let monthC = diffValue / month;
   let weekC = diffValue / (7 * day);
   let dayC = diffValue / day;
   let hourC = diffValue / hour;
   let minC = diffValue / minute;
   if (monthC >= 1) {
-      result = "" + parseInt(monthC) + "月前";
+    result = "" + parseInt(monthC) + "月前";
   } else if (weekC >= 1) {
-      result = "" + parseInt(weekC) + "周前";
+    result = "" + parseInt(weekC) + "周前";
   } else if (dayC >= 1) {
-      result = "" + parseInt(dayC) + "天前";
+    result = "" + parseInt(dayC) + "天前";
   } else if (hourC >= 1) {
-      result = "" + parseInt(hourC) + "小时前";
+    result = "" + parseInt(hourC) + "小时前";
   } else if (minC >= 1) {
-      result = "" + parseInt(minC) + "分钟前";
+    result = "" + parseInt(minC) + "分钟前";
   } else
-      result = "刚刚";
+    result = "刚刚";
   return result;
 }
 // 为空处理
@@ -345,14 +347,37 @@ export const isEmpty = (value, params) => {
   }
 }
 
-// //接口类型转换图标
+//  时间戳转年月日时分
 export const dateformat = (value, fromatStr = 'yyyy-MM-dd hh:mm') => {
   return df.format(new Date(value), fromatStr)
 }
 
+//  时间戳转年月日
+export const dateformatZ = (value, fromatStr = 'yyyy-MM-dd') => {
+  return df.format(new Date(value), fromatStr)
+}
+// 时间戳转年月日时分秒
+export const dateformatS = (value, fromatStr = 'yyyy-MM-dd hh:mm:ss') => {
+  return df.format(new Date(value), fromatStr)
+}
+
+//  付款方式
+export const payMent = (val) => {
+  switch (val*1) {
+    case 1:
+      return '电汇'
+      break;
+    case 2:
+      return '支票'
+      break;
+    case 3:
+      return '承兑'
+      break;
+  }
+}
 //   合同用户类型
-export const userTypeStu =(val) =>{
-  switch (val * 1){
+export const userTypeStu = (val) => {
+  switch (val * 1) {
     case 1:
       return '个人'
       break;
@@ -369,7 +394,7 @@ export const userTypeStu =(val) =>{
 }
 //  合同证件类型
 export const certifyTypeStu = (val) => {
-  switch (val * 1){
+  switch (val * 1) {
     case 1:
       return '身份证'
       break;
@@ -397,25 +422,25 @@ export const certifyTypeStu = (val) => {
 export const contractStatus = (val) => {
   switch (val) {
     case 'a':
-        return '需要我的签名'
-        break;
-    case 'b': 
-        return '等待他方签署'
-        break;
+      return '需要我的签名'
+      break;
+    case 'b':
+      return '等待他方签署'
+      break;
     case '1':
-        return '已完成'
-        break;
+      return '已完成'
+      break;
     case '0':
-        return '已作废'
-        break;
+      return '已作废'
+      break;
     default:
-        return '全部合同'
-        break
-}
+      return '全部合同'
+      break
+  }
 }
 //  订单状态  
 export const orderSta = (val) => {
-  switch(val*1) {
+  switch (val * 1) {
     case 0:
       return '实单求购'
       break;
@@ -432,7 +457,7 @@ export const orderSta = (val) => {
 }
 //  合同认证状态  
 export const authStatus = (val) => {
-  switch(val) {
+  switch (val) {
     case '0':
       return '申请保存'
       break;

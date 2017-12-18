@@ -121,7 +121,7 @@
                         <td>{{ filterData[1].list[filterData[1].activeIndex].name}}</td>
                         <td>{{ filterData[2].list[filterData[2].activeIndex].name }}</td>
                         <td>{{ filterData[3].list[filterData[3].activeIndex].name }}</td>
-                        <td>{{ filters.buyStatus | statusStr }}</td> 
+                        <td>{{ filterData[4].list[filterData[4].activeIndex].name }}</td> 
                         <td>{{ filters.appFlag | wherePublish }}</td> 
                         <td>。。。</td>
                     </tr>

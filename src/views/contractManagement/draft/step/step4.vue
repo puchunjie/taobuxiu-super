@@ -140,32 +140,60 @@
         <Row class="order-row">
             <Row class="rowHeader">
                 <Col span="24">
-                    <span class="warmFont">*</span>请确认合同交货地点
+                    <span class="warmFont">*</span>请完善合同信息
                 </Col>
             </Row>
             <Row class="rowBody">
                 <Row  class="row-col" >
-                    <Col span="2" class="rowBodyTitle" style="line-height: 32px;">
-                        交货地点:
-                    </Col>
-                    <Col span="20" style="width:200px;">
-                        <City ref="city" @on-pick="selectCity" ></City>
-                    </Col>
+                    <Form :label-width="150" :model="dataApi" style="width: 400px;">
+                        <FormItem label="交货地点：">
+                            <City ref="city" @on-pick="selectCity" ></City>
+                        </FormItem>
+                        <FormItem label="验货时长：">
+                            <Input type="text" v-model="dataApi.inspectionTime"  placeholder="请输入..."></Input>
+                        </FormItem>
+                        <FormItem label="交货期限：">
+                            <DatePicker :clearable="false" type="date" v-model="deliveryDate" placement="bottom-end" placeholder="选择日期"></DatePicker>
+                        </FormItem>
+                        <FormItem label="备注说明：">
+                            <Input type="textarea" v-model="dataApi.remark" placeholder="请输入..."></Input>
+                        </FormItem>
+                        <FormItem label="付款方式：">
+                            <Select v-model="dataApi.payMent">
+                                <Option  v-for="item in payMentData" :value="item.id" :key="item.id">{{ item.label }}</Option>
+                            </Select>
+                        </FormItem>
+                        <FormItem label="开具发票有效日期：">
+                            <Input type="text" v-model="dataApi.invoiceDate"  placeholder="请输入..."></Input>
+                        </FormItem>
+                        <FormItem label="合同有效日期：">
+                            <DatePicker type="daterange" :clearable="false" v-model="dateValue" placement="bottom-end" placeholder="选择日期"></DatePicker>
+                        </FormItem>
+                    </Form>
                 </Row>
             </Row>
         </Row>
         <div class="button-wrap">
             <Button type="info" @click.native="doDraft">确认起草电子合同</Button>
+            <Button @click="previewDraft">预览电子合同</Button>
             <Button @click="giveUpDraft">放弃起草合同</Button>
         </div>
+        <Modal v-model="show" title="预览电子合同" :closable="false" width="800" :mask-closable="false">
+            <previewPage :previewData="previewData"></previewPage>
+            <div slot="footer">
+                <Button type="primary" @click="show = false">关闭</Button>
+            </div>
+        </Modal>
     </div>
 </template>
 
 <script>
 import City from '@/components/basics/adress/citySelect'
+import previewPage from '../preview/index'
     export default {
         components: {
-            City
+            City,
+            previewPage
         },
         data() {
             return {
@@ -181,7 +209,18 @@ import City from '@/components/basics/adress/citySelect'
                     sellLegalPersonMobile: '',
                     sellLegalPersonName: '',
                     sellLocationName: '',
-                    systemAppName: ''
+                    systemAppName: '',
+                    systemAppTel: '',
+                    contractShowId: ''
+                },
+                dataApi: {
+                    inspectionTime: '',
+                    deliveryTerm: '',
+                    remark: '',
+                    payMent: 1,
+                    invoiceDate: 25,
+                    startDate: '',
+                    endDate: ''
                 },
                 priceModeData:[{
                     label: '重量',
@@ -193,7 +232,20 @@ import City from '@/components/basics/adress/citySelect'
                 location: {
                     id: '',
                     name: ''
-                }
+                },
+                show: false,
+                payMentData: [{
+                    label:'电汇',
+                    id: 1
+                },{
+                    label:'支票',
+                    id: 2
+                },{
+                    label:'承兑',
+                    id: 3
+                }],
+                dateValue: ['',''],
+                deliveryDate: ''
             }
         },
         computed: {
@@ -219,8 +271,49 @@ import City from '@/components/basics/adress/citySelect'
                     sellId: this.data.sellId,
                     locationId: this.location.id,
                     locationName: this.location.name,
-                    orderIds: JSON.stringify({orderIds:this.data.orderIds}) 
+                    contractShowId:this.data.contractShowId,
+                    orderIds: JSON.stringify({orderIds:this.data.orderIds}),
+                    inspectionTime: this.dataApi.inspectionTime,
+                    deliveryTerm: this.deliveryDate != '' ? new Date(this.deliveryDate).getTime() : '',
+                    remark: this.dataApi.remark,
+                    payMent: this.dataApi.payMent,
+                    invoiceDate: this.dataApi.invoiceDate,
+                    startDate: this.dateValue[0] != '' ? new Date(this.dateValue[0]).getTime() : '',
+                    endDate: this.dateValue[1] != '' ? new Date(this.dateValue[1]).getTime() : ''
                 }
+            },
+            previewData() {
+                return {
+                    buyId: this.data.buyId,
+                    sellId: this.data.sellId,
+                    locationId: this.location.id,
+                    locationName: this.location.name,
+                    orderIds: this.data.orderIds,
+                    totlePrice: this.totlePrice,
+                    systemAppName: this.data.systemAppName,
+                    buyCompanyName: this.data.buyCompanyName,
+                    sellCompanyName: this.data.sellCompanyName,
+                    buyLegalPersonName: this.data.buyLegalPersonName,
+                    buyLegalPersonMobile: this.data.buyLegalPersonMobile,
+                    systemAppTel: this.data.systemAppTel,
+                    systemAppName: this.data.systemAppName,
+                    sellLegalPersonMobile: this.data.sellLegalPersonMobile,
+                    sellLegalPersonName: this.data.sellLegalPersonName,
+                    inspectionTime: this.dataApi.inspectionTime,
+                    sysTime: this.getDate,
+                    contractShowId: this.data.contractShowId,
+                    deliveryTerm: this.deliveryDate != '' ? new Date(this.deliveryDate).getTime() : '',
+                    remark: this.dataApi.remark,
+                    payMent: this.dataApi.payMent,
+                    invoiceDate: this.dataApi.invoiceDate,
+                    startDate: this.dateValue[0] != '' ? new Date(this.dateValue[0]).getTime() : '',
+                    endDate: this.dateValue[1] != '' ? new Date(this.dateValue[1]).getTime() : '' 
+                }
+            },
+            getDate() {
+                var d = new Date();
+                var str = d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate();
+                return str
             }
         },
         methods: {
@@ -242,28 +335,40 @@ import City from '@/components/basics/adress/citySelect'
             },
             //  起草合同
             doDraft() {
-                if(this.location.id != ''){
-                    this.$Modal.confirm({
-                        title:'起草合同提示',
-                        content: '确认起草合同？',
-                        onOk: () => {
-                            this.$http.post(this.api.saveBgContractInfo,this.ajaxParams).then(res => {
-                                if(res.code === 1000){
-                                    this.$Message.success('合同起草成功');
-                                    this.$router.push('/authList');
-                                }else {
-                                    this.$Message.error(res.message)
-                                }
-                            })
-                        }
-                    })
+                if(this.totlePrice != 'NaN'){
+                    if(this.location.id != ''){
+                        this.$Modal.confirm({
+                            title:'起草合同提示',
+                            content: '确认起草合同？',
+                            onOk: () => {
+                                this.$http.post(this.api.saveBgContractInfo,this.ajaxParams).then(res => {
+                                    if(res.code === 1000){
+                                        this.$Message.success('合同起草成功');
+                                        this.$router.push('/authList');
+                                    }else {
+                                        this.$Message.error(res.message)
+                                    }
+                                })
+                            }
+                        })
+                    }else{
+                        this.$Message.error('请选择交货地点')
+                    }
                 }else{
-                    this.$Message.error('请选择交货地点')
+                    this.$Message.error('请填写正确信息')
                 }
             },
             //  放弃起草
             giveUpDraft() {
                 this.$router.push('step1');
+            },
+            //  预览合同
+            previewDraft(){
+                if(this.location.id != '' || this.dataApi.deliveryTerm != '' || this.dataApi.endDate != '' || this.dataApi.inspectionTime !='') {
+                    this.show = true
+                }else{
+                    this.$Message.error('请先完善合同信息')
+                }
             }
         },
         created() {
@@ -285,7 +390,7 @@ import City from '@/components/basics/adress/citySelect'
             padding: 0 10px;
         }
         .rowBody{
-            padding: 20px 0;
+            padding: 10px 0;
             .rowBodyTitle{
                 padding-right: 5px;
                 text-align: right;
@@ -319,7 +424,7 @@ import City from '@/components/basics/adress/citySelect'
         padding: 40px 0;
         text-align: right;
         button{
-            margin-left: 30px;
+            margin-left: 20px;
         }
     }
     .warmFont{

@@ -76,7 +76,6 @@
   </div>
 </template>
 <script>
-import {dateformat,dealRestDay,nowStatus, dataToTime} from '@/utils/filters'
 export default {
   data () {
     return {
