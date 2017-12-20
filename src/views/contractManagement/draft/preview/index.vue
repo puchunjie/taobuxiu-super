@@ -1,7 +1,7 @@
 <template>
     <div class="previewBody">
         <h2>三方购销合作服务协议</h2>
-        <P class="p-info">合同编号：{{previewData.contractShowId}}</P>
+        <P class="p-info">合同编号：TBXSFXY2017{{previewData.contractShowId}}</P>
         <P class="p-info">签署地：<span class="l">无锡</span></P>
         <h3>服务方（甲方）：<span class="l">{{previewData.systemAppName}}</span></h3>
         <h3>委托方（乙方）：<span class="l">{{previewData.buyCompanyName}}</span></h3>
@@ -28,7 +28,7 @@
                 <td>单价</td>
                 <td>总金额</td>
                 <td>备注</td>
-                <td>交货仓库</td>
+                <!-- <td>交货仓库</td> -->
             </tr>
             <tr v-for="(info,index) in previewData.orderIds" :key="info.index">
                 <td>{{index+1}}</td>
@@ -40,7 +40,19 @@
                 <td>{{info.price}}</td>
                 <td>{{info.orderTotalPrice}}</td>
                 <td>{{info.remark}}</td>
-                <td>{{info.materialName}}</td>
+                <!-- <td>{{info.materialName}}</td> -->
+            </tr>
+            <tr v-for="(cost,index) in previewData.costs" :key="cost.index">
+                <td>{{index+1}}</td>
+                <td>{{cost.ironTypeName}}</td>
+                <td>{{cost.materialName}}</td>
+                <td>{{ cost.specifications }}</td>
+                <td>{{cost.numbers}}</td>
+                <td>{{cost.weights}}</td>
+                <td>{{cost.price}}</td>
+                <td>{{previewData.totleCoastArr[index]}}</td>
+                <td>{{cost.remark}}</td>
+                <!-- <td>{{cost.materialName}}</td> -->
             </tr>
             <tr>
                 <td></td>
@@ -84,13 +96,13 @@
             <Col span="12">
                 <P>甲方：{{previewData.systemAppName}}</P>
                 <p>代理人：{{previewData.systemAppName}}</p>
-                <P>签订日期：{{previewData.sysTime}}</P>
+                <P>签订日期：{{previewData.sysTime | dateformatZ}}</P>
                 <p>联系电话：{{previewData.systemAppTel}}</p>
             </Col>
             <Col span="12">
                 <P>已方：{{previewData.buyCompanyName}}</P>
                 <p>代理人：{{previewData.buyLegalPersonName}}</p>
-                <P>签订日期：{{previewData.sysTime}}</P>
+                <P>签订日期：{{previewData.sysTime | dateformatZ}}</P>
                 <p>联系电话：{{previewData.buyLegalPersonMobile}}</p>
             </Col>
         </Row>
@@ -99,7 +111,7 @@
             <Col span="12">
                 <P>丙方：{{previewData.sellCompanyName}}</P>
                 <p>代理人：{{previewData.sellLegalPersonName}}</p>
-                <P>签订日期：{{previewData.sysTime}}</P>
+                <P>签订日期：{{previewData.sysTime | dateformatZ}}</P>
                 <p>联系电话：{{previewData.sellLegalPersonMobile}}</p>
             </Col>
         </Row>
@@ -130,11 +142,9 @@
                 text-align: right;
             }
         }
-        .b{
-            font-weight: bold;
-        }
         .l{
-            border-bottom: 1px solid #a1a1a1
+            border-bottom: 1px solid #a1a1a1;
+            font-weight: bold;
         }
         .tables{
             width: 100%;

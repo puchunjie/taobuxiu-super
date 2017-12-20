@@ -11,6 +11,7 @@ import store from './store/store'
 import * as filters from '@/utils/filters' //过滤器
 import tools from '@/utils/tools' //全局方法
 import _ from 'lodash'
+import clickoutside from './directives/clickoutside'
 
 Object.keys(filters).forEach(key => {
     Vue.filter(key, filters[key])
@@ -26,6 +27,7 @@ Vue.prototype.api = api; //所有接口列表挂载
 Vue.prototype.$http = axios;
 Vue.config.productionTip = false
 Vue.config.debug = false;
+Vue.directive('clickoutside', clickoutside)
 
 new Vue({
     el: '#app',

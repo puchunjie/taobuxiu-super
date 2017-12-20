@@ -52,6 +52,9 @@ export default [{
         },{
             name: '合同认证信息管理',
             router: {name: 'authentication'}
+        },{
+            name: '合同信息配置',
+            router: {name: 'infoConfig'}
         }]
     },
     {

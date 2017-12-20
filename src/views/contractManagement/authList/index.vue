@@ -45,16 +45,16 @@
                         <Col class-name="col" span="3">{{item.updateTime | dateformat}}</Col>
                         <Col class-name="col" span="2">{{item.status | contractStatus}}</Col>
                         <Col class-name="col" span="4">
-                            <Button type="primary" size="small" @click="contractDetail(item)">查看</Button>
-                            <Button type="primary" size="small">合同日志</Button>
-                            <Button type="primary" size="small" @click="contractInfo(item)">合同信息</Button>
+                        <Button type="primary" size="small" @click="contractDetail(item)">查看</Button>
+                        <Button type="primary" size="small" @click="contractInfo(item)">合同信息</Button>
+                        <Button type="primary" size="small" @click="contractDownload(item)" v-show="item.status == '1'">下载合同</Button>
                         </Col>
                     </Row>
                     <Row v-if="list.length == 0">
                         <Col class-name="col" span="24">暂无数据</Col>
                     </Row>
                 </div>
-            </div> 
+            </div>
             <Page :total="totalCount" size="small" class="page-count" @on-change="pageChange" show-total :current="detail.currentPage" :page-size="detail.pageSize"></Page>
         </Card>
         <Modal v-model="show" title="合同信息" :closable="false" :mask-closable="false">
@@ -88,10 +88,10 @@
             </Row>
             <Row class="info">
                 <Col span="5" class="info-title">包含订单：</Col>
-                <Col span="19" >
-                    <p v-for="order in infoData.order" :key="order.orderId">
-                        {{order.orderType | orderSta}}&nbsp;&nbsp;&nbsp;&nbsp;{{order.orderId}}
-                    </p>
+                <Col span="19">
+                <p v-for="order in infoData.order" :key="order.orderId">
+                    {{order.orderType | orderSta}}&nbsp;&nbsp;&nbsp;&nbsp;{{order.orderId}}
+                </p>
                 </Col>
             </Row>
             <div slot="footer">
@@ -102,9 +102,8 @@
 </template>
 
 <script>
-import filterStatus from './common/status'
-import {contractStatus,dateformat,orderSta} from '@/utils/filters.js'
-import * as types from '@/store/types'
+    import filterStatus from './common/status'
+    import * as types from '@/store/types'
     export default {
         components: {
             filterStatus
@@ -125,19 +124,19 @@ import * as types from '@/store/types'
                     label: '全部合同',
                     value: '',
                     count: 0
-                },{
+                }, {
                     label: '需要我的签名',
                     value: 'a',
                     count: 0
-                },{
+                }, {
                     label: '等待他方签署',
                     value: 'b',
                     count: 0
-                },{
+                }, {
                     label: '已完成',
                     value: '1',
                     count: 0
-                },{
+                }, {
                     label: '已作废',
                     value: '0',
                     count: 0
@@ -209,14 +208,35 @@ import * as types from '@/store/types'
             'handleFilter': {
                 handler: _.debounce(function(val, oldVal) {
                     // 是否是翻页操作
-                    if(val.currentPage == oldVal.currentPage)
+                    if (val.currentPage == oldVal.currentPage)
                         this.detail.currentPage = 1;
                     this.getAllList();
                 }, 200),
                 deep: true
             },
-            'checkstatus'() {
+            'checkstatus' () {
                 this.getAllList()
+            }
+        },
+        filters: {
+            contractStatus(str){
+                switch (str) {
+                    case 'a':
+                    return '需要我的签名'
+                    break;
+                    case 'b':
+                    return '等待他方签署'
+                    break;
+                    case '1':
+                    return '已完成'
+                    break;
+                    case '0':
+                    return '已作废'
+                    break;
+                    default:
+                    return '全部合同'
+                    break
+                }
             }
         },
         methods: {
@@ -234,12 +254,12 @@ import * as types from '@/store/types'
                     currentPage: 1
                 }
                 this.updateValue = ['', '']
-                this.dateValue =  ['', '']
+                this.dateValue = ['', '']
             },
             // 获取列表
             getAllList() {
-                this.$http.post(this.api.queryBgContractInfoPage,this.handleFilter).then(res => {
-                    if(res.code === 1000) {
+                this.$http.post(this.api.queryBgContractInfoPage, this.handleFilter).then(res => {
+                    if (res.code === 1000) {
                         this.list = res.data.list;
                         this.totalCount = res.data.totalCount;
                         this.statusData[0].count = res.data.alltotalCount;
@@ -254,8 +274,17 @@ import * as types from '@/store/types'
             contractDetail(data) {
                 let token = this.$store.state.authorization
                 let loginId = this.$store.state.loginId
-                let url = 'http://192.168.0.251:8080/contract.jsp?appUserId=100000000000000000000000000000001'+'&loginId='+loginId+'&contractId=' + data.contractId+'&authorization='+token+'&flash=' + Math.random()
+                let url = 'http://192.168.0.251:8080/contract.jsp?appUserId=100000000000000000000000000000001' + '&loginId=' + loginId + '&contractId=' + data.contractId + '&authorization=' + token + '&flash=' + Math.random()
                 window.open(url)
+            },
+            //  下载合同
+            contractDownload(data) {
+                let params = {
+                    contractId: data.contractId
+                }
+                this.$http.post(this.api.downLoadContract,params).then(res => {
+                    window.open(res)
+                })
             },
             //  合同信息
             contractInfo(data) {
@@ -263,9 +292,9 @@ import * as types from '@/store/types'
                 let params = {
                     contractId: data.contractId
                 }
-                this.$http.post(this.api.getContractInfoContractId,params).then(res => {
-                    if(res.code === 1000){
-                          this.infoData = {
+                this.$http.post(this.api.getContractInfoContractId, params).then(res => {
+                    if (res.code === 1000) {
+                        this.infoData = {
                             contractId: res.data.contractId,
                             contractTitle: res.data.contractTitle,
                             firstCompanyName: res.data.firstCompanyName,
@@ -279,46 +308,47 @@ import * as types from '@/store/types'
                 })
             }
         },
-        created () {
+        created() {
             this.getAllList()
         }
     }
 </script>
 
 <style lang="less" scoped>
-.card {
-    position: relative;
-    margin-bottom: 20px;
-    padding-bottom: 40px;
-    .card-contnet {
+    .card {
         position: relative;
+        margin-bottom: 20px;
         padding-bottom: 40px;
-    }
-    .table-contnet {
-        line-height: 40px;
-        text-align: center;
-        border-top: 1px solid #d0d0d0;
-        border-left: 1px solid #d0d0d0;
-        .head {
-            background-color: #ddd;
+        .card-contnet {
+            position: relative;
+            padding-bottom: 40px;
         }
-        .col {
-            height: 40px;
-            border-right: 1px solid #d0d0d0;
-            border-bottom: 1px solid #d0d0d0;
+        .table-contnet {
+            line-height: 40px;
+            text-align: center;
+            border-top: 1px solid #d0d0d0;
+            border-left: 1px solid #d0d0d0;
+            .head {
+                background-color: #ddd;
+            }
+            .col {
+                height: 40px;
+                border-right: 1px solid #d0d0d0;
+                border-bottom: 1px solid #d0d0d0;
+            }
+        }
+        .page-count {
+            position: absolute;
+            right: 20px;
+            bottom: 10px;
         }
     }
-    .page-count {
-        position: absolute;
-        right: 20px;
-        bottom: 10px;
+    
+    .info {
+        margin: 10px 0;
+        .info-title {
+            text-align: right;
+            padding-right: 5px;
+        }
     }
-}
-.info{
-    margin: 10px 0;
-    .info-title{
-        text-align: right;
-        padding-right: 5px;
-    }
-}
 </style>

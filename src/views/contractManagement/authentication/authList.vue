@@ -55,6 +55,9 @@
                 <Col class-name="col" span="3">{{item.status | authStatus}}</Col>
                 <Col class-name="col" span="3">{{item.updateTime | dateformat}}</Col>
                 <Col class-name="col" span="2">
+                  <template v-if="item.status == '1'">
+                    <Button type="warning" size="small" @click="$router.push('/authDetail-'+item.appUserId + '-'+ 3)">更改</Button>
+                  </template>
                   <template v-if="item.status == '2'">
                     <Button type="warning" size="small" @click="$router.push('/authDetail-'+item.appUserId + '-'+ 1)">审核</Button>
                   </template>

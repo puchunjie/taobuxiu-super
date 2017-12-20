@@ -106,35 +106,80 @@
             </Row>
             <Row class="rowBody">
               <table class="tables">
-                  <tr>
-                      <td>货品名称</td>
-                      <td>材质</td>
-                      <td>规格及型号</td>
-                      <td>公差参数</td>
-                      <td>数量</td>
-                      <td>重量(吨)</td>
-                      <td>计价方式</td>
-                      <td>单价(元/单位)</td>
-                      <td style="width:300px;">备注</td>
-                      <td>总价(元)</td>
-                  </tr>
-                  <tr v-for="(info,i) in data.orderIds" :key="i">
-                      <td>{{info.ironTypeName}}</td>
-                      <td>{{ info.materialName }}/{{ info.surfaceName }}</td>
-                      <td>{{ info.specifications ? info.specifications :`${info.height}*${info.width}*${info.length}` }}</td>
-                      <td><Input v-model="info.tolerance" placeholder="公差" size="small" style="width: 100px"></Input></td>
-                      <td><Input v-model="info.numbers" placeholder="数量" size="small" style="width: 100px"></Input></td>
-                      <td><Input v-model="info.weights" placeholder="重量" size="small" style="width: 100px"></Input></td>
-                      <td>
-                        <Select v-model="info.priceMode" style="width:100px">
-                            <Option v-for="mode in priceModeData" :value="mode.id" :key="mode.id">{{ mode.label }}</Option>
-                        </Select>
-                      </td>
-                      <td><Input v-model="info.price" placeholder="价格" size="small" style="width: 100px"></Input></td>
-                      <td><Input v-model="info.remark" placeholder="备注" size="small"></Input></td>
-                      <td class="price">{{ totlePrcieArr[i]}}</td>
-                  </tr>
+                <col width="10%" />
+                <col width="10%" />
+                <col width="10%" />
+                <col width="10%" />
+                <col width="10%" />
+                <col width="10%" />
+                <col width="10%" />
+                <col width="6%" />
+                <col width="14%" />
+                <col width="7%" />
+                <col width="3%" />
+                <tr>
+                    <td>货品名称</td>
+                    <td>材质</td>
+                    <td>规格及型号</td>
+                    <td>公差参数</td>
+                    <td>数量</td>
+                    <td>重量(吨)</td>
+                    <td>计价方式</td>
+                    <td>单价(元/单位)</td>
+                    <td>备注</td>
+                    <td>总价(元)</td>
+                </tr>
+                <tr v-for="(info,i) in data.orderIds" :key="i">
+                    <td>{{info.ironTypeName}}</td>
+                    <td>{{ info.materialName }}/{{ info.surfaceName }}</td>
+                    <td>{{ info.specifications ? info.specifications :`${info.height}*${info.width}*${info.length}` }}</td>
+                    <td><Input v-model="info.tolerance" placeholder="公差" size="small" ></Input></td>
+                    <td><Input v-model="info.numbers" placeholder="数量" size="small" ></Input></td>
+                    <td><Input v-model="info.weights" placeholder="重量" size="small" ></Input></td>
+                    <td>
+                    <Select v-model="info.priceMode" size="small">
+                        <Option v-for="mode in priceModeData" :value="mode.id" :key="mode.id">{{ mode.label }}</Option>
+                    </Select>
+                    </td>
+                    <td><Input v-model="info.price" placeholder="价格" size="small" ></Input></td>
+                    <td><Input v-model="info.remark" placeholder="备注" size="small"></Input></td>
+                    <td class="price">{{ totlePrcieArr[i]}}</td>
+                    <td></td>
+                </tr>
               </table>
+              <table class="tables">
+                <col width="10%" />
+                <col width="10%" />
+                <col width="10%" />
+                <col width="10%" />
+                <col width="10%" />
+                <col width="10%" />
+                <col width="10%" />
+                <col width="6%" />
+                <col width="14%" />
+                <col width="7%" />
+                <col width="3%" />
+                <tr v-for="(item,i) in castData.items" :key="i">
+                    <td><input v-model="item.ironTypeName" @focus="showThink($event,i)" :id="'thinding-'+i" class="ivu-input ivu-input-small" placeholder="请输入"></td>
+                    <td><Input v-model="item.materialName" placeholder="请输入" size="small"></Input></td>
+                    <td><Input v-model="item.specifications" placeholder="请输入" size="small" ></Input></td>
+                    <td><Input v-model="item.tolerance" placeholder="请输入" size="small" ></Input></td>
+                    <td><Input v-model="item.numbers" placeholder="请输入" size="small" ></Input></td>
+                    <td><Input v-model="item.weights" placeholder="请输入" size="small" ></Input></td>
+                    <td>
+                    <Select v-model="item.priceMode" size="small">
+                        <Option v-for="mode in priceModeData" :value="mode.id" :key="mode.id">{{ mode.label }}</Option>
+                    </Select>
+                    </td>
+                    <td><Input v-model="item.price" placeholder="价格" size="small" ></Input></td>
+                    <td style="width:300px;"><Input v-model="item.remark" placeholder="备注" size="small"></Input></td>
+                    <td class="price">
+                        {{ totleCoastArr[i] }}
+                    </td>
+                    <td><i class="iconfont icon-shanchu1 icon-cost" @click="removeCost(i)"></i></td>
+                </tr>
+              </table>
+              <Button type="info" @click="addCost" class="addCost">添加其他费用</Button>
             </Row>
         </Row>
         <Row class="order-row">
@@ -150,10 +195,10 @@
                             <City ref="city" @on-pick="selectCity" ></City>
                         </FormItem>
                         <FormItem label="验货时长：">
-                            <Input type="text" v-model="dataApi.inspectionTime"  placeholder="请输入..."></Input>
+                            <input type="number" class="ivu-input" v-model="dataApi.inspectionTime"  placeholder="请输入...">
                         </FormItem>
                         <FormItem label="交货期限：">
-                            <DatePicker :clearable="false" type="date" v-model="deliveryDate" placement="bottom-end" placeholder="选择日期"></DatePicker>
+                            <DatePicker :clearable="false" type="date" :options="deliveryDateOpt" v-model="deliveryDate" placement="bottom-end" placeholder="选择日期"></DatePicker>
                         </FormItem>
                         <FormItem label="备注说明：">
                             <Input type="textarea" v-model="dataApi.remark" placeholder="请输入..."></Input>
@@ -163,11 +208,12 @@
                                 <Option  v-for="item in payMentData" :value="item.id" :key="item.id">{{ item.label }}</Option>
                             </Select>
                         </FormItem>
-                        <FormItem label="开具发票有效日期：">
-                            <Input type="text" v-model="dataApi.invoiceDate"  placeholder="请输入..."></Input>
+                        <FormItem label="开具发票有效日：">
+                            <input type="number" class="ivu-input" v-model="dataApi.invoiceDate"  placeholder="请输入...">
                         </FormItem>
                         <FormItem label="合同有效日期：">
-                            <DatePicker type="daterange" :clearable="false" v-model="dateValue" placement="bottom-end" placeholder="选择日期"></DatePicker>
+                            {{data.systemTime | dateformatZ}}
+                            <!-- <DatePicker type="daterange" :clearable="false" v-model="dateValue" placement="bottom-end" placeholder="选择日期"></DatePicker> -->
                         </FormItem>
                     </Form>
                 </Row>
@@ -184,19 +230,32 @@
                 <Button type="primary" @click="show = false">关闭</Button>
             </div>
         </Modal>
+        <thinkWrap v-if="thinkData.show" @on-item-click="choseItem" @on-out-click="outClick" :apiData="api.findBaseCost" :x="thinkData.x" :y="thinkData.y" :id="activeTargetRef"></thinkWrap>
     </div>
 </template>
 
 <script>
 import City from '@/components/basics/adress/citySelect'
 import previewPage from '../preview/index'
+import thinkWrap from '../thinkwrap/index'
     export default {
         components: {
             City,
-            previewPage
+            previewPage,
+            thinkWrap
         },
         data() {
             return {
+                thinkData: {
+                    show: false,
+                    x: '',
+                    y: ''
+                },
+                activeTargetRef: '',
+                costIndex: 0,
+                castData: {
+                    items: []
+                },
                 data: {
                     orderIds: [],
                     buyCompanyName: '',
@@ -211,7 +270,8 @@ import previewPage from '../preview/index'
                     sellLocationName: '',
                     systemAppName: '',
                     systemAppTel: '',
-                    contractShowId: ''
+                    contractShowId: '',
+                    systemTime: ''
                 },
                 dataApi: {
                     inspectionTime: '',
@@ -244,11 +304,18 @@ import previewPage from '../preview/index'
                     label:'承兑',
                     id: 3
                 }],
-                dateValue: ['',''],
-                deliveryDate: ''
+                // dateValue: ['',''],
+                deliveryDate: '',
+                deliveryDateOpt: {
+                    disabledDate (date) {
+                        return date && date.valueOf() < Date.now() - 86400000;
+                    }
+                },
+                inputId: ''
             }
         },
         computed: {
+            //  计算单个订单总价
              totlePrcieArr() {
                 let arr = [];
                 this.data.orderIds.forEach(el => {
@@ -258,11 +325,29 @@ import previewPage from '../preview/index'
                 })
                 return arr
             },
+            //  计算其他费用单个总价
+            totleCoastArr() {
+                let arr = [];
+                // console.log(this.castData.items.length != 0)
+                if(this.castData.items.length != 0)
+                    this.castData.items.forEach((el,index) => {
+                        let number = el.priceMode == 1 ? el.numbers : el.weights;
+                        number *= 1;
+                        arr.push((el.price * number).toFixed(2));
+                    })
+                    return arr != 'NaN' ? arr : 0.00
+            },
+            //  计算总价
             totlePrice() {
-                let price = 0;
+                let price = 0,price1 = 0,price2 = 0;
                 this.totlePrcieArr.forEach(el => {
-                    price += Number(el);
+                    price1 += Number(el);
                 })
+                if(this.castData.items.length != 0)
+                    this.totleCoastArr.forEach(el => {
+                        price2 += Number(el)
+                    })
+                price = price1 + price2;
                 return price.toFixed(2)
             },
             ajaxParams() {
@@ -272,14 +357,14 @@ import previewPage from '../preview/index'
                     locationId: this.location.id,
                     locationName: this.location.name,
                     contractShowId:this.data.contractShowId,
-                    orderIds: JSON.stringify({orderIds:this.data.orderIds}),
+                    orderIds: JSON.stringify({orderIds:this.data.orderIds,costs:this.castData.items}),
                     inspectionTime: this.dataApi.inspectionTime,
                     deliveryTerm: this.deliveryDate != '' ? new Date(this.deliveryDate).getTime() : '',
                     remark: this.dataApi.remark,
                     payMent: this.dataApi.payMent,
                     invoiceDate: this.dataApi.invoiceDate,
-                    startDate: this.dateValue[0] != '' ? new Date(this.dateValue[0]).getTime() : '',
-                    endDate: this.dateValue[1] != '' ? new Date(this.dateValue[1]).getTime() : ''
+                    startDate: this.data.systemTime,
+                    endDate: this.data.systemTime
                 }
             },
             previewData() {
@@ -300,20 +385,17 @@ import previewPage from '../preview/index'
                     sellLegalPersonMobile: this.data.sellLegalPersonMobile,
                     sellLegalPersonName: this.data.sellLegalPersonName,
                     inspectionTime: this.dataApi.inspectionTime,
-                    sysTime: this.getDate,
+                    sysTime: this.data.systemTime,
                     contractShowId: this.data.contractShowId,
                     deliveryTerm: this.deliveryDate != '' ? new Date(this.deliveryDate).getTime() : '',
                     remark: this.dataApi.remark,
                     payMent: this.dataApi.payMent,
                     invoiceDate: this.dataApi.invoiceDate,
-                    startDate: this.dateValue[0] != '' ? new Date(this.dateValue[0]).getTime() : '',
-                    endDate: this.dateValue[1] != '' ? new Date(this.dateValue[1]).getTime() : '' 
+                    startDate: this.data.systemTime,
+                    endDate: this.data.systemTime,
+                    costs: this.castData.items,
+                    totleCoastArr: this.totleCoastArr
                 }
-            },
-            getDate() {
-                var d = new Date();
-                var str = d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate();
-                return str
             }
         },
         methods: {
@@ -369,6 +451,58 @@ import previewPage from '../preview/index'
                 }else{
                     this.$Message.error('请先完善合同信息')
                 }
+            },
+            // 添加其他费用
+            addCost() {
+                this.costIndex++;
+                this.castData.items.push({
+                    index: this.costIndex,
+                    priceMode: '1',
+                    ironTypeName: '',
+                    materialName: '',
+                    specifications: '',
+                    tolerance: '',
+                    numbers: '',
+                    weights: '',
+                    price: '',
+                    remark: ''
+                })
+            },
+            //  删除其他费用
+            removeCost(index) {
+                this.castData.items.splice(index,1);
+            },
+            //  获取合同种类数据
+            showThink(event,id) {
+                let inputId = event.target.getAttribute('id')
+                this.inputId = inputId;
+                this.activeTargetRef = inputId+'type';
+                let elem = document.getElementById(inputId)
+                let elLeft = elem.offsetLeft
+                let elTop = elem.offsetTop
+                let current = elem.offsetParent;
+                while (current != null) {　　　　　　
+                    // elLeft += current.offsetLeft;
+                    elTop += current.offsetTop;　　　　　　
+                    current = current.offsetParent;　
+                }　
+                this.thinkData.x = elLeft + 30 + 'px';
+                this.thinkData.y = elTop + 25 + 'px';
+                setTimeout(() => {
+                    this.thinkData.show = true
+                }, 100);
+            },
+            //  赋值
+            choseItem(tag) {
+                let inputs = this.inputId.split('-')
+                this.castData.items[inputs[1]].ironTypeName = tag
+                setTimeout(() => {
+                    this.thinkData.show = false
+                },100)
+            },
+            //  关闭其他费用弹窗
+            outClick() {
+                this.thinkData.show = false;
             }
         },
         created() {
@@ -402,6 +536,7 @@ import previewPage from '../preview/index'
         .tables{
             width:100%;
             td{
+                position: relative;
                 text-align: center;
                 padding: 5px;
             }
@@ -432,5 +567,12 @@ import previewPage from '../preview/index'
         vertical-align: middle;
         display: inline-block;
         margin-right: 5px;
+    }
+    .addCost{
+        margin: 15px 0 0 5px;
+    }
+    .icon-cost{
+        cursor: pointer;
+        font-size: 18px;
     }
 </style>

@@ -887,6 +887,9 @@ export const saveCheckContract = '/common/checkcontract/saveCheckContract'
 //  电子合同平台用户信息修改
 export const updateCheckContract = '/common/checkcontract/updateCheckContract'
 
+//  商户认证信息超管修改商户电话号码
+export const changeContractMobile = '/sys/bg/changeContractMobile'
+
 //  合同列表管理分页查询
 export const queryBgContractInfoPage = '/sys/contractBgManger/queryBgContractInfoPage'
 
@@ -913,6 +916,21 @@ export const selectBgStartContractInfo = '/sys/contractBgManger/selectBgStartCon
 
 //  超管保存起草合同信息
 export const saveBgContractInfo = '/sys/contractBgManger/saveBgContractInfo'
+
+//  超管下载合同
+export const downLoadContract = '/sys/contractBgManger/downLoadContract'
+
+// 基础费用查询
+export const queryBaseCostList = '/sys/baseCost/queryBaseCostList'
+
+// 基础费用删除
+export const deleteBaseCost = '/sys/baseCost/deleteBaseCost'
+
+//  基础费用保存编辑
+export const saveAndUpdateBaseCost = '/sys/baseCost/saveAndUpdateBaseCost'
+
+// 查询基础费用
+export const findBaseCost = '/api/query/findBaseCost'
 
 // -----------------------------------关联数据---------------------------------
 /**

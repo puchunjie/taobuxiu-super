@@ -216,10 +216,14 @@ const router = new Router({
                         name: 'step4',
                         component: resolve => require(['@/views/contractManagement/draft/step/step4'],resolve)
                     }]
-                },,{
+                },{
                     path: 'authList',
                     name: 'authList',
                     component: resolve => require(['@/views/contractManagement/authList/index'],resolve)
+                },{
+                    path: 'infoConfig',
+                    name: 'infoConfig',
+                    component: resolve => require(['@/views/contractManagement/infoConfig/index'],resolve)
                 },
                 {
                     path:'resourceRefresh',

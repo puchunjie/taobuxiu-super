@@ -418,26 +418,6 @@ export const certifyTypeStu = (val) => {
   }
 }
 
-//  合同状态
-export const contractStatus = (val) => {
-  switch (val) {
-    case 'a':
-      return '需要我的签名'
-      break;
-    case 'b':
-      return '等待他方签署'
-      break;
-    case '1':
-      return '已完成'
-      break;
-    case '0':
-      return '已作废'
-      break;
-    default:
-      return '全部合同'
-      break
-  }
-}
 //  订单状态  
 export const orderSta = (val) => {
   switch (val * 1) {
@@ -466,6 +446,12 @@ export const authStatus = (val) => {
       break;
     case '2':
       return '认证待审核'
+      break;
+    case '3':
+      return '认证变更中'
+      break;
+    case '4':
+      return '变更待审核'
       break;
     case '9':
       return '认证失败'

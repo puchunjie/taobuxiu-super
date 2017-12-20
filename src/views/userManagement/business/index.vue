@@ -57,6 +57,12 @@
                         <span slot="close">否</span>
                     </i-switch>
                 </FormItem>
+                <FormItem label="开通店铺：" class="magin0">
+                    <i-switch v-model="apiData.isHS">
+                        <span slot="open">是</span>
+                        <span slot="close">否</span>
+                    </i-switch>
+                </FormItem>
                 <FormItem label="注册商户：" class="magin0">
                     <DatePicker type="daterange" :options="dateOption" v-model="apiData.bUTime" placement="bottom-end" placeholder="选择日期"></DatePicker>
                 </FormItem>
@@ -65,6 +71,9 @@
                 </FormItem>
                 <FormItem label="成为担保商户：" class="magin0">
                     <DatePicker type="daterange" :options="dateOption" v-model="apiData.bGUTime" placement="bottom-end" placeholder="选择日期"></DatePicker>
+                </FormItem>
+                <FormItem label="开通店铺时间：" class="magin0">
+                    <DatePicker type="daterange" :options="dateOption" v-model="apiData.bHSTime" placement="bottom-end" placeholder="选择日期"></DatePicker>
                 </FormItem>
             </Form>
             <div style="margin-bottom:10px;text-align:right">
@@ -76,7 +85,7 @@
                 {{ item.companyName }}
                 <span class="iconfont icon-cheng" style="color:#F5A623" v-show="item.isFaithUser == 1"></span>
                 <span class="iconfont icon-bao" style="color:#C16BD6" v-show="item.isGuaranteeUser == 1"></span>
-                <!-- <span class="iconfont icon-dian" style="color:#2db7f5" v-show="item.isHaveShop == 1"></span> -->
+                <span class="iconfont icon-dian" style="color:#57c5f7" v-show="item.isHaveShop == 1"></span>
                 <Button style="float:right;margin-top:10px" size="small" type="info" @click="showInfo(index)">详情</Button>
                 <Button style="float:right;margin-top:10px;margin-right:10px;" size="small" type="info" @click="showRangeInfo(index)">报价经营范围</Button>
             </div>
@@ -160,9 +169,11 @@ import ajaxSelect from '@/components/basics/ajaxSelect'
                     name: '',
                     isFU: false,
                     isGU: false,
+                    isHS: false,
                     bUTime: ['',''],
                     bFUTime: ['',''],
                     bGUTime: ['',''],
+                    bHSTime: ['',''],
                     currentPage: 1,
                     pageSize: 10
                 },
@@ -220,12 +231,15 @@ import ajaxSelect from '@/components/basics/ajaxSelect'
                     name: this.apiData.name.replace(/'/g, ''),
                     isFU: this.apiData.isFU ? 1 : '',
                     isGU: this.apiData.isGU ? 1 : '',
+                    isHS: this.apiData.isHS ? 1 : '',
                     bUStartTime: this.apiData.bUTime[0] != '' && this.apiData.bUTime[0] != null ? this.apiData.bUTime[0].getTime() : '',
                     bUEndTime: this.apiData.bUTime[1] != '' && this.apiData.bUTime[1] != null ? this.apiData.bUTime[1].getTime() : '',
                     bFUStartTime: this.apiData.bFUTime[0] != '' && this.apiData.bFUTime[0] != null ? this.apiData.bFUTime[0].getTime() : '',
                     bFUEndTime: this.apiData.bFUTime[1] != '' && this.apiData.bFUTime[1] != null ? this.apiData.bFUTime[1].getTime() : '',
                     bGUStartTime: this.apiData.bGUTime[0] != '' && this.apiData.bGUTime[0] != null ? this.apiData.bGUTime[0].getTime() : '',
                     bGUEndTime: this.apiData.bGUTime[1] != '' && this.apiData.bGUTime[1] != null ? this.apiData.bGUTime[1].getTime() : '',
+                    bHSStartTime: this.apiData.bHSTime[0] != '' && this.apiData.bHSTime[0] != null ? this.apiData.bHSTime[0].getTime() : '',
+                    bHSEndTime: this.apiData.bHSTime[1] != '' && this.apiData.bHSTime[1] != null ? this.apiData.bHSTime[1].getTime() : '',
                     currentPage: this.apiData.currentPage,
                     pageSize: this.apiData.pageSize
                 }
@@ -299,11 +313,13 @@ import ajaxSelect from '@/components/basics/ajaxSelect'
                     name: '',
                     isFU: false,
                     isGU: false,
+                    isHS: false,
                     bUTime: ['',''],
                     bFUTime: ['',''],
                     bGUTime: ['',''],
+                    bHSTime: ['',''],
                     currentPage: 1,
-                    pageSize: 5
+                    pageSize: 10
                 }
             },
             // 实时检索

@@ -41,7 +41,10 @@
                 </Row>
                 <Row class="row">
                     <Col span="2" class="col-title">负责人手机号码：</Col>
-                    <Col span="22">{{dataApi.legalPersonMobile}} <span style="color:#ff9900">(已通过短信验证)</span></Col>
+                    <Col span="22" v-if="getStatus != 3">{{dataApi.legalPersonMobile}} <span style="color:#ff9900">(已通过短信验证)</span></Col>
+                    <Col v-else>
+                    <i-input v-model="dataApi.legalPersonMobile" size="small" placeholder="手机号码" style="width: 200px"></i-input>
+                    </Col>
                 </Row>
                 <Row class="row">
                     <Col span="2" class="col-title">提交审核时间：</Col>
@@ -68,18 +71,18 @@
             <div class="auth-main">
                 <Row>
                     <Col span="5">
-                        <div class="auth-main-header">身份证正面照：</div>
-                        <div class="auth-main-img">
-                            <i class="iconfont icon-fangdajing" @click="previewImg(legalPersonCardPhotoA)"></i>
-                            <img :src="legalPersonCardPhotoA"  style="width:180px">
-                        </div>
+                    <div class="auth-main-header">身份证正面照：</div>
+                    <div class="auth-main-img">
+                        <i class="iconfont icon-fangdajing" @click="previewImg(legalPersonCardPhotoA)"></i>
+                        <img :src="legalPersonCardPhotoA" style="width:180px">
+                    </div>
                     </Col>
                     <Col span="5">
-                        <div class="auth-main-header">身份证反面照：</div>
-                        <div class="auth-main-img">
-                            <i class="iconfont icon-fangdajing" @click="previewImg(legalPersonCardPhotoB)"></i>
-                            <img :src="legalPersonCardPhotoB" style="width:180px">
-                        </div>
+                    <div class="auth-main-header">身份证反面照：</div>
+                    <div class="auth-main-img">
+                        <i class="iconfont icon-fangdajing" @click="previewImg(legalPersonCardPhotoB)"></i>
+                        <img :src="legalPersonCardPhotoB" style="width:180px">
+                    </div>
                     </Col>
                 </Row>
             </div>
@@ -94,13 +97,20 @@
                 </div>
             </div>
         </div>
-        <div class="auth-wrap" v-if="getStatus != 2">
+        <div class="auth-wrap" v-if="getStatus == '3'">
+            <p class="title"><span>审核操作</span></p>
+            <div class="auth-main">
+                <Button type="success" @click.native="update" style="margin-right: 40px;">保存</Button>
+            </div>
+        </div>
+        <div class="auth-wrap" v-if="getStatus == '1'">
             <p class="title"><span>审核操作</span></p>
             <div class="auth-main">
                 <Button type="success" @click.native="pass" style="margin-right: 40px;">审核通过</Button>
                 <Button type="warning" @click.native="unpass">无法通过</Button>
             </div>
         </div>
+        <div class="auth-wrap" v-else></div>
         <Modal v-model="show" title="无法通过审核" :closable="false" :mask-closable="false">
             <Form :ref="ref" :model="unpassApi" :rules="rules">
                 <FormItem prop="remark">
@@ -113,10 +123,10 @@
                 <Button type="primary" @click="unpassHandle" :loading="loading">确认保存</Button>
             </div>
         </Modal>
-        <Modal v-model="imgshow" title="查看大图" :closable="false" :mask-closable="false">
-           <div>
-               <img :src="previewImgUrl" style="max-width:100%;">
-           </div>
+        <Modal v-model="imgshow" title="查看大图" :closable="false">
+            <div>
+                <img :src="previewImgUrl" style="max-width:100%;">
+            </div>
             <div slot="footer">
                 <Button type="primary" @click="imgshow = false">关闭</Button>
             </div>
@@ -163,13 +173,13 @@
                 let params = {
                     appUserId: this.id
                 }
-                this.$http.post(this.api.queryContractAuthenticationById,params).then(res => {
-                    if(res.code === 1000){
+                this.$http.post(this.api.queryContractAuthenticationById, params).then(res => {
+                    if (res.code === 1000) {
                         this.dataApi = res.data
                         this.businessLicense = res.data.businessLicense
                         this.legalPersonCardPhotoA = res.data.legalPersonCardPhotoA,
-                        this.legalPersonCardPhotoB = res.data.legalPersonCardPhotoB,
-                        this.businessCertificate = res.data.businessCertificate
+                            this.legalPersonCardPhotoB = res.data.legalPersonCardPhotoB,
+                            this.businessCertificate = res.data.businessCertificate
                     }
                 })
             },
@@ -182,17 +192,17 @@
                         let params = {
                             appUserId: this.id,
                             flag: 1,
-                            remark:''
+                            remark: ''
                         }
-                        this.$http.post(this.api.checkContractAuthentication,params).then(res => {
-                            if(res.code === 1000){
+                        this.$http.post(this.api.checkContractAuthentication, params).then(res => {
+                            if (res.code === 1000) {
                                 this.$Message.success('通过成功')
                                 this.$router.push('/authentication')
-                            }else{
-                                this.$Message.error(res.message)   
+                            } else {
+                                this.$Message.error(res.message)
                             }
                         })
-                        
+    
                     }
                 })
             },
@@ -208,14 +218,32 @@
                             flag: 0,
                             remark: this.unpassApi.remark
                         }
-                        this.$http.post(this.api.checkContractAuthentication,params).then(res => {
-                            if(res.code === 1000){
+                        this.$http.post(this.api.checkContractAuthentication, params).then(res => {
+                            if (res.code === 1000) {
                                 this.$Message.success('操作成功')
                                 this.$router.push('/authentication')
-                            }else{
+                            } else {
                                 this.$message.error(res.message)
                             }
                         })
+                    }
+                })
+            },
+            //  修改手机号码
+            update() {
+                let params = {
+                    appUserId: this.id,
+                    mobile: this.dataApi.legalPersonMobile
+                }
+                this.$http.post(this.api.changeContractMobile,params).then(res => {
+                    if(res.code === 1000){
+                        this.$Message.success('修改成功');
+                        this.getData();
+                    }else{
+                          this.$Modal.error({
+                            title: '修改失败',
+                            content: res.message
+                        });
                     }
                 })
             },
@@ -260,13 +288,13 @@
                 text-align: right;
                 padding-right: 8px;
             }
-            .auth-main-header{
+            .auth-main-header {
                 margin-bottom: 10px;
             }
-            .auth-main-img{
+            .auth-main-img {
                 position: relative;
                 font-size: 0;
-                i{
+                i {
                     position: absolute;
                     bottom: 0px;
                     left: 140px;

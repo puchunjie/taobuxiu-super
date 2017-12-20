@@ -21,10 +21,9 @@
             routerIndex() {
                 let name = this.$route.name;
                 let routerIndex;
-                _.forEach(this.navData, function(o, k) {
-                    if (o.pathName === name) {
-                        routerIndex = k
-                    }
+                this.navData.forEach((el,index) => {
+                    if(el.pathName === name)
+                        routerIndex = index
                 })
                 return routerIndex
             }
