@@ -422,6 +422,7 @@ import thinkWrap from '../thinkwrap/index'
                     sellLegalPersonName: this.data.sellLegalPersonName,
                     inspectionTime: this.dataApi.inspectionTime,
                     sysTime: this.data.systemTime,
+                    tolerance: this.dataApi.tolerance,
                     contractShowId: this.data.contractShowId,
                     deliveryTerm: this.deliveryDate != '' ? new Date(this.deliveryDate).getTime() : '',
                     remark: this.dataApi.remark,

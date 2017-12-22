@@ -72,6 +72,7 @@
                 <div class="info-item">所属地区：{{resourseData.locationName}}</div>
                 <div class="info-item">计量方式：{{resourseData.measuringType | measuringStr}}</div>
                 <div class="info-item">新鲜指数：{{resourseData.recommendPoint}}</div>
+                <div class="info-item">公差：{{resourseData.tolerance}}</div>
                 <div class="info-item">品类：{{resourseData.ironTypeName}}</div>
                 <div class="info-item">材质：{{resourseData.materialName}}</div>
                 <div class="info-item">表面：{{resourseData.surfaceName}}</div>
@@ -81,6 +82,7 @@
                 <div class="info-item">仓库：{{resourseData.storeHouseName}}</div>
             </template> 
              <template v-else>
+
                 <div class="info-item">买方公司名称：{{contactData.buyCompanyName}}</div>
                 <div class="info-item">买方公司账号：{{contactData.buyMobile}}</div>
                 <div class="info-item">卖方公司名称：{{contactData.sellCompanyName}}</div>

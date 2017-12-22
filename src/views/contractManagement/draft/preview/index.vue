@@ -96,6 +96,7 @@
                 <td>序号</td>
                 <td>货品名称</td>
                 <td>材质</td>
+                <td>公差产地</td>
                 <td>规格</td>
                 <td>数量</td>
                 <td>重量</td>
@@ -107,7 +108,8 @@
             <tr v-for="(info,index) in previewData.orderIds" :key="info.index">
                 <td>{{index+1}}</td>
                 <td>{{info.ironTypeName}}</td>
-                <td>{{info.materialName}}</td>
+                <td>{{info.materialName}}/{{ info.surfaceName }}</td>
+                <td>{{info.tolerance}}</td>
                 <td>{{ info.specifications ? info.specifications :`${info.height}*${info.width}*${info.length}` }}</td>
                 <td>{{info.numbers}}</td>
                 <td>{{info.weights}}</td>
@@ -120,6 +122,7 @@
                 <td>{{index + 1 + ordersLength}}</td>
                 <td>{{cost.ironTypeName}}</td>
                 <td>{{cost.materialName}}</td>
+                <td></td>
                 <td>{{ cost.specifications }}</td>
                 <td>{{cost.numbers}}</td>
                 <td>{{cost.weights}}</td>
@@ -130,6 +133,7 @@
             </tr>
             <tr>
                 <td>合计：</td>
+                <td></td>
                 <td></td>
                 <td></td>
                 <td></td>

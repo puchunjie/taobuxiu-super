@@ -78,6 +78,7 @@
                 <div class="info-item">材质：{{resourseData.materialName}}</div>
                 <div class="info-item">表面：{{resourseData.surfaceName}}</div>
                 <div class="info-item">产地：{{resourseData.proPlacesName}}</div>
+                <div class="info-item">公差：{{resourseData.tolerance}}</div>
                 <div class="info-item">规格：{{ resourseData.specifications != '' ? resourseData.specifications : `${resourseData.height}*${resourseData.width}*${resourseData.length}`}}</div>
                 <div class="info-item">单价：{{resourseData.price}}元/吨</div>
                 <div class="info-item">仓库：{{resourseData.storeHouseName}}</div>
