@@ -106,6 +106,7 @@ export default {
                     }
                     this.$http.post(this.api.updateDingKai, params).then(res => {
                         if(res.code === 1000){
+                            this.params.currentPage = this.screenApi.currentPage;
                             this.getkpList(this.params);
                             this.$Message.success('操作成功')
                         }else{

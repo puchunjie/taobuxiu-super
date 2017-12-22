@@ -110,6 +110,7 @@
                     };
                 this.$http.post(this.api.updateSpeciaPriceInfo,params).then(res => {
                     if(res.code === 1000){
+                        this.params.currentPage = this.screenApi.currentPage;
                         this.getAllList(this.params)
                         this.$Message.success('操作成功')
                     }else{

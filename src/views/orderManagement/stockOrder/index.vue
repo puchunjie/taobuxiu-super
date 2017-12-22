@@ -184,6 +184,7 @@ export default {
                     this.$http.post(this.api.updateOrderStatusById, params).then(res => {
                         if(res.code === 1000){
                             this.$Message.success('操作成功')
+                            this.params.currentPage = this.screenApi.currentPage;
                             this.getAllList(this.params);
                         }else{
                             this.$Message.error('操作失败')

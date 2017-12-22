@@ -49,6 +49,9 @@
                 <Button size="small" type="warning" @click="modifyData(item)">编辑</Button>
               </Col>
           </Row>
+          <Row v-if="list.length == 0">
+              <Col class-name="col" span="24">暂无数据</Col>
+          </Row>
           </div>
         </div>
         <Page class="page-count" size="small" :total="totalCount" show-total :current="filterData.currentPage" :page-size="filterData.pageSize" @on-change="changePage"></Page>
@@ -76,6 +79,7 @@
   </div>
 </template>
 <script>
+import {dataToTime} from '@/utils/filters.js'
 export default {
   data () {
     return {
