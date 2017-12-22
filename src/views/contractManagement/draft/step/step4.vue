@@ -133,7 +133,7 @@
                     <td>{{info.ironTypeName}}</td>
                     <td>{{ info.materialName }}/{{ info.surfaceName }}</td>
                     <td>{{ info.specifications ? info.specifications :`${info.height}*${info.width}*${info.length}` }}</td>
-                    <td><Input v-model="info.tolerance" placeholder="公差" size="small" ></Input></td>
+                    <td><Input v-model="info.tolerance" placeholder="公差" size="small"></Input></td>
                     <td><input v-model="info.numbers" @blur="blurOut" class="ivu-input ivu-input-small" :id="'numbers-'+i" placeholder="数量" size="small" ></td>
                     <td><input v-model="info.weights" @blur="blurOut" class="ivu-input ivu-input-small" :id="'weights-'+i" placeholder="重量" size="small" ></td>
                     <td>
@@ -461,7 +461,7 @@ import thinkWrap from '../thinkwrap/index'
             },
             //  起草合同
             doDraft() {
-                // this.checkInfo();
+                this.checkInfo();
                 let condition = this.location.id != '' && this.dataApi.deliveryHouse != '' && this.deliveryDate != '' && this.dataApi.inspectionTime !=''
                     if(this.isOk && condition){
                     this.$Modal.confirm({
@@ -489,28 +489,37 @@ import thinkWrap from '../thinkwrap/index'
             blurOut(e) {
                 if(e.target.className = 'ivu-input ivu-input-small error')
                     e.target.className = 'ivu-input ivu-input-small'
-                this.isOk = true
             },
             //  验证是否输入完整信息
-            // checkInfo() {
-            //     this.totlePrcieArr.forEach((el,index) => {
-            //         if(el == '0.00' || el == 'NaN'){
-            //             let numbersId = document.getElementById('numbers-' + index)
-            //             let weightsId = document.getElementById('weights-' + index)
-            //             if(this.data.orderIds[index].priceMode == '1'){
-            //                 numbersId.className = 'ivu-input ivu-input-small error'
-            //             }else{
-            //                 weightsId.className = 'ivu-input ivu-input-small error'
-            //             }
-            //             this.$Message.error('请填写正确信息');
-            //             this.isOk = false
-            //         }
-            //     })
-            // },
+            checkInfo() {
+                this.totlePrcieArr.forEach((el,index) => {
+                    if(el == '0.00' || el == 'NaN'){
+                        this.isOk = false
+                        // let numbersId = document.getElementById('numbers-' + index)
+                        // let weightsId = document.getElementById('weights-' + index)
+                        // if(this.data.orderIds[index].priceMode == '1'){
+                        //     numbersId.className = 'ivu-input ivu-input-small error'
+                        // }else{
+                        //     weightsId.className = 'ivu-input ivu-input-small error'
+                        // }
+                        this.$Message.error('请填写正确信息');
+                    }else{
+                        this.isOk = true
+                    }
+                })
+                this.totleCoastArr.forEach((el,index) => {
+                    if(el == '0.00' || el == 'NaN'){
+                       this.isOk = false
+                    }else{
+                        this.isOk = true
+                    }
+                })
+            },
             //  预览合同
             previewDraft(){
+                this.checkInfo();
                 let condition = this.location.id != '' && this.dataApi.deliveryHouse != '' && this.deliveryDate != '' && this.dataApi.inspectionTime !=''
-                if(condition) {
+                if(condition && this.isOk) {
                     this.show = true
                 }else{
                     this.$Message.error('请先完善合同信息')

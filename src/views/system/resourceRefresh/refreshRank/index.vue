@@ -2,7 +2,7 @@
   <div class="panel">
     <Card :bordered="false" class="card">
       <p slot="title">{{title}}管理</p>
-      <Button slot="extra" size="small" type="success" @click="openModel(false)">新增资源类型</Button>
+      <Button slot="extra" size="small" type="success" @click="openModel(false)">新增等级机制</Button>
       <div class="card-contnet">
       <div class="table-contnet">
         <Row class-name="head">
