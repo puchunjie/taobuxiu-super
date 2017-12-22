@@ -133,6 +133,8 @@
             },
             openModel(isEdit,item) {
                 this.isEdit = isEdit;
+                this.getTypeList()
+                this.show = true;
                 if(isEdit){
                     this.editItem = item || {}
                     this.itemApi = {
@@ -151,8 +153,6 @@
                         QualificationTypeName: ''
                     }
                 }
-                this.getTypeList()
-                this.show = true;
             },
             // 保存
             handleSubmit (){

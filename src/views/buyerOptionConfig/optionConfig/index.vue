@@ -20,6 +20,9 @@
                         <Button size="small" type="error" @click="deleteItem(item)">删除</Button>
                     </Col>
                 </Row>
+                <Row v-if="list.length == 0">
+                    <Col class-name="col" span="24">暂无数据</Col>
+                </Row>
             </div>
         <Page class="page-count" size="small" :total="totalCount" show-total :current="dataApi.currentPage" :page-size="dataApi.pageSize" @on-change="changePage"></Page>
         </div>

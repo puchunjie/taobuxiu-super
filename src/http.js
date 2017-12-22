@@ -6,7 +6,7 @@ import router from './router'
 import Qs from 'qs'
 
 // axios 配置
-axios.defaults.timeout = 20000;
+// axios.defaults.timeout = 20000;
 if (process.env.NODE_ENV == 'development')
     axios.defaults.baseURL = 'http://192.168.0.251'
 // axios.defaults.baseURL = 'http://192.168.0.152:8080'; //配置接口地址-胡
