@@ -42,7 +42,7 @@
                         </Row>
                         <Col class-name="col" span="8">
                             {{ item.ironTypeName }}&nbsp;&nbsp;&nbsp;&nbsp;{{ `${item.materialName}/${item.surfaceName}` }}&nbsp;&nbsp;&nbsp;&nbsp;{{ item.proPlacesName }} &nbsp;&nbsp;{{ item.specifications ? item.specifications :`${item.height}*${item.width}*${item.length}`
-                            }} &nbsp;&nbsp;&nbsp;&nbsp;{{ item.tolerance | isEmpty('') }}
+                            }} &nbsp;&nbsp;&nbsp;&nbsp;{{ item.tolerance != ''? item.tolerance : '' }}
                         </Col>
                         <Col class-name="col" span="2">{{item.measuringType == 1 ? '过磅': '理计'}}</Col>
                         <Col class-name="col" span="2">&yen;{{item.price}}</Col>

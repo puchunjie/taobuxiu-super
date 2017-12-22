@@ -121,7 +121,7 @@
                     <td>货品名称</td>
                     <td>材质</td>
                     <td>规格及型号</td>
-                    <td>公差参数</td>
+                    <td>公差产地</td>
                     <td>数量</td>
                     <td>重量(吨)</td>
                     <td>计价方式</td>
@@ -160,7 +160,7 @@
                 <col width="7%" />
                 <col width="3%" />
                 <tr v-for="(item,i) in castData.items" :key="i">
-                    <td><input v-model="item.ironTypeName" @focus="showThink($event,i)" :id="'thinding-'+i" class="ivu-input ivu-input-small" placeholder="请输入"></td>
+                    <td><input v-model="item.ironTypeName" @click="showThink($event,i)" :id="'thinding-'+i" class="ivu-input ivu-input-small" placeholder="请输入"></td>
                     <td><Input v-model="item.materialName" placeholder="请输入" size="small"></Input></td>
                     <td><Input v-model="item.specifications" placeholder="请输入" size="small" ></Input></td>
                     <td><Input v-model="item.tolerance" placeholder="请输入" size="small" ></Input></td>
@@ -227,7 +227,7 @@
             <Button @click="previewDraft">预览电子合同</Button>
             <Button @click="giveUpDraft">放弃起草合同</Button>
         </div>
-        <Modal v-model="show" title="预览电子合同" :closable="false" width="700" :mask-closable="false">
+        <Modal v-model="show" title="预览电子合同" :closable="false" width="850" :mask-closable="false">
             <previewPage :previewData="previewData"></previewPage>
             <div slot="footer">
                 <Button type="primary" @click="show = false">关闭</Button>
@@ -450,6 +450,9 @@ import thinkWrap from '../thinkwrap/index'
                 this.$http.post(this.api.selectBgStartContractInfo, params).then(res => {
                     if (res.code === 1000) {
                         this.data = res.data
+                        this.data.orderIds.forEach(el => {
+                            el.tolerance += ' ' + el.proPlacesName
+                        })
                     }else{
                         this.$Message.error(res.message);
                     }
@@ -534,23 +537,25 @@ import thinkWrap from '../thinkwrap/index'
             },
             //  获取合同种类数据
             showThink(event,id) {
-                let inputId = event.target.getAttribute('id')
-                this.inputId = inputId;
-                this.activeTargetRef = inputId+'type';
-                let elem = document.getElementById(inputId)
-                let elLeft = elem.offsetLeft
-                let elTop = elem.offsetTop
-                let current = elem.offsetParent;
-                while (current != null) {　　　　　　
-                    // elLeft += current.offsetLeft;
-                    elTop += current.offsetTop;　　　　　　
-                    current = current.offsetParent;　
-                }　
-                this.thinkData.x = elLeft + 30 + 'px';
-                this.thinkData.y = elTop + 25 + 'px';
-                setTimeout(() => {
-                    this.thinkData.show = true
-                }, 100);
+                if(!this.thinkData.show){
+                    let inputId = event.target.getAttribute('id')
+                    this.inputId = inputId;
+                    this.activeTargetRef = inputId+'type';
+                    let elem = document.getElementById(inputId)
+                    let elLeft = elem.offsetLeft
+                    let elTop = elem.offsetTop
+                    let current = elem.offsetParent;
+                    while (current != null) {　　　　　　
+                        // elLeft += current.offsetLeft;
+                        elTop += current.offsetTop;　　　　　　
+                        current = current.offsetParent;　
+                    }　
+                    this.thinkData.x = elLeft + 30 + 'px';
+                    this.thinkData.y = elTop + 25 + 'px';
+                    setTimeout(() => {
+                        this.thinkData.show = true
+                    }, 100);
+                }
             },
             //  赋值
             choseItem(tag) {
