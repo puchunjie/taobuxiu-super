@@ -1,8 +1,7 @@
 <template>
     <div class="previewBody">
         <h2>三方购销合作服务协议</h2>
-        <P class="p-info">合同编号：TBXSFXY2017{{previewData.contractShowId}}</P>
-        <P class="p-info">签署地：<span class="l">无锡</span></P>
+        <P class="p-info">合同编号：{{previewData.contractShowId}}</P>
         <h3>服务方（甲方）：<span class="l">{{previewData.systemAppName}}</span></h3>
         <h3>委托方（乙方）：<span class="l">{{previewData.buyCompanyName}}</span></h3>
         <h3>供货方（丙方）：<span class="l">{{previewData.sellCompanyName}}</span></h3>
@@ -16,62 +15,7 @@
         <p>（三）乙方如认为代采购货品不合格，应在提货后<span class="l">{{ previewData.inspectionTime }}</span>日内与丙方进行沟通并提出书面异议，甲方与丙方确认货品不合格系由丙方原因造成，可为乙方提供先行赔付保障。乙方应当以适当的方式保存不合格货品，以防止它们损坏、遭窃或遭受其他损失，直到它们被返还给丙方，否则甲方有权拒绝先行赔付，丙方有权拒绝相关赔偿。</p>
         <p>（四）丙方保证所供产品必须为正品且应符合国家标准。丙方需根据甲乙双方要求提供：产品材质单，质量体系认证，加工厂环评批复等可提供的符合国家标准的证书、证件，带公章复印件。</p>
         <h3>三、货物明细、交货地点、交货期限以及发货凭证：</h3>
-        <p>
-        <table class="tables">
-            <tr>
-                <td>序号</td>
-                <td>货品名称</td>
-                <td>材质</td>
-                <td>规格</td>
-                <td>数量</td>
-                <td>重量</td>
-                <td>单价</td>
-                <td>总金额</td>
-                <td>备注</td>
-                <!-- <td>交货仓库</td> -->
-            </tr>
-            <tr v-for="(info,index) in previewData.orderIds" :key="info.index">
-                <td>{{index+1}}</td>
-                <td>{{info.ironTypeName}}</td>
-                <td>{{info.materialName}}</td>
-                <td>{{ info.specifications ? info.specifications :`${info.height}*${info.width}*${info.length}` }}</td>
-                <td>{{info.numbers}}</td>
-                <td>{{info.weights}}</td>
-                <td>{{info.price}}</td>
-                <td>{{info.orderTotalPrice}}</td>
-                <td>{{info.remark}}</td>
-                <!-- <td>{{info.materialName}}</td> -->
-            </tr>
-            <tr v-for="(cost,index) in previewData.costs" :key="cost.index">
-                <td>{{index+1}}</td>
-                <td>{{cost.ironTypeName}}</td>
-                <td>{{cost.materialName}}</td>
-                <td>{{ cost.specifications }}</td>
-                <td>{{cost.numbers}}</td>
-                <td>{{cost.weights}}</td>
-                <td>{{cost.price}}</td>
-                <td>{{previewData.totleCoastArr[index]}}</td>
-                <td>{{cost.remark}}</td>
-                <!-- <td>{{cost.materialName}}</td> -->
-            </tr>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td>合计：</td>
-                <td>{{previewData.totlePrice}}</td>
-                <td></td>
-                <td></td>
-            </tr>
-        </table>
-        </p>
-        <P>交货地点：{{previewData.locationName}}</P>
-        <P>交货期限：{{previewData.deliveryTerm | dateformatZ}}前，特殊情况提前沟通。</P>
-        <P>质量标准：产品符合生产厂家出厂标准，以货品相对应的质量证明书为准。</P>
-        <P>备    注：{{previewData.remark}}</P>
+        <p><span class="b l">货物明细、费用、交货地点、交货期限等详情见尾部附页，丙方以甲方提货委托函为发货凭证并保留提货人有效证件信息。</span></p>
         <h3>四、结算方式、服务流程及发票</h3>
         <p>（一）三方采用以下认可的付款方式<span class="l">{{previewData.payMent | payMent}}</span>(1电汇、2支票、3承兑）进行结算。</p>
         <p>（二）乙方确认代采购订单明细后，由甲方或者丙方生成此合同。</p>
@@ -89,8 +33,8 @@
         <h3>八、合同生效：</h3>
         <p>（一）本合同由三方授权代表签字或加盖公司印章后生效。</p>
         <p>（二）三方基于本合同交易的订单、委托函、确认书均具有法律效力。订单、委托函、确认书的传真件、复印件与原件具有同等法律效力。</p>
-        <p>（三）本合同有效期自{{previewData.startDate | dateformatZ}}起至{{previewData.endDate | dateformatZ}}止；</p>
-        <P>（四）本合同一式三份，三方各执一份具有同等法律效力。</P>
+        <!-- <p>（三）本合同有效期自{{previewData.startDate | dateformatZ}}起至{{previewData.endDate | dateformatZ}}止；</p> -->
+        <P>（三）本合同一式三份，三方各执一份具有同等法律效力。</P>
         <br><br>
         <Row  class="row-col" >
             <Col span="12">
@@ -99,14 +43,15 @@
                 <P>签订日期：{{previewData.sysTime | dateformatZ}}</P>
                 <p>联系电话：{{previewData.systemAppTel}}</p>
             </Col>
+        </Row><br>
+        <Row  class="row-col" >
             <Col span="12">
                 <P>已方：{{previewData.buyCompanyName}}</P>
                 <p>代理人：{{previewData.buyLegalPersonName}}</p>
                 <P>签订日期：{{previewData.sysTime | dateformatZ}}</P>
                 <p>联系电话：{{previewData.buyLegalPersonMobile}}</p>
             </Col>
-        </Row>
-        <br><br>
+        </Row><br>
         <Row  class="row-col" >
             <Col span="12">
                 <P>丙方：{{previewData.sellCompanyName}}</P>
@@ -115,6 +60,94 @@
                 <p>联系电话：{{previewData.sellLegalPersonMobile}}</p>
             </Col>
         </Row>
+        <br> <br>
+        <h2><span class="l">无锡淘不锈电子商务有限公司代采购单</span></h2>
+        <br><br>
+        <p>
+            <table class="tables">
+                <tr>
+                    <td colspan="2">委托方：<div>{{previewData.buyCompanyName}}</div></td>
+                    <td colspan="2">供货方：<div>{{previewData.sellCompanyName}}</div></td>
+                    <td colspan="2">采购单号：<div>{{previewData.contractShowId}}</div></td>
+                </tr>
+                <tr>
+                    <td>
+                        联系人：
+                        <div>{{previewData.buyLegalPersonName}}</div>
+                    </td>
+                    <td>
+                        联系电话：<div>{{previewData.buyLegalPersonMobile}}</div>
+                    </td>
+                    <td>
+                        联系人：<div>{{previewData.sellLegalPersonName}}</div>
+                    </td>
+                    <td>
+                        联系电话：<div>{{previewData.sellLegalPersonMobile}}</div>
+                    </td>
+                    <td colspan="2">
+                        交货仓库：<div>{{previewData.deliveryHouse}}</div>
+                    </td>
+                </tr>
+            </table>
+        </p><br><br>
+        <p>
+        <table class="tables">
+            <tr>
+                <td>序号</td>
+                <td>货品名称</td>
+                <td>材质</td>
+                <td>规格</td>
+                <td>数量</td>
+                <td>重量</td>
+                <td>单价</td>
+                <td>总金额</td>
+                <td>备注</td>
+                <td>交货仓库</td>
+            </tr>
+            <tr v-for="(info,index) in previewData.orderIds" :key="info.index">
+                <td>{{index+1}}</td>
+                <td>{{info.ironTypeName}}</td>
+                <td>{{info.materialName}}</td>
+                <td>{{ info.specifications ? info.specifications :`${info.height}*${info.width}*${info.length}` }}</td>
+                <td>{{info.numbers}}</td>
+                <td>{{info.weights}}</td>
+                <td>{{info.price}}</td>
+                <td>{{info.orderTotalPrice}}</td>
+                <td>{{info.remark}}</td>
+                <td>{{previewData.deliveryHouse}}</td>
+            </tr>
+            <tr v-for="(cost,index) in previewData.costs" :key="cost.index">
+                <td>{{index + 1 + ordersLength}}</td>
+                <td>{{cost.ironTypeName}}</td>
+                <td>{{cost.materialName}}</td>
+                <td>{{ cost.specifications }}</td>
+                <td>{{cost.numbers}}</td>
+                <td>{{cost.weights}}</td>
+                <td>{{cost.price}}</td>
+                <td>{{previewData.totleCoastArr[index]}}</td>
+                <td>{{cost.remark}}</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>合计：</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>{{previewData.totleNumbers}}</td>
+                <td>{{previewData.totleWeights}}</td>
+                <td></td>
+                <td>{{previewData.totlePrice}}</td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+        </p>
+        <br>
+        <P class="b">交货地点：{{previewData.locationName}}</P>
+        <P class="b">交货期限：{{previewData.deliveryTerm | dateformatZ}}前，特殊情况提前沟通。</P>
+        <P class="b">质量标准：产品符合生产厂家出厂标准，以货品相对应的质量证明书为准。</P>
+        <P class="b">备    注：{{previewData.remark}}</P>
+        <p>以上附页详情由乙方、丙方沟通确认，确认无误请盖章确认。</p>
     </div>
 </template>
 
@@ -122,6 +155,11 @@
     export default {
         props: {
             previewData: Object
+        },
+        computed: {
+            ordersLength() {
+                return this.previewData.orderIds.length
+            }
         }
     }
 </script>
@@ -134,6 +172,7 @@
             font-weight: bolder
         }
         h3{
+            font-size: 14px;
             margin: 10px 0;
         }  
         p{
@@ -145,6 +184,9 @@
         .l{
             border-bottom: 1px solid #a1a1a1;
             font-weight: bold;
+        }
+        .b{
+            font-weight: bold; 
         }
         .tables{
             width: 100%;

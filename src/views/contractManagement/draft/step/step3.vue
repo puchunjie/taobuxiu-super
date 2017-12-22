@@ -24,7 +24,7 @@
                     <Col class-name="col" span="8">货品详情</Col>
                     <Col class-name="col" span="2">计量方式</Col>
                     <Col class-name="col" span="2">单价(吨/元)</Col>
-                    <Col class-name="col" span="2">数量(吨)</Col>
+                    <Col class-name="col" span="2">重量(吨)</Col>
                     <Col class-name="col" span="2">总额(元)</Col>
                     <Col class-name="col" span="2">所在地</Col>
                     <Col class-name="col" span="2">仓库</Col>

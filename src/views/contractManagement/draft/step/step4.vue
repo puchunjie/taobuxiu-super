@@ -8,7 +8,7 @@
             </Row>
             <Row class="rowBody">
                 <Col span="2" class="rowBodyTitle">
-                    平台名称：
+                    甲方名称：
                 </Col>
                 <Col span="20">
                     {{data.systemAppName}}
@@ -18,13 +18,13 @@
         <Row class="order-row">
             <Row class="rowHeader">
                 <Col span="24"  class="row-col">
-                    <span class="warmFont">*</span>请确认采购方的客户信息，合同中将以此作为甲方信息
+                    <span class="warmFont">*</span>请确认采购方的客户信息，合同中将以此作为乙方信息
                 </Col>
             </Row>
             <Row class="rowBody">
                 <Row class="row-col">
                     <Col span="2" class="rowBodyTitle">
-                        甲方名称：
+                        乙方名称：
                     </Col>
                     <Col span="20">
                         {{data.buyCompanyName}}
@@ -32,7 +32,7 @@
                 </Row>
                 <Row  class="row-col">
                     <Col span="2" class="rowBodyTitle">
-                        甲方地址：
+                        乙方地址：
                     </Col>
                     <Col span="20">
                         {{data.buyLocationName}}
@@ -59,13 +59,13 @@
         <Row class="order-row">
             <Row class="rowHeader">
                 <Col span="24"  class="row-col">
-                    <span class="warmFont">*</span>请确认供应商的客户信息，合同中将以此作为乙方信息
+                    <span class="warmFont">*</span>请确认供应商的客户信息，合同中将以此作为丙方信息
                 </Col>
             </Row>
             <Row class="rowBody">
                 <Row class="row-col">
                     <Col span="2" class="rowBodyTitle">
-                        乙方名称：
+                        丙方名称：
                     </Col>
                     <Col span="20">
                         {{data.sellCompanyName}}
@@ -73,7 +73,7 @@
                 </Row>
                 <Row  class="row-col">
                     <Col span="2" class="rowBodyTitle">
-                        乙方地址：
+                        丙方地址：
                     </Col>
                     <Col span="20">
                         {{data.sellLocationName}}
@@ -106,14 +106,14 @@
             </Row>
             <Row class="rowBody">
               <table class="tables">
+                <col width="8%" />
+                <col width="8%" />
                 <col width="10%" />
                 <col width="10%" />
                 <col width="10%" />
                 <col width="10%" />
                 <col width="10%" />
                 <col width="10%" />
-                <col width="10%" />
-                <col width="6%" />
                 <col width="14%" />
                 <col width="7%" />
                 <col width="3%" />
@@ -134,8 +134,8 @@
                     <td>{{ info.materialName }}/{{ info.surfaceName }}</td>
                     <td>{{ info.specifications ? info.specifications :`${info.height}*${info.width}*${info.length}` }}</td>
                     <td><Input v-model="info.tolerance" placeholder="公差" size="small" ></Input></td>
-                    <td><Input v-model="info.numbers" placeholder="数量" size="small" ></Input></td>
-                    <td><Input v-model="info.weights" placeholder="重量" size="small" ></Input></td>
+                    <td><input v-model="info.numbers" @blur="blurOut" class="ivu-input ivu-input-small" :id="'numbers-'+i" placeholder="数量" size="small" ></td>
+                    <td><input v-model="info.weights" @blur="blurOut" class="ivu-input ivu-input-small" :id="'weights-'+i" placeholder="重量" size="small" ></td>
                     <td>
                     <Select v-model="info.priceMode" size="small">
                         <Option v-for="mode in priceModeData" :value="mode.id" :key="mode.id">{{ mode.label }}</Option>
@@ -148,14 +148,14 @@
                 </tr>
               </table>
               <table class="tables">
+                <col width="8%" />
+                <col width="8%" />
                 <col width="10%" />
                 <col width="10%" />
                 <col width="10%" />
                 <col width="10%" />
                 <col width="10%" />
                 <col width="10%" />
-                <col width="10%" />
-                <col width="6%" />
                 <col width="14%" />
                 <col width="7%" />
                 <col width="3%" />
@@ -197,6 +197,9 @@
                         <FormItem label="验货时长：">
                             <input type="number" class="ivu-input" v-model="dataApi.inspectionTime"  placeholder="请输入...">
                         </FormItem>
+                        <FormItem label="交货仓库：">
+                            <input type="input" class="ivu-input" v-model="dataApi.deliveryHouse"  placeholder="请输入交货仓库（如：东方一期）">
+                        </FormItem>
                         <FormItem label="交货期限：">
                             <DatePicker :clearable="false" type="date" :options="deliveryDateOpt" v-model="deliveryDate" placement="bottom-end" placeholder="选择日期"></DatePicker>
                         </FormItem>
@@ -209,7 +212,7 @@
                             </Select>
                         </FormItem>
                         <FormItem label="开具发票有效日：">
-                            <input type="number" class="ivu-input" v-model="dataApi.invoiceDate"  placeholder="请输入...">
+                            <input type="number" class="ivu-input" disabled="true" v-model="dataApi.invoiceDate"  placeholder="请输入...">
                         </FormItem>
                         <FormItem label="合同有效日期：">
                             {{data.systemTime | dateformatZ}}
@@ -224,7 +227,7 @@
             <Button @click="previewDraft">预览电子合同</Button>
             <Button @click="giveUpDraft">放弃起草合同</Button>
         </div>
-        <Modal v-model="show" title="预览电子合同" :closable="false" width="800" :mask-closable="false">
+        <Modal v-model="show" title="预览电子合同" :closable="false" width="700" :mask-closable="false">
             <previewPage :previewData="previewData"></previewPage>
             <div slot="footer">
                 <Button type="primary" @click="show = false">关闭</Button>
@@ -271,13 +274,16 @@ import thinkWrap from '../thinkwrap/index'
                     systemAppName: '',
                     systemAppTel: '',
                     contractShowId: '',
-                    systemTime: ''
+                    contractCreateId: '',
+                    systemTime: '',
                 },
                 dataApi: {
                     inspectionTime: '',
                     deliveryTerm: '',
+                    deliveryHouse: '',
                     remark: '',
                     payMent: 1,
+                    deliveryHouse: '',
                     invoiceDate: 25,
                     startDate: '',
                     endDate: ''
@@ -311,7 +317,8 @@ import thinkWrap from '../thinkwrap/index'
                         return date && date.valueOf() < Date.now() - 86400000;
                     }
                 },
-                inputId: ''
+                inputId: '',
+                isOk: true
             }
         },
         computed: {
@@ -328,7 +335,6 @@ import thinkWrap from '../thinkwrap/index'
             //  计算其他费用单个总价
             totleCoastArr() {
                 let arr = [];
-                // console.log(this.castData.items.length != 0)
                 if(this.castData.items.length != 0)
                     this.castData.items.forEach((el,index) => {
                         let number = el.priceMode == 1 ? el.numbers : el.weights;
@@ -350,6 +356,34 @@ import thinkWrap from '../thinkwrap/index'
                 price = price1 + price2;
                 return price.toFixed(2)
             },
+            //  数量总计
+            totleNumbers() {
+                let numbers = 0;
+                let numbers1 = 0;
+                let numbers2 = 0;
+                this.data.orderIds.forEach(el => {
+                    numbers1 += Number(el.numbers)
+                })
+                this.castData.items.forEach(el => {
+                    numbers2 += Number(el.numbers)
+                })
+                numbers = numbers1 + numbers2
+                return numbers == 0 ? '' : numbers
+            },
+            //  总量总计
+            totleWeights() {
+                let weights = 0;
+                let weights1 = 0;
+                let weights2 = 0;
+                this.data.orderIds.forEach(el => {
+                    weights1 += Number(el.weights)
+                })
+                this.castData.items.forEach(el => {
+                    weights2 += Number(el.weights)
+                })
+                weights = weights1 + weights2
+                return weights == 0 ? '' : weights
+            },
             ajaxParams() {
                 return {
                     buyId: this.data.buyId,
@@ -357,9 +391,11 @@ import thinkWrap from '../thinkwrap/index'
                     locationId: this.location.id,
                     locationName: this.location.name,
                     contractShowId:this.data.contractShowId,
+                    contractCreateId: this.data.contractCreateId,
                     orderIds: JSON.stringify({orderIds:this.data.orderIds,costs:this.castData.items}),
                     inspectionTime: this.dataApi.inspectionTime,
                     deliveryTerm: this.deliveryDate != '' ? new Date(this.deliveryDate).getTime() : '',
+                    deliveryHouse: this.dataApi.deliveryHouse,
                     remark: this.dataApi.remark,
                     payMent: this.dataApi.payMent,
                     invoiceDate: this.dataApi.invoiceDate,
@@ -394,7 +430,11 @@ import thinkWrap from '../thinkwrap/index'
                     startDate: this.data.systemTime,
                     endDate: this.data.systemTime,
                     costs: this.castData.items,
-                    totleCoastArr: this.totleCoastArr
+                    totleCoastArr: this.totleCoastArr,
+                    contractShowId:this.data.contractShowId,
+                    deliveryHouse: this.dataApi.deliveryHouse,
+                    totleNumbers: this.totleNumbers,
+                    totleWeights: this.totleWeights
                 }
             }
         },
@@ -417,36 +457,56 @@ import thinkWrap from '../thinkwrap/index'
             },
             //  起草合同
             doDraft() {
-                if(this.totlePrice != 'NaN'){
-                    if(this.location.id != ''){
-                        this.$Modal.confirm({
-                            title:'起草合同提示',
-                            content: '确认起草合同？',
-                            onOk: () => {
-                                this.$http.post(this.api.saveBgContractInfo,this.ajaxParams).then(res => {
-                                    if(res.code === 1000){
-                                        this.$Message.success('合同起草成功');
-                                        this.$router.push('/authList');
-                                    }else {
-                                        this.$Message.error(res.message)
-                                    }
-                                })
-                            }
-                        })
-                    }else{
-                        this.$Message.error('请选择交货地点')
-                    }
+                // this.checkInfo();
+                let condition = this.location.id != '' && this.dataApi.deliveryHouse != '' && this.deliveryDate != '' && this.dataApi.inspectionTime !=''
+                    if(this.isOk && condition){
+                    this.$Modal.confirm({
+                        title:'起草合同提示',
+                        content: '确认起草合同？',
+                        onOk: () => {
+                            this.$http.post(this.api.saveBgContractInfo,this.ajaxParams).then(res => {
+                                if(res.code === 1000){
+                                    this.$Message.success('合同起草成功');
+                                    this.$router.push('/authList');
+                                }else {
+                                    this.$Message.error(res.message)
+                                }
+                            })
+                        }
+                    })
                 }else{
-                    this.$Message.error('请填写正确信息')
+                    this.$Message.error('请完善合同信息')
                 }
             },
             //  放弃起草
             giveUpDraft() {
                 this.$router.push('step1');
             },
+            blurOut(e) {
+                if(e.target.className = 'ivu-input ivu-input-small error')
+                    e.target.className = 'ivu-input ivu-input-small'
+                this.isOk = true
+            },
+            //  验证是否输入完整信息
+            // checkInfo() {
+            //     this.totlePrcieArr.forEach((el,index) => {
+            //         if(el == '0.00' || el == 'NaN'){
+            //             let numbersId = document.getElementById('numbers-' + index)
+            //             let weightsId = document.getElementById('weights-' + index)
+            //             if(this.data.orderIds[index].priceMode == '1'){
+            //                 numbersId.className = 'ivu-input ivu-input-small error'
+            //             }else{
+            //                 weightsId.className = 'ivu-input ivu-input-small error'
+            //             }
+            //             this.$Message.error('请填写正确信息');
+            //             this.isOk = false
+            //         }
+            //     })
+            // },
             //  预览合同
             previewDraft(){
-                if(this.location.id != '' || this.dataApi.deliveryTerm != '' || this.dataApi.endDate != '' || this.dataApi.inspectionTime !='') {
+                let condition = this.location.id != '' && this.dataApi.deliveryHouse != '' && this.deliveryDate != '' && this.dataApi.inspectionTime !=''
+                if(condition) {
                     this.show = true
                 }else{
                     this.$Message.error('请先完善合同信息')
@@ -554,6 +614,9 @@ import thinkWrap from '../thinkwrap/index'
                 color: #ff5555;
             }
         }
+    }
+    .ivu-input.error{
+        border-color: #ff5555
     }
     .button-wrap{
         padding: 40px 0;

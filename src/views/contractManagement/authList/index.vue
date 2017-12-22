@@ -12,6 +12,9 @@
                 <FormItem label="乙方公司：" class="magin0" style="width: 280px;">
                     <Input type="text" v-model="detail.secondCompanyName" placeholder="请输入..."></Input>
                 </FormItem>
+                <FormItem label="起草公司：" class="magin0" style="width: 280px;">
+                    <Input type="text" v-model="detail.createUser" placeholder="请输入..."></Input>
+                </FormItem>
                 <FormItem label="更新时间：" class="magin0">
                     <DatePicker type="daterange" :clearable="false" :options="dateOption" v-model="updateValue" placement="bottom-end" placeholder="选择日期"></DatePicker>
                 </FormItem>
@@ -30,24 +33,26 @@
                 <div class="table-contnet">
                     <Row class-name="head">
                         <Col class-name="col" span="3">合同编号</Col>
-                        <Col class-name="col" span="4">合同标题</Col>
-                        <Col class-name="col" span="4">买方公司名称</Col>
-                        <Col class-name="col" span="4">卖方公司名称</Col>
+                        <Col class-name="col" span="3">合同标题</Col>
+                        <Col class-name="col" span="3">起草公司名称</Col>
+                        <Col class-name="col" span="3">买方公司名称</Col>
+                        <Col class-name="col" span="3">卖方公司名称</Col>
                         <Col class-name="col" span="3">更新时间</Col>
                         <Col class-name="col" span="2">合同状态</Col>
                         <Col class-name="col" span="4">操作</Col>
                     </Row>
-                    <Row v-for="(item,index) in list" :key="item.contractId">
+                    <Row v-for="item in list" :key="item.contractId">
                         <Col class-name="col" span="3">{{item.contractId}}</Col>
-                        <Col class-name="col" span="4">{{item.contractTitle}}</Col>
-                        <Col class-name="col" span="4">{{item.firstCompanyName}}</Col>
-                        <Col class-name="col" span="4">{{item.secondCompanyName}}</Col>
+                        <Col class-name="col" span="3">{{item.contractTitle}}</Col>
+                        <Col class-name="col" span="3">{{item.createUser}}</Col>
+                        <Col class-name="col" span="3">{{item.firstCompanyName}}</Col>
+                        <Col class-name="col" span="3">{{item.secondCompanyName}}</Col>
                         <Col class-name="col" span="3">{{item.updateTime | dateformat}}</Col>
                         <Col class-name="col" span="2">{{item.status | contractStatus}}</Col>
                         <Col class-name="col" span="4">
-                        <Button type="primary" size="small" @click="contractDetail(item)">查看</Button>
+                        <a target="_black" :href="'http://192.168.0.251:8080/contract.jsp?appUserId=100000000000000000000000000000001&loginId=' + getloginId + '&contractId=' + item.contractId + '&authorization=' + getToken" class="ivu-btn ivu-btn-primary ivu-btn-small">查看</a>
                         <Button type="primary" size="small" @click="contractInfo(item)">合同信息</Button>
-                        <Button type="primary" size="small" @click="contractDownload(item)" v-show="item.status == '1'">下载合同</Button>
+                        <a target="_black" :href="'http://192.168.0.251:8080/contract_download_sys.jsp?loginId=' + getloginId + '&contractId=' + item.contractId + '&authorization=' + getToken" class="ivu-btn ivu-btn-primary ivu-btn-small" v-show="item.status == '1'">下载合同</a>
                         </Col>
                     </Row>
                     <Row v-if="list.length == 0">
@@ -65,6 +70,10 @@
             <Row class="info">
                 <Col span="5" class="info-title">合同标题：</Col>
                 <Col span="19">{{infoData.contractTitle}}</Col>
+            </Row>
+            <Row class="info">
+                <Col span="5" class="info-title">起草公司名称：</Col>
+                <Col span="19">{{infoData.createUser}}</Col>
             </Row>
             <Row class="info">
                 <Col span="5" class="info-title">买方公司名称：</Col>
@@ -115,6 +124,7 @@
                     orderId: '',
                     firstCompanyName: '',
                     secondCompanyName: '',
+                    createUser: '',
                     pageSize: 10,
                     currentPage: 1
                 },
@@ -150,6 +160,7 @@
                     contractTitle: '',
                     firstCompanyName: '',
                     secondCompanyName: '',
+                    createUser: '',
                     updateTime: '',
                     createTime: '',
                     status: '',
@@ -194,6 +205,7 @@
                 data.orderId = this.detail.orderId
                 data.firstCompanyName = this.detail.firstCompanyName
                 data.secondCompanyName = this.detail.secondCompanyName
+                data.createUser = this.detail.createUser
                 data.pageSize = this.detail.pageSize;
                 data.currentPage = this.detail.currentPage;
                 data.startTime = this.updateValue[0] != '' ? this.updateValue[0].getTime() : '';
@@ -202,6 +214,15 @@
                 data.endCreateTime = this.dateValue[1] != '' ? this.dateValue[1].getTime() : '';
                 data.checkstatus = this.checkstatus
                 return data;
+            },
+            getToken(){
+                return this.$store.state.authorization
+            },
+            getloginId() {
+                return this.$store.state.loginId
+            },
+            getHost() {
+                return window.location.host;
             }
         },
         watch: {
@@ -248,6 +269,8 @@
                 this.detail = {
                     contactId: '',
                     orderId: '',
+                    createUser: '',
+                    createUser: '',
                     firstCompanyName: '',
                     secondCompanyName: '',
                     pageSize: 10,
@@ -270,22 +293,6 @@
                     }
                 })
             },
-            //  查看
-            contractDetail(data) {
-                let token = this.$store.state.authorization
-                let loginId = this.$store.state.loginId
-                let url = 'http://192.168.0.251:8080/contract.jsp?appUserId=100000000000000000000000000000001' + '&loginId=' + loginId + '&contractId=' + data.contractId + '&authorization=' + token + '&flash=' + Math.random()
-                window.open(url)
-            },
-            //  下载合同
-            contractDownload(data) {
-                let params = {
-                    contractId: data.contractId
-                }
-                this.$http.post(this.api.downLoadContract,params).then(res => {
-                    window.open(res)
-                })
-            },
             //  合同信息
             contractInfo(data) {
                 this.show = true;
@@ -299,6 +306,7 @@
                             contractTitle: res.data.contractTitle,
                             firstCompanyName: res.data.firstCompanyName,
                             secondCompanyName: res.data.secondCompanyName,
+                            createUser: res.data.createUser,
                             updateTime: res.data.updateTime,
                             createTime: res.data.updateTime,
                             status: res.data.status,
@@ -335,6 +343,9 @@
                 height: 40px;
                 border-right: 1px solid #d0d0d0;
                 border-bottom: 1px solid #d0d0d0;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
             }
         }
         .page-count {
