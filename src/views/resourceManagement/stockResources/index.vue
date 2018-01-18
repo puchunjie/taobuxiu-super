@@ -105,7 +105,8 @@ export default {
                     }
                     this.$http.post(this.api.updateSpotGoodsInfo, params).then(res => {
                         if(res.code === 1000) {
-                            this.params.currentPage = this.screenApi.currentPage;
+                            this.params.currentPage = 1;
+                            this.screenApi.currentPage = 1;
                             this.getStockList(this.params);
                             this.$Message.success('操作成功')
                         }else{

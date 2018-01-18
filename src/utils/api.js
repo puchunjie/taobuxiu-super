@@ -1,7 +1,9 @@
-export const uploadApi = 'http://192.168.0.251:8080/fileUpload/images';
-// export const uploadApi = '/fileUpload/images';
-export const uploadExcelApi = 'http://192.168.0.251/sys/qualiticationmodel/uplodeQualiticationModel';
-// export const uploadExcelApi = '/sys/qualiticationmodel/uplodeQualiticationModel';
+
+// export const uploadApi = 'http://192.168.0.251:8080/fileUpload/images';
+export const uploadApi = '/fileUpload/images';
+// export const uploadExcelApi = 'http://192.168.0.251/sys/qualiticationmodel/uplodeQualiticationModel';
+export const uploadExcelApi = '/sys/qualiticationmodel/uplodeQualiticationModel';
+
 export const excelBaseUrl = 'http://tbxoss.oss-cn-hangzhou.aliyuncs.com/';
 
 
@@ -15,7 +17,7 @@ if (process.env.NODE_ENV == 'development') {
     // ws = 'ws://120.55.63.70:8080/websocket';
     // ws = 'ws://192.168.0.251/websocket'
     // ws = 'ws://111.231.134.170/websocket'
-    
+    // ws = 'ws://192.168.0.251:8080/websocket'
 }
 /**
  * 登录
