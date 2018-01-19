@@ -120,6 +120,19 @@ export default [{
             name: '买家操作参数配置',
             router: {name: 'buyerOptionConfig'}
         }]
+    },{
+        name: '新闻管理',
+        icon: 'icon-xinwen',
+        children: [{
+            name: '新建新闻内容',
+            router: {name:'addNews'}
+        },{
+            name:'新闻内容管理',
+            router: {name: 'newsList'}
+        },{
+            name:'新闻中心配置',
+            router: {name: 'newsConfig'}
+        }]
     },
     {
         name: '文件管理',

@@ -1,6 +1,6 @@
 
-// export const uploadApi = 'http://192.168.0.251:8080/fileUpload/images';
-export const uploadApi = '/fileUpload/images';
+export const uploadApi = 'http://192.168.0.251:8080/fileUpload/images';
+// export const uploadApi = '/fileUpload/images';
 // export const uploadExcelApi = 'http://192.168.0.251/sys/qualiticationmodel/uplodeQualiticationModel';
 export const uploadExcelApi = '/sys/qualiticationmodel/uplodeQualiticationModel';
 
@@ -1027,3 +1027,39 @@ export const jd_regionalRank = '/sys/ironDataStatistic/ironAreaTopFive'
 export const get_quality = '/sys/ironBuy/queryQCInfo'
 
 export const get_actQua = '/sys/ironBuy/updateQC'
+
+
+
+// -----------------------------------新闻管理---------------------------------
+/**
+ * 查询所有文章类型
+*/
+export const findAllArticleType = '/api/query/findAllArticleType'
+
+/**
+ * 分页查询文章类型
+*/
+export const findArticleTypePage = '/sys/articleType/findArticleTypePage'
+
+/**
+ * 删除文章类型
+*/
+export const removeArticleType = '/sys/articleType/removeArticleType'
+
+/**
+ * 保存更新文章类型
+*/
+export const saveAndUpadteArticleType = '/sys/articleType/saveAndUpadteArticleType'
+
+
+
+
+/**
+ * 新闻保存修改
+*/
+export const saveAndUpdateIndustryNew = '/sys/indutryNew/saveAndUpdateIndustryNew'
+
+/**
+ * 新闻超管查询列表
+*/
+export const findArticleList = '/sys/indutryNew/findArticleList'
