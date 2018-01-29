@@ -13,10 +13,10 @@ if (process.env.NODE_ENV == 'development') {
     ws = 'ws://192.168.0.251/websocket'
     // ws = 'ws://111.231.134.170/websocket'
 } else {
-    ws = 'ws://192.168.0.251/websocket'
+    // ws = 'ws://192.168.0.251/websocket'
     // ws = 'ws://120.55.63.70:8080/websocket';
     // ws = 'ws://192.168.0.251/websocket'
-    // ws = 'ws://111.231.134.170/websocket'
+    ws = 'ws://111.231.134.170:8080/websocket'
     // ws = 'ws://192.168.0.251:8080/websocket'
 }
 /**
@@ -1063,3 +1063,80 @@ export const saveAndUpdateIndustryNew = '/sys/indutryNew/saveAndUpdateIndustryNe
  * 新闻超管查询列表
 */
 export const findArticleList = '/sys/indutryNew/findArticleList'
+
+/**
+ * 新闻超管删除
+*/
+export const articleRemove = '/sys/indutryNew/articleRemove'
+
+
+/**
+ * 新闻超管查询详细信息
+*/
+export const findArticleInfo = '/sys/indutryNew/findArticleInfo'
+
+/**
+ * 新闻超管取消置顶
+*/
+export const articleZero = '/sys/indutryNew/articleZero'
+
+/**
+ * 新闻超管置顶
+*/
+export const articleRise = '/sys/indutryNew/articleRise'
+
+
+
+// -----------------------------------物流管理---------------------------------
+/**
+ * 分页查询额外物流需求
+*/
+export const fingLogisticsExtraDemandPage = '/sys/logisticsExtraDemand/fingLogisticsExtraDemandPage'
+
+
+/**
+ * 新增额外物流需求
+*/
+export const saveLogisticsExtraDemand = '/sys/logisticsExtraDemand/saveLogisticsExtraDemand'
+
+
+/**
+ * 更改额外物流需求
+*/
+export const updateLogisticsExtraDemand = '/sys/logisticsExtraDemand/updateLogisticsExtraDemand'
+
+/**
+ * 删除额外物流需求
+*/
+export const deleteLogisticsExtraDemand = '/sys/logisticsExtraDemand/deleteLogisticsExtraDemand'
+
+
+/**
+ * 货物信息超管查询
+*/
+export const findLogisticsGoodsList = '/sys/logisticsGoods/findLogisticsGoodsList'
+
+/**
+ * 货物信息超管保存修改
+*/
+export const saveAndUpdateLogisticsGoods = '/sys/logisticsGoods/saveAndUpdateLogisticsGoods'
+
+
+/**
+ * 货物信息超管删除
+*/
+export const deleteLogisticsGoods = '/sys/logisticsGoods/deleteLogisticsGoods'
+
+
+/**
+ * 超管物流需求管理查询
+*/
+export const findFreightLogisticOrderByPage = '/sys/freightLogisticOrder/findFreightLogisticOrderByPage'
+
+
+
+/**
+ * 根据业务主键编号更改状态
+*/
+export const updateStatusById = '/sys/freightLogisticOrder/updateStatusById'
+

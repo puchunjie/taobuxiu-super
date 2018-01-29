@@ -56,6 +56,19 @@ export default [{
             name: '合同信息配置',
             router: {name: 'infoConfig'}
         }]
+    },{
+        name: '物流管理',
+        icon: 'icon-wuliu1',
+        children:[{
+            name: '物流需求管理',
+            router: {name: 'logGoods'}
+        },{
+            name: '物流数据配置',
+            router: {name: 'logData'}
+        },{
+            name: '物流货品维护',
+            router: {name: 'logDemand'}
+        }]
     },
     {
         name: '营销',
@@ -125,7 +138,7 @@ export default [{
         icon: 'icon-xinwen',
         children: [{
             name: '新建新闻内容',
-            router: {name:'addNews'}
+            router: {name:'addNews', params: { id: 0,type: 'add' }}
         },{
             name:'新闻内容管理',
             router: {name: 'newsList'}
