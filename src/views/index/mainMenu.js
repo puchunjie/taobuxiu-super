@@ -56,6 +56,19 @@ export default [{
             name: '合同信息配置',
             router: {name: 'infoConfig'}
         }]
+    },{
+        name: '物流管理',
+        icon: 'icon-wuliu1',
+        children:[{
+            name: '物流需求管理',
+            router: 'logGoods'
+        },{
+            name: '物流数据配置',
+            router: 'logData'
+        },{
+            name: '物流货品维护',
+            router: 'logDemand'
+        }]
     },
     {
         name: '营销',

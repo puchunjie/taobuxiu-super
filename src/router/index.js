@@ -227,6 +227,18 @@ const router = new Router({
           path: 'infoConfig',
           name: 'infoConfig',
           component: resolve => require(['@/views/contractManagement/infoConfig/index'], resolve)
+        },{
+          path: 'logData',
+          name: 'logData',
+          component: resolve => require(['@/views/logisticsManagement/data/index'],resolve)
+        },{
+          path: 'logDemand',
+          name: 'logDemand',
+          component: resolve => require(['@/views/logisticsManagement/demand/index'],resolve)
+        },{
+          path: 'logGoods',
+          name: 'logGoods',
+          component: resolve => require(['@/views/logisticsManagement/goods/index'],resolve)
         },
         {
           path: 'resourceRefresh',
@@ -266,7 +278,7 @@ const router = new Router({
             }
           }]
         }, {
-          path: 'addNews',
+          path: 'addNews-:id-:type',
           name: 'addNews',
           component: resolve => require(['@/views/newsManagement/add/index'], resolve)
         }, {

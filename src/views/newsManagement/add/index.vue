@@ -7,8 +7,8 @@
                     <Form :label-width="100" :ref="ref" :model="itemApi" :rules="rules">
                         <FormItem label="分类" class="ivu-form-item-required">
                             <Select v-model="type" style="width:200px;">
-                                            <Option v-for="item in typeList" :value="item.name+'-'+item.id" :key="item.id">{{ item.name }}</Option>
-                                        </Select>
+                                <Option v-for="item in typeList" :value="item.name+'-'+item.id" :key="item.id">{{ item.name }}</Option>
+                            </Select>
                         </FormItem>
                         <FormItem label="标题" prop="title">
                             <Input type="text" v-model="itemApi.title" placeholder="请输入标题" style="width:450px;"></Input>
@@ -43,8 +43,8 @@
                         </FormItem>
                     </Form>
                     <div class="publish-btn">
-                        <Button type="primary" @click="save(0)" size="large">发布</Button>
-                        <Button type="ghost" @click="save(1)" size="large">保存</Button>
+                        <Button type="primary" @click="save(1)" size="large">发布</Button>
+                        <Button type="ghost" @click="save(0)" size="large">保存</Button>
                         <Button type="ghost" @click="getUEContent()" size="large">取消</Button>
                     </div>
                 </div>
@@ -110,8 +110,11 @@
                         message: '请输入摘要',
                         trigger: 'blur'
                     }]
-                },
+                }
             }
+        },
+        filters: {
+            
         },
         computed: {
             //  设置文件上传headers
@@ -120,6 +123,12 @@
                     authorization: this.$store.state.authorization,
                     loginId: this.$store.state.loginId
                 }
+            },
+            id() {
+                return this.$route.params.id
+            },
+            types () {
+                return this.$route.params.type
             }
         },
         methods: {
@@ -174,10 +183,11 @@
                                 onOk: () => {
                                     let params = JSON.parse(JSON.stringify(this.itemApi))
                                     params.status = status;
-                                    params.article = article;
+                                    params.article = content;
                                     this.$http.post(this.api.saveAndUpdateIndustryNew, params).then(res => {
                                         if (res.code === 1000) {
-                                            this.$Message.success(status == "1" ? '发布成功' : '保存成功')
+                                            this.$Message.success(status == "1" ? '发布成功' : '保存成功');
+                                            this.$router.push('newsList')
                                         }
                                     })
                                 }
@@ -192,11 +202,38 @@
             //  取消发布
             giveUp() {
     
+            },
+            // 编辑、查看获取数据
+            getInfoPage() {
+                if(this.types == 'detail' || this.types  ==  'edit'){
+                    let params = {
+                        id: this.id
+                    }
+                    this.$http.post(this.api.findArticleInfo,params).then(res => {
+                        if(res.code === 1000) {
+                            this.defaultMsg = res.data.article
+                            this.itemApi.id = res.data.section.id
+                            this.itemApi.typeName = res.data.section.typeName,
+                            this.itemApi.typeId= res.data.section.typeId,
+                            this.itemApi.title = res.data.section.title,
+                            this.itemApi.author = res.data.section.author,
+                            this.itemApi.source = res.data.section.source,
+                            this.itemApi.sourceURL = res.data.section.sourceURL,
+                            this.itemApi.paper = res.data.section.paper,
+                            this.itemApi.coverImage = res.data.section.coverImage,
+                            this.itemApi.flag = res.data.section.flag,
+                            this.itemApi.article = res.data.article,
+                            this.type = res.data.section.typeName  +'-'+ res.data.section.typeId
+                        }
+                    })
+                }
+                    
             }
     
         },
         created() {
             this.getTypeList();
+            this.getInfoPage();
         }
     }
 </script>

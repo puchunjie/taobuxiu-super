@@ -7,8 +7,7 @@
     <Modal v-model="show" title="上传图片" :closable="false" :mask-closable="false">
         <div>
             <Upload multiple :action="api.uploadApi" :headers="uplaodHeader" :max-size="2048" :format="['png','jpg','jpeg']" :show-upload-list="false" :on-exceeded-size="handleMaxSize" :on-success="handleSuccess" :on-format-error="handleFormatError" style="display:inline-block;width: 100px;">
-                <Button v-if="!showUpload" type="primary"> 上传封面</Button>
-                <Button v-else type="primary" disabled loading>正在上传...</Button>
+                <Button v-if="!showUpload" type="primary">上传图片</Button>
             </Upload>
         </div>
         <div class="uploadimglist" v-if="imageList.length != 0">
@@ -56,7 +55,6 @@
                 _this.editor.setContent(_this.defaultMsg); // 确保UE加载完成后，放入内容。
                 _this.uploadshow = true
             });
-    
         },
         computed: {
             //  设置文件上传headers

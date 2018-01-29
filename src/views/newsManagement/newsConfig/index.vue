@@ -105,7 +105,6 @@
             getList() {
                 this.$http.post(this.api.findArticleTypePage, this.apiData).then(res => {
                     if (res.code === 1000) {
-                        console.log(res)
                         this.list = res.data.list;
                         this.totalCount = res.data.totalCount
                     }
