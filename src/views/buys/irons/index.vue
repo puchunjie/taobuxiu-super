@@ -201,6 +201,7 @@
         methods: {
             getIrons(params) {
                 this.$http.post(this.api.queryIrons, params).then(res => {
+                    console.log(res);
                     if (res.code === 1000) {
                         this.list = res.data.result;
                         this.totalCount = res.data.totalCount;

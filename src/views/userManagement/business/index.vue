@@ -160,6 +160,7 @@ import ajaxSelect from '@/components/basics/ajaxSelect'
         components: {
             rang,
             ajaxSelect
+
         },
         data() {
             return {
