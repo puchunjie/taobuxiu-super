@@ -252,11 +252,11 @@
             },
             //  查看
             detailNews(item) {
-                this.$router.push('addNews/'+item.id+'/detail')
+                this.$router.push('../addNews/'+item.id+'/detail')
             },
             //  编辑
             editNews(item) {
-                this.$router.push('addNews/'+item.id+'/edit')
+                this.$router.push('../addNews/'+item.id+'/edit')
             },
             //  置顶
             editTop(data) {
