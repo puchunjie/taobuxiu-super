@@ -28,13 +28,13 @@
     </div>
     <div class="item-group" v-for="(item,index) in list" :key="item.id">
       <div class="head">
-        申请商户：{{ item.companyName }}
+        申请商户：{{ item.bussinessName }}
         <span class="status" :class="'status'+item.status ">{{ item.status | statusStr }}</span>
         <ButtonGroup style="float:right;margin-top:10px" size="small" v-if="item.status != 4">
           <Button type="primary" @click="deal(item,1)">开始处理</Button>
           <Button type="primary" @click="deal(item,2)">处理完成</Button>
           <Button type="primary" @click="deal(item,3)">取消处理</Button>
-          <Button type="primary" @click="deal(item,4)">删除此条</Button>
+          <Button type="primary" @click="deal(item,9)">删除此条</Button>
         </ButtonGroup>
       </div>
       <div class="card clearfix">
@@ -43,7 +43,7 @@
         <div class="item">卸点：{{ item.endProvinceName }}{{ item.endCityName }}{{ item.endAreaName }}</div>
         <div class="item">货物明细：{{ item.freightLogisticGoods }}</div>
         <div class="item">特殊需求：{{ item.extraDemandName }}</div>
-        <div class="item">备注：{{ item.remark }}</div>
+        <div class="item">备注：{{ item.remark !='' ? item.remark: '无' }}</div>
         <div class="item">联系方式：{{ item.tel }}</div>
         <div class="item">联系专员：{{ item.salemanName }}</div>
       </div>
@@ -131,27 +131,27 @@
       statusStr(val) {
         switch (val * 1) {
           case 0:
-              return '未处理 '
-              break;
+            return '未处理 '
+            break;
           case 1:
-              return '正在处理 '
-              break;
+            return '正在处理 '
+            break;
           case 2:
-              return '已完成 '
-              break;
+            return '已完成 '
+            break;
           case 3:
-              return '已取消 '
-              break;
+            return '已取消 '
+            break;
           case 9:
-              return '已删除'
-              break;
+            return '已删除'
+            break;
           default:
-              break;
+            break;
         }
       }
     },
     methods: {
-      pageChange(page){
+      pageChange(page) {
         this.filterData.currentPage = page;
       },
       resetFilter() {
@@ -164,18 +164,43 @@
           startCreateTime: "",
           endCreateTime: ""
         }
+        this.dateValue = ["", ""]
       },
       getAll() {
         this.$http.post(this.api.findFreightLogisticOrderByPage, this.handleData).then(res => {
           if (res.code === 1000) {
+            console.log(res)
             this.list = res.data.list;
             this.totalCount = res.data.totalCount;
           }
         });
       },
-      deal(data,status){
-        console.log(data)
-        console.log(status)
+      DoDeal(data, status) {
+        let params = {
+          status: status,
+          id: data.id
+        }
+        this.$http.post(this.api.updateStatusById, params).then(res => {
+          if (res.code === 1000) {
+            this.$Message.success('操作成功')
+            this.getAll();
+          } else {
+            this.$Message.error(res.message)
+          }
+        })
+      },
+      deal(data, status) {
+        if (status == 9) {
+          this.$Modal.confirm({
+            title: ' 删除提示！',
+            content: '确认删除质检？',
+            onOk: () => {
+              this.DoDeal(data, status);
+            }
+          })
+        } else {
+          this.DoDeal(data, status)
+        }
       }
     },
     created() {
@@ -241,7 +266,7 @@
         }
       }
     }
-    .nodata{
+    .nodata {
       padding: 15px 0;
       text-align: center
     }
