@@ -113,9 +113,6 @@
                 }
             }
         },
-        filters: {
-            
-        },
         computed: {
             //  设置文件上传headers
             uplaodHeader() {
@@ -197,10 +194,6 @@
                         }
                     }
                 })
-    
-            },
-            //  取消发布
-            giveUp() {
     
             },
             // 编辑、查看获取数据
