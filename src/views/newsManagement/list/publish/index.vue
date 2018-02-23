@@ -244,6 +244,7 @@
                         this.$http.post(this.api.articleRemove,params).then(res => {
                             if(res.code === 1000){
                                 this.$Message.success('删除成功')
+                                this.getList(this.handleData)
                             }else{
                                 this.$Message.error(res.message)
                             }
