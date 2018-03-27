@@ -158,7 +158,6 @@
             },
             getUEContent() {
                 let content = this.$refs.ue.getUEContent();
-                console.log(content)
             },
             //  保存 发布
             save(status) {

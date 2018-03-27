@@ -61,6 +61,14 @@ const router = new Router({
           name: 'businessManagement',
           component: resolve => require(['@/views/userManagement/business/index'], resolve),
         }, {
+          path: 'examine',
+          name: 'examine',
+          component: resolve => require(['@/views/userManagement/examine/index'],resolve)
+        },{
+          path: 'examineDetail/:id/:status',
+          name: 'examineDetail',
+          component: resolve => require(['@/views/userManagement/examine/detail/index'],resolve)
+        },{
           path: 'commissioner',
           name: 'commissioner',
           component: resolve => require(['@/views/userManagement/commissioner/index'], resolve)

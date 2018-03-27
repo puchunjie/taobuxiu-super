@@ -100,7 +100,10 @@ export default [{
         children: [{
             name: '角色绑定',
             router: { name: 'userManagement' }
-        }, {
+        },{
+            name: '商家审核管理',
+            router: {name: 'examine'}
+        },{
             name: '商家用户管理',
             router: { name: 'businessManagement' }
         },{

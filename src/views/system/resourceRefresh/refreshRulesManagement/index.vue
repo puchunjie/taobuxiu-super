@@ -95,7 +95,6 @@ export default {
       formateMsec () {
           let day = this.dataApi.date;
           let time = dataToTime(this.dataApi.time);
-          console.log(time)
           let days,times;
           if(day!= '' && day != undefined && day != NaN) {
               days = day * 24 * 60 * 60 * 1000

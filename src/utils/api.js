@@ -1,5 +1,5 @@
 
-export const uploadApi = 'http://192.168.0.251:8080/fileUpload/images';
+
 // export const uploadApi = '/fileUpload/images';
 // export const uploadExcelApi = 'http://192.168.0.251/sys/qualiticationmodel/uplodeQualiticationModel';
 export const uploadExcelApi = '/sys/qualiticationmodel/uplodeQualiticationModel';
@@ -9,16 +9,21 @@ export const excelBaseUrl = 'http://tbxoss.oss-cn-hangzhou.aliyuncs.com/';
 
 // WebSocket链接
 export let ws = '';
+let uploadHost = '';
 if (process.env.NODE_ENV == 'development') {
     ws = 'ws://192.168.0.251/websocket'
-    // ws = 'ws://111.231.134.170/websocket'
+    uploadHost = 'http://192.168.0.251:8080'
+    // ws = 'ws://111.231.134.170:8080/websocket'
 } else {
-    // ws = 'ws://192.168.0.251/websocket'
     // ws = 'ws://120.55.63.70:8080/websocket';
     // ws = 'ws://192.168.0.251/websocket'
-    ws = 'ws://111.231.134.170:8080/websocket'
+    // ws = 'ws://111.231.134.170:8080/websocket'
     // ws = 'ws://192.168.0.251:8080/websocket'
+    ws = `ws://${window.location.host}/websocket`;
+    uploadHost = ''
 }
+
+export const uploadApi = uploadApi + '/fileUpload/images';
 /**
  * 登录
  * path: /login/userLogin
@@ -1139,4 +1144,28 @@ export const findFreightLogisticOrderByPage = '/sys/freightLogisticOrder/findFre
  * 根据业务主键编号更改状态
 */
 export const updateStatusById = '/sys/freightLogisticOrder/updateStatusById'
+
+
+
+// -----------------------------------商家审核管理---------------------------------
+/** 
+ * 超管审核未通过商户列表
+*/
+export const findNotBuserInfoPage = '/sys/buserInfo/findNotBuserInfoPage'
+
+/** 
+ * 超管更新商户审核状态
+*/
+export const updateBuserInfoById = '/sys/buserInfo/updateBuserInfoById'
+
+
+/** 
+ * 根据用户编号来查询商户信息
+*/
+export const getBuserInfoByUserId = '/sys/buserInfo/getBuserInfoByUserId'
+
+/** 
+ * 查询专员
+*/
+export const findSalemanInfo = '/api/bregist/findSalemanInfo'
 

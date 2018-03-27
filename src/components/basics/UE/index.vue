@@ -49,10 +49,13 @@
             }
         },
         mounted() {
-            const _this = this;
+            let _this = this;
+            UE.delEditor('_editor');
             this.editor = UE.getEditor('editor', this.config); // 初始化UE
             this.editor.addListener("ready", function() {
-                _this.editor.setContent(_this.defaultMsg); // 确保UE加载完成后，放入内容。
+                setTimeout(function(){
+                    _this.editor.setContent(_this.defaultMsg,false); // 确保UE加载完成后，放入内容。
+                },500)
                 _this.uploadshow = true
             });
         },
@@ -109,6 +112,7 @@
         },
         destroyed() {
             this.editor.destroy();
+            this.editor = null;
         }
     }
 </script>
@@ -122,7 +126,7 @@
         position: absolute;
         right: 150px;
         top: 110px;
-        z-index: 901;
+        z-index: 2;
     }
     .uploadimglist .imglist{
         position: relative;
