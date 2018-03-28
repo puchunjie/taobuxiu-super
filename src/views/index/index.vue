@@ -79,8 +79,15 @@
                 this.menu.forEach((el, index) => {
                     this.openArr.push(index);
                     el.children.forEach((sub, i) => {
-                        if (this.$route.name === sub.router.name)
-                            this.activeIndex = `${index}-${i}`
+                        if(sub.child != undefined){
+                            sub.child.forEach((ch, j) => {
+                                if(this.$route.fullPath === ch.router.name)
+                                    this.activeIndex = `${index}-${i}`
+                            })
+                        }else{
+                            if (this.$route.name === sub.router.name)
+                                this.activeIndex = `${index}-${i}`
+                        }
                     })
                 });
             },

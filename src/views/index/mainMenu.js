@@ -144,7 +144,14 @@ export default [{
             router: {name:'addNews', params: { id: 0,type: 'add' }}
         },{
             name:'新闻内容管理',
-            router: {name: 'newsList'}
+            router: {name: 'newsList'},
+            child:[{
+                name: '已发布',
+                router: {name: '/newsList/publish'}
+            },{
+                name: '草稿箱',
+                router: {name: '/newsList/drafts'}
+            }]
         },{
             name:'新闻中心配置',
             router: {name: 'newsConfig'}
@@ -189,7 +196,20 @@ export default [{
         icon: 'icon-config',
         children:[{
             name: '资源刷新机制配置',
-            router: {name: 'resourceRefresh'}
+            router: {name: 'resourceRefresh'},
+            child:[{
+                name: '类型管理',
+                router: {name: '/resourceRefresh/type'},
+            },{
+                name: '等级管理',
+                router: {name: '/resourceRefresh/rank'},
+            },{
+                name: '规则管理',
+                router: {name: '/resourceRefresh/rules'},
+            },{
+                name: '规则配置',
+                router: {name: '/resourceRefresh/rulesConfig'},
+            }]
         },{
             name: '资源开放时间配置',
             router: {name: 'resourceOpenTime'}

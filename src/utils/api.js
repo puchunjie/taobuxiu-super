@@ -23,7 +23,7 @@ if (process.env.NODE_ENV == 'development') {
     uploadHost = ''
 }
 
-export const uploadApi = uploadApi + '/fileUpload/images';
+export const uploadApi = uploadHost + '/fileUpload/images';
 /**
  * 登录
  * path: /login/userLogin

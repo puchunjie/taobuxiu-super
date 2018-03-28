@@ -21,7 +21,7 @@ export default {
         this.$ls.set('rand', rand);
       }
       // 建立WebSocket链接
-      let ws = new WebSocket(this.api.ws + '/quality?userId=' + this.$store.state.loginId + rand);
+      let ws = new WebSocket(this.api.ws + '/ironHander?userId=' + this.$store.state.loginId + rand);
 
       ws.onopen = function (evt) {
         //  console.log("消息推送链接成功");

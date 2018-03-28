@@ -41,9 +41,9 @@
         <div class="item">提交申请：{{ item.createTime | dateformat }}</div>
         <div class="item">装点：{{ item.beginProvinceName }}{{ item.beginCityName }}{{ item.beginAreaName }}</div>
         <div class="item">卸点：{{ item.endProvinceName }}{{ item.endCityName }}{{ item.endAreaName }}</div>
-        <div class="item">货物明细：{{ item.freightLogisticGoods }}</div>
-        <div class="item">特殊需求：{{ item.extraDemandName }}</div>
+        <div class="item goods-item">货物明细：{{ item.freightLogisticGoods }}</div>
         <div class="item">备注：{{ item.remark !='' ? item.remark: '无' }}</div>
+        <div class="item">特殊需求：{{ item.extraDemandName }}</div>
         <div class="item">联系方式：{{ item.tel }}</div>
         <div class="item">联系专员：{{ item.salemanName }}</div>
       </div>
@@ -257,7 +257,7 @@
         padding: 10px;
         .item {
           float: left;
-          width: 25%;
+          width: 50%;
           height: 30px;
           line-height: 30px;
           white-space: nowrap;
@@ -271,4 +271,5 @@
       text-align: center
     }
   }
+
 </style>
