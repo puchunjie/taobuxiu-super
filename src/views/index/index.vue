@@ -24,7 +24,7 @@
                     </Breadcrumb>
                 </div>
                 <div class="layout-content" :style="{'min-height':contentHeight + 'px'}">
-                     <router-view></router-view>
+                    <router-view></router-view>
                 </div>
             </Col>
         </Row>
@@ -139,7 +139,10 @@
                 //如果回到首页，就去掉菜单的选中效果
                 if (a.name === '/') {
                     this.activeIndex = '';
+                }else{
+                    this.setActiveMenu();
                 }
+                
             }
         }
     }
