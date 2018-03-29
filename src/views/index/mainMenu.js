@@ -188,7 +188,23 @@ export default [{
             router: { name: 'ironsRank' }
         },{
             name: '订单数据统计分析',
-            router: {name: 'orderCountManagement'}
+            router: {name: 'orderCountManagement'},
+            child:[{
+                name: '订单统计',
+                router: {name: '/orderCountManagement/orderCount'}
+            },{
+                name: '买家统计',
+                router: {name: '/orderCountManagement/buyerCount'}
+            },{
+                name: '卖家统计',
+                router: {name: '/orderCountManagement/sellerCount'}
+            },{
+                name: '地区统计',
+                router: {name: '/orderCountManagement/areaCount'}
+            },{
+                name: '货品统计',
+                router: {name: '/orderCountManagement/goodsCount'}
+            }]
         }]
     },
     {
