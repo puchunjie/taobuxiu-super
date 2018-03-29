@@ -37,14 +37,19 @@
         <Col class-name="col" span="2" class="col-title">我的专员：</Col>
         <Col class-name="col" span="22">
           <Select v-model="sale" placeholder="请选择" :disabled="this.getStatus == 3 ? true: false" size="small" style="width:200px">
-            <Option v-for="item in saleman" :value="item.saleName + '-'+item.saleId + '-'+ item.saleMobile" :key="item.saleId" >{{ item.saleName }}</Option>
+            <Option v-for="item in saleman" :value="item.saleName + '-'+item.saleId + '-'+ item.saleMobile" :key="item.saleId" >{{ item.saleName }}  {{item.saleMobile}}</Option>
           </Select>
         </Col>
       </Row>
       <Row>
         <Col class-name="col" span="2" class="col-title">店铺封面：</Col>
         <Col class-name="col" span="22">
-          <div style="width: 200px;"><img :src="item.cover" style="max-width:100%" /></div>
+          <div style="width: 200px;">
+            <div class="preview-img">
+              <img :src="item.cover" style="max-width:100%" />
+              <div class="preview-option"><span @click="previewBtn(item.cover)" class="iconfont icon-fangda"></span></div>
+            </div>
+          </div>
         </Col>
       </Row>
       <Row>
@@ -61,22 +66,36 @@
       <Row v-if="item.flag == 1">
         <Col class-name="col" span="2" class="col-title">营业执照：</Col>
         <Col class-name="col" span="22">
-          <div style="width: 200px;"><img :src="item.allCer" style="max-width:100%" /></div>
+          <div style="width: 200px;">
+            <div class="preview-img">
+              <img :src="item.allCer" style="max-width:100%" />
+              <div class="preview-option"><span @click="previewBtn(item.allCer)" class="iconfont icon-fangda"></span></div>
+            </div>
+          </div>
         </Col>
       </Row>
       <Row v-else>
         <Col class-name="col" span="2" class="col-title">照片：</Col>
         <Col class-name="col" span="4" style="margin-right:15px;">
           <p><span class="star">*</span>营业执照</p>
-          <img :src="item.bussinessLic" style="max-width: 100%;" />
+          <div class="preview-img">
+            <img :src="item.bussinessLic" style="max-width:100%" />
+            <div class="preview-option"><span @click="previewBtn(item.bussinessLic)" class="iconfont icon-fangda"></span></div>
+          </div>
         </Col>
         <Col class-name="col" span="4" style="margin-right:15px;">
           <p><span class="star">*</span>组织机构代码证</p>
-          <img :src="item.codeLic"  style="max-width: 100%;" />
+          <div class="preview-img">
+            <img :src="item.codeLic" style="max-width:100%" />
+            <div class="preview-option"><span @click="previewBtn(item.codeLic)" class="iconfont icon-fangda"></span></div>
+          </div>
         </Col>
         <Col class-name="col" span="4" style="margin-right:15px;">
           <p><span class="star">*</span>税务登记证</p>
-          <img :src="item.financeLic" style="max-width: 100%;" />
+          <div class="preview-img">
+            <img :src="item.financeLic" style="max-width:100%" />
+            <div class="preview-option"><span @click="previewBtn(item.financeLic)" class="iconfont icon-fangda"></span></div>
+          </div>
         </Col>
       </Row>
     </Card>
@@ -110,6 +129,14 @@
         <Button type="primary" @click="unpass" :loading="loading">确认</Button>
       </div>
     </Modal>
+    <Modal v-model="previewHide" width="800" :closable="false">
+      <div class="imgs">
+        <img :src="showImg">
+      </div>
+      <div slot="footer">
+        <Button @click="previewHide = false">取消</Button>
+      </div>
+    </Modal>
   </div>
 </template>
 
@@ -117,8 +144,10 @@
 export default {
   data() {
     return {
+      showImg: '',
       show: false,
       loading: false,
+      previewHide: false,
       apiData: {
         userId: "",
         pass: "",
@@ -141,6 +170,10 @@ export default {
     }
   },
   methods: {
+    previewBtn(data){
+      this.showImg = data;
+      this.previewHide = true;
+    },
     getData() {
       let params = {
         userId: this.getId
@@ -243,5 +276,30 @@ export default {
   display: block;
   text-align: center;
   margin-bottom: 15px;
+}
+.preview-img{
+  position: relative;
+  font-size: 0;
+  .preview-option{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 20px;
+    line-height: 20px; 
+    background: rgba(255, 255, 255, .6);
+    text-align: right;
+    padding-right: 10px;
+    .iconfont{
+      color: #fff;
+      cursor: pointer;
+    }
+  }
+}
+.imgs{
+  img{
+    display: block;
+    margin: 0 auto;
+  }
 }
 </style>
