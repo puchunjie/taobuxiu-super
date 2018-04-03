@@ -10,9 +10,13 @@ export const excelBaseUrl = 'http://tbxoss.oss-cn-hangzhou.aliyuncs.com/';
 // WebSocket链接
 export let ws = '';
 let uploadHost = '';
+export let exportContract = ''
+export let detailContract = ''
 if (process.env.NODE_ENV == 'development') {
     ws = 'ws://192.168.0.251/websocket'
     uploadHost = 'http://192.168.0.251:8080'
+    exportContract = 'http://192.168.0.251:8080/contract_download_sys.jsp'
+    detailContract = 'http://192.168.0.251:8080/contract.jsp'
     // ws = 'ws://111.231.134.170:8080/websocket'
 } else {
     // ws = 'ws://120.55.63.70:8080/websocket';
@@ -20,6 +24,8 @@ if (process.env.NODE_ENV == 'development') {
     // ws = 'ws://111.231.134.170:8080/websocket'
     // ws = 'ws://192.168.0.251:8080/websocket'
     ws = `ws://${window.location.host}/websocket`;
+    exportContract = `http://${window.location.host}:8080/contract_download_sys.jsp`
+    detailContract = `http://${window.location.host}:8080/contract.jsp`
     uploadHost = ''
 }
 
