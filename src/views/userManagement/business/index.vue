@@ -88,6 +88,7 @@
                 <span class="iconfont icon-dian" style="color:#57c5f7" v-show="item.isHaveShop == 1"></span>
                 <Button style="float:right;margin-top:10px" size="small" type="info" @click="showInfo(index)">详情</Button>
                 <Button style="float:right;margin-top:10px;margin-right:10px;" size="small" type="info" @click="showRangeInfo(index)">报价经营范围</Button>
+                <!-- <Button style="float:right;margin-top:10px;margin-right:10px;" size="small" type="info" @click="modityInfo(index)">修改账号</Button> -->
             </div>
             <div class="card clearfix">
                 <div class="item">入驻时间：{{ item.beBuserTime | dateformat }}</div>
@@ -100,10 +101,7 @@
                 <div class="item">专员手机：{{ item.salesManMobile }}</div>
             </div>
         </div>
-    
         <Page :total="totalCount" @on-change="pageChange" show-total :current="apiData.currentPage" :page-size="apiData.pageSize"></Page>
-    
-    
         <Modal title="商家详情编辑" v-model="showEdit" loading :mask-closable="false" @on-ok="edit">
             <Form :label-width="100">
                 <FormItem label="商户名称">
@@ -150,6 +148,27 @@
         <Modal title="报价经营范围" width="900" v-model="showRange" loading :mask-closable="false" @on-ok="saveScope">
             <rang v-if="showRange" :id= "activeItem.userId" ref="scope"></rang>
         </Modal>
+        <Modal title="修改商家账号" widh="500" v-model="modityShow" :mask-closable="false" @on-cancel="resetmodi">
+            <Form :label-width="100" :ref="ref" :model="modityApi" :rules="rules">
+                <FormItem label="旧账号">
+                    <Input v-model="modityApi.originalMobile" placeholder="请输入..."></Input>
+                </FormItem>
+                <FormItem label="新账号" prop="nowMoblie">
+                    <Input v-model="modityApi.nowMoblie" placeholder="请输入..."></Input>
+                </FormItem>
+                <FormItem label="密码" prop="passwordOne">
+                    <Input type="password" v-model="modityApi.passwordOne" placeholder="请输入..."></Input>
+                </FormItem>
+                <FormItem label="确认密码" prop="passwordTwo">
+                    <Input type="password" v-model="modityApi.passwordTwo" placeholder="请输入..."></Input>
+                </FormItem>
+            </Form>
+    
+            <div slot="footer">
+                <Button @click="resetmodi">取消</Button>
+                <Button type="primary" @click="saveAccount" :loading="loading">修改</Button>
+            </div>
+        </Modal>
     </div>
 </template>
 
@@ -164,6 +183,7 @@ import ajaxSelect from '@/components/basics/ajaxSelect'
         },
         data() {
             return {
+                ref: 'form' + new Date().getTime(),
                 showEdit: false,
                 showRange: false,
                 apiData: {
@@ -223,6 +243,33 @@ import ajaxSelect from '@/components/basics/ajaxSelect'
                             }
                         }
                     ]
+                },
+                modityApi: {
+                    userId: '',
+                    originalMobile: '',
+                    nowMoblie: '',
+                    passwordOne: '',
+                    passwordTwo: ''
+                },
+                modityShow: false,
+                loading: false,
+                rules: {
+                    nowMoblie: [{
+                        required: true,
+                        message: '请输入新账号',
+                        trigger: 'blur'
+                    }],
+                    passwordOne: [{
+                        required: true,
+                        message: '请输入密码',
+                        trigger: 'blur'
+                    }],
+                    passwordTwo: [{
+                        required: true,
+                        message: '请输入确认密码',
+                        trigger: 'blur'
+                    }],
+    
                 }
             }
         },
@@ -247,6 +294,9 @@ import ajaxSelect from '@/components/basics/ajaxSelect'
             },
             activeItem() {
                 return this.list.length > 0 ? this.list[this.activeIndex] : {}
+            },
+            checkPsd() {
+                return this.modityApi.passwordOne == this.modityApi.passwordTwo
             }
         },
         methods: {
@@ -333,6 +383,46 @@ import ajaxSelect from '@/components/basics/ajaxSelect'
             saveScope() {
                 this.$refs.scope.saveScope();
                 this.showRange = false;
+            },
+            //   修改账号
+            modityInfo(index) {
+                this.modityShow = true
+                this.modityApi.originalMobile = this.list[index].buserMobile;
+                this.modityApi.userId = this.list[index].userId
+            },
+            resetmodi(){
+                this.modityShow = false
+                this.modityApi = {
+                    userId: '',
+                    originalMobile: '',
+                    nowMoblie: '',
+                    passwordOne: '',
+                    passwordTwo: ''
+                }
+            },
+            //  保存新账号
+            saveAccount() {
+                this.$refs[this.ref].validate((valid) => {
+                    if (valid) {
+                        if(this.checkPsd){
+                        this.loading = true;
+                        this.$http.post(this.api.updateMainAccountMobile, this.modityApi).then(res => {
+                            if (res.code === 1000) {
+                                this.getBusinesses();
+                                this.$Message.success('操作成功');
+                                this.resetmodi();
+                            } else {
+                                this.$Message.error(res.message);
+                            }
+                            this.loading = false
+                        })
+                        }else{
+                            this.$Message.error('两次密码输入不一致');
+                        }
+                    } else {
+                        this.$Message.error('表单验证失败');
+                    }
+                })
             }
         },
         watch: {

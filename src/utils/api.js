@@ -161,6 +161,12 @@ export const scopeByUserId = '/sys/ironBuy/queryBussinessScopeByUserId'
  */
 export const saveScopeByUserId = '/sys/ironBuy/saveBussinessScopeByUserId'
 
+/**
+ * 
+ * 更新公司主账号手机号
+ */
+export const updateMainAccountMobile = '/sys/buserInfo/updateMainAccountMobile'
+
 
 // *********************************权限管理*********************************
 /**
