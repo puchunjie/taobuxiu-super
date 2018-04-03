@@ -52,7 +52,7 @@
                         <Col class-name="col" span="4">
                         <a target="_black" :href="getDetail+'?appUserId=100000000000000000000000000000001&loginId=' + getloginId + '&contractId=' + item.contractId + '&authorization=' + getToken" class="ivu-btn ivu-btn-primary ivu-btn-small">查看</a>
                         <Button type="primary" size="small" @click="contractInfo(item)">合同信息</Button>
-                        <a target="_black" :href="getExport+ 'loginId=' + getloginId + '&contractId=' + item.contractId + '&authorization=' + getToken" class="ivu-btn ivu-btn-primary ivu-btn-small" v-show="item.status == '1'">下载合同</a>
+                        <a target="_black" :href="getExport+ '?loginId=' + getloginId + '&contractId=' + item.contractId + '&authorization=' + getToken" class="ivu-btn ivu-btn-primary ivu-btn-small" v-show="item.status == '1'">下载合同</a>
                         </Col>
                     </Row>
                     <Row v-if="list.length == 0">
