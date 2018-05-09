@@ -75,7 +75,8 @@
                     <div class="item">卖家公司：{{ item.sell != '' ? item.sell.companyName : '暂无' }}</div>
                     <div class="item">求购数量：{{ item.numbers != '' ? `${item.numbers}${item.numberUnit}` : '—' }}/{{ item.weights != '' ? `${item.weights}${item.weightUnit}` : '—' }}</div>
                     <div class="item">中标单价：{{ item.sell != '' ? item.sell.sellPerPrice : '暂无' }}</div>
-                    <div class="item">成交总额：{{ item.sell != '' ? item.sell.sellTotalPrice : '暂无' }}</div>
+                    <!-- <div class="item">成交总额：{{ item.sell != '' ? item.sell.sellTotalPrice : '暂无' }}</div> -->
+                    <div class="item">成交总额：-</div>
                     <div class="item">发布平台：{{ item.appFlag | wherePublish }}</div>
                 </div>
             </div>
