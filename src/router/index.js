@@ -63,12 +63,12 @@ const router = new Router({
         }, {
           path: 'examine',
           name: 'examine',
-          component: resolve => require(['@/views/userManagement/examine/index'],resolve)
-        },{
+          component: resolve => require(['@/views/userManagement/examine/index'], resolve)
+        }, {
           path: 'examineDetail/:id/:status',
           name: 'examineDetail',
-          component: resolve => require(['@/views/userManagement/examine/detail/index'],resolve)
-        },{
+          component: resolve => require(['@/views/userManagement/examine/detail/index'], resolve)
+        }, {
           path: 'commissioner',
           name: 'commissioner',
           component: resolve => require(['@/views/userManagement/commissioner/index'], resolve)
@@ -235,15 +235,15 @@ const router = new Router({
           path: 'infoConfig',
           name: 'infoConfig',
           component: resolve => require(['@/views/contractManagement/infoConfig/index'], resolve)
-        },{
+        }, {
           path: 'logData',
           name: 'logData',
           component: resolve => require(['@/views/logisticsManagement/data/index'], resolve)
-        },{
+        }, {
           path: 'logDemand',
           name: 'logDemand',
           component: resolve => require(['@/views/logisticsManagement/demand/index'], resolve)
-        },{
+        }, {
           path: 'logGoods',
           name: 'logGoods',
           component: resolve => require(['@/views/logisticsManagement/goods/index'], resolve)
@@ -312,10 +312,10 @@ const router = new Router({
               requireAuth: true
             }
           }]
-        },{
-          path:'newsConfig',
+        }, {
+          path: 'newsConfig',
           name: 'newsConfig',
-          component: resolve => require(['@/views/newsManagement/newsConfig/index'],resolve)
+          component: resolve => require(['@/views/newsManagement/newsConfig/index'], resolve)
         },
         {
           path: 'resourceOpenTime',
@@ -336,6 +336,60 @@ const router = new Router({
           path: 'buyerOptionConfig',
           name: 'buyerOptionConfig',
           component: resolve => require(['@/views/buyerOptionConfig/optionConfig/index'], resolve)
+        },
+        {
+          path: 'auctionManagement',
+          name: 'auctionManagement',
+          component: resolve => require(['@/views/auctionManagement/index'], resolve),
+          children: [{
+            path: 'configMana',
+            name: 'configMana',
+            component: resolve => require(['@/views/auctionManagement/configMana/index'], resolve),
+            redirect: '/auctionManagement/configMana/fieldMana',
+            children: [{
+              path: 'fieldMana',
+              name: 'fieldMana',
+              component: resolve => require(['@/views/auctionManagement/configMana/fieldMana/index'], resolve),
+            }, {
+              path: 'categoricalMana',
+              name: 'categoricalMana',
+              component: resolve => require(['@/views/auctionManagement/configMana/categoricalMana/index'], resolve),
+            }, {
+              path: 'goodsMana',
+              name: 'goodsMana',
+              component: resolve => require(['@/views/auctionManagement/configMana/goodsMana/index'], resolve),
+            }]
+          },
+          {
+            path: 'auctionTest',
+            name: 'auctionTest',
+            component: resolve => require(['@/views/auctionManagement/auctionTest/index'], resolve)
+          }]
+        },
+        {
+          path: 'capitalManagement',
+          name: 'capitalManagement',
+          component: resolve => require(['@/views/capitalManagement/index'], resolve),
+          children: [{
+            path: 'extractMana',
+            name: 'extractMana',
+            component: resolve => require(['@/views/capitalManagement/extractMana/index'], resolve),
+            redirect: '/capitalManagement/extractMana/dealMana',
+            children: [{
+              path: 'dealMana',
+              name: 'dealMana',
+              component: resolve => require(['@/views/capitalManagement/extractMana/deal/index'], resolve),
+            }, {
+              path: 'applyMana',
+              name: 'applyMana',
+              component: resolve => require(['@/views/capitalManagement/extractMana/apply/index'], resolve),
+            }]
+          },{
+            path: 'capitalAccount',
+            name: 'capitalAccount',
+            component: resolve => require(['@/views/capitalManagement/capitalAccount/index'], resolve)
+          }
+         ]
         }
       ]
     },

@@ -1181,3 +1181,159 @@ export const getBuserInfoByUserId = '/sys/buserInfo/getBuserInfoByUserId'
 */
 export const findSalemanInfo = '/api/bregist/findSalemanInfo'
 
+
+
+// -----------------------------------拍卖---------------------------------
+/** 
+ *  拍卖场地列表
+*/
+export const findAuctionIndexList = '/sys/auctionIndex/findAuctionIndexList'
+
+/** 
+ *  拍卖场次保存
+*/
+export const saveAuctionIndex = '/sys/auctionIndex/saveAuctionIndex'
+
+
+/** 
+ *  拍卖场次更新
+*/
+export const updateAuctionIndex = '/sys/auctionIndex/updateAuctionIndex'
+
+
+/** 
+ *  拍卖场次删除
+*/
+export const deleteAuctionIndex = '/sys/auctionIndex/deleteAuctionIndex'
+
+
+/** 
+ *  货品类型列表查询
+*/
+export const findGoodsTypeList = '/sys/goodsType/findGoodsTypeList'
+
+
+/** 
+ *  货品类型更新
+*/
+export const updateGoodsType = '/sys/goodsType/updateGoodsType'
+
+
+/** 
+ *  货品类型保存
+*/
+export const saveGoodsType = '/sys/goodsType/saveGoodsType'
+
+
+/** 
+ *  货品类型删除
+*/
+export const deleteGoodsType = '/sys/goodsType/deleteGoodsType'
+
+
+/** 
+ *  拍卖品类列表
+*/
+export const findAuctionIronTypeList = '/sys/auctionIronType/findAuctionIronTypeList'
+
+/** 
+ *  拍卖品类保存
+*/
+export const saveAuctionIronType = '/sys/auctionIronType/saveAuctionIronType'
+
+/** 
+ *  拍卖品类更新
+*/
+export const updateAuctionIronType = '/sys/auctionIronType/updateAuctionIronType'
+
+
+/** 
+ *  拍卖品类删除
+*/
+export const deleteAuctionIronType = '/sys/auctionIronType/deleteAuctionIronType'
+
+/** 
+ *  材质类列表
+*/
+export const findAuctionMaterialList = '/sys/auctionMaterial/findAuctionMaterialList'
+
+/** 
+ *  材质保存
+*/
+export const saveAuctionMaterial = '/sys/auctionMaterial/saveAuctionMaterial'
+
+/** 
+ *  材质更新
+*/
+export const updateAuctionMaterial = '/sys/auctionMaterial/updateAuctionMaterial'
+
+
+/** 
+ *  材质删除
+*/
+export const deleteAuctionMaterial = '/sys/auctionMaterial/deleteAuctionMaterial'
+
+/** 
+ *  表面列表
+*/
+export const findAuctionSurfaceList = '/sys/auctionSurface/findAuctionSurfaceList'
+
+/** 
+ *  表面保存
+*/
+export const saveAuctionSurface = '/sys/auctionSurface/saveAuctionSurface'
+
+/** 
+ *  表面更新
+*/
+export const updateAuctionSurface = '/sys/auctionSurface/updateAuctionSurface'
+
+
+/** 
+ *  表面删除
+*/
+export const deleteAuctionSurface = '/sys/auctionSurface/deleteAuctionSurface'
+
+
+/** 
+ *  产地列表
+*/
+export const findAuctionProPlaceList = '/sys/auctionProPlace/findAuctionProPlaceList'
+
+/** 
+ *  产地保存
+*/
+export const saveAuctionProPlace = '/sys/auctionProPlace/saveAuctionProPlace'
+
+/** 
+ *  产地更新
+*/
+export const updateAuctionProPlace = '/sys/auctionProPlace/updateAuctionProPlace'
+
+
+/** 
+ *  产地删除
+*/
+export const deleteAuctionProPlace = '/sys/auctionProPlace/deleteAuctionProPlace'
+
+
+/** 
+ *  仓库列表
+*/
+export const findAuctionStoreHouseList = '/sys/auctionStoreHouse/findAuctionStoreHouseList'
+
+/** 
+ *  仓库保存
+*/
+export const saveAuctionStoreHouse = '/sys/auctionStoreHouse/saveAuctionStoreHouse'
+
+/** 
+ *  仓库更新
+*/
+export const updateAuctionStoreHouse = '/sys/auctionStoreHouse/updateAuctionStoreHouse'
+
+
+/** 
+ *  仓库删除
+*/
+export const deleteAuctionStoreHouse = '/sys/auctionStoreHouse/deleteAuctionStoreHouse'

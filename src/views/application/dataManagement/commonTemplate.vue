@@ -69,7 +69,7 @@
                 rules: {
                     name: [{
                         required: true,
-                        message: '姓名不能为空',
+                        message: '名称不能为空',
                         trigger: 'blur'
                     }]
                 },

@@ -1,9 +1,9 @@
 <template>
     <div class="layout">
         <Row type="flex">
-            <Col span="4" class="layout-menu-left">
+            <Col span="3" class="layout-menu-left">
             <Menu ref="menu" :active-name="activeIndex" theme="dark" width="auto" @on-select="openSubpage" :open-names="openArr" style="overflow: hidden;">
-                <div class="layout-logo-left">淘不锈超管后台管理系统</div>
+                <div class="layout-logo-left">淘不锈超管管理系统</div>
                 <Submenu :name="index" v-for="(item,index) in menu" :key="index">
                     <template slot="title">
                             <span class="iconfont menuicon" :class="item.icon"></span>{{ item.name }}
@@ -12,7 +12,7 @@
                     </Submenu>
                 </Menu>
             </Col>
-            <Col span="20">
+            <Col span="21">
                 <div class="layout-header" ref="layoutHeader">
                      <div class="layout-ceiling-main">
                         <a @click="loginout"><Icon type="log-out" style="margin-right:3px;font-size:14px;"></Icon>退出</a>
