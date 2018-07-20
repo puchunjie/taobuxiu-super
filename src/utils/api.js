@@ -56,6 +56,7 @@ export const findProvince = '/api/query/findProvince'
 export const findCity = '/api/query/findCity'
 
 export const findArea = '/api/query/findArea'
+export const findDistrict = '/api/query/findDistrict'
 
 // *********************************用户管理*********************************
 /**
@@ -1337,3 +1338,30 @@ export const updateAuctionStoreHouse = '/sys/auctionStoreHouse/updateAuctionStor
  *  仓库删除
 */
 export const deleteAuctionStoreHouse = '/sys/auctionStoreHouse/deleteAuctionStoreHouse'
+
+/** 
+ *  商家银行卡列表查询
+*/
+export const findBankCardList = '/sys/bankCard/findBankCardList'
+
+
+/** 
+ *  商家银行卡保存
+*/
+export const saveBankCard = '/sys/bankCard/saveBankCard'
+
+/** 
+ *  商家银行卡更新
+*/
+export const updateBankCard = '/sys/bankCard/updateBankCard'
+
+/** 
+ *  商家银行卡删除
+*/
+export const deleteBankCard = '/sys/bankCard/deleteBankCard'
+
+
+/** 
+ *  商家银行卡修改默认状态
+*/
+export const changDefault = '/sys/bankCard/changDefault'

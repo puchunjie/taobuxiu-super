@@ -87,7 +87,8 @@
                 <span class="iconfont icon-bao" style="color:#C16BD6" v-show="item.isGuaranteeUser == 1"></span>
                 <span class="iconfont icon-dian" style="color:#57c5f7" v-show="item.isHaveShop == 1"></span>
                 <Button style="float:right;margin-top:10px" size="small" type="info" @click="showInfo(index)">详情</Button>
-                <Button style="float:right;margin-top:10px;margin-right:10px;" size="small" type="info" @click="showRangeInfo(index)">报价经营范围</Button>
+                <Button style="float:right;margin-top:10px;margin-right:10px;margin-left:10px;" size="small" type="info" @click="showRangeInfo(index)">报价经营范围</Button>
+                <Button style="float:right;margin-top:10px" size="small" type="info" @click="cardManage(item)">银行卡管理</Button>
                 <!-- <Button style="float:right;margin-top:10px;margin-right:10px;" size="small" type="info" @click="modityInfo(index)">修改账号</Button> -->
             </div>
             <div class="card clearfix">
@@ -423,6 +424,9 @@ import ajaxSelect from '@/components/basics/ajaxSelect'
                         this.$Message.error('表单验证失败');
                     }
                 })
+            },
+            cardManage(data){
+                 this.$router.push('bankCard/'+data.id)
             }
         },
         watch: {

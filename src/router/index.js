@@ -61,6 +61,10 @@ const router = new Router({
           name: 'businessManagement',
           component: resolve => require(['@/views/userManagement/business/index'], resolve),
         }, {
+          path: 'bankCard/:id',
+          name: 'bankCard',
+          component: resolve => require(['@/views/userManagement/bankCard/index'], resolve),
+        }, {
           path: 'examine',
           name: 'examine',
           component: resolve => require(['@/views/userManagement/examine/index'], resolve)
