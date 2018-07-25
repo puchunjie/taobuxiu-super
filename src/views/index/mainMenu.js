@@ -372,30 +372,41 @@ export default [{
         router: {
           name: '/auctionManagement/configMana/goodsMana'
         },
+      }, {
+        name: '服务与支持',
+        router: {
+          name: '/auctionManagement/configMana/supportMana'
+        },
       }]
     },{
-      name: 'test',
+      name: '拍品管理',
       router: {
-        name: 'auctionTest'
-      }
+        name: 'auctionMana'
+      },
+      child: [{
+        name: '新增拍品',
+        router: {
+          name: '/auctionManagement/auctionAdd'
+        },
+      }]
     }]
   },{
     name: '资金账户管理',
     icon: 'icon-config',
     children:[{
-      name: '体现申请管理',
+      name: '提现申请管理',
       router: {
         name: 'extractMana'
       },
       child: [{
         name: '场次分类管理',
         router: {
-          name: 'capitalManagement/extractMana/dealMana'
+          name: '/capitalManagement/extractMana/dealMana'
         },
       }, {
         name: '分类数据管理',
         router: {
-          name: 'capitalManagement/extractMana/applyMana'
+          name: '/capitalManagement/extractMana/applyMana'
         },
       }]
     },{

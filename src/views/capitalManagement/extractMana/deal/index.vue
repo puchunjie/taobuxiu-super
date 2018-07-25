@@ -1,16 +1,22 @@
 <template>
-<div>体现待处理
-</div>
+  <div>
+    <extractTemp></extractTemp>
+  </div>
 </template>
+
 <script>
-export default {
-data() {
-return {
-}
-},
-methods: {
-}
-}
+  import extractTemp from '../extractTemp/index'
+  export default {
+    components: {
+      extractTemp
+    },
+    data() {
+      return {}
+    },
+    methods: {}
+  }
 </script>
+
 <style lang='less' scoped>
+  
 </style>

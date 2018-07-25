@@ -24,6 +24,9 @@
         }, {
           name: '货品类型管理',
           pathName: 'goodsMana'
+        }, {
+          name: '服务与支持',
+          pathName: 'supportMana'
         }],
       }
     }

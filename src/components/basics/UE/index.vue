@@ -3,7 +3,7 @@
         <div class="upload" v-if="uploadshow">
             <Button type="text" @click="showUploadModal" icon="ios-cloud-upload-outline">上传图片</Button>
         </div>
-    <script id="editor" type="text/plain"></script>
+    <script :id="eidtId" type="text/plain"></script>
     <Modal v-model="show" title="上传图片" :closable="false" :mask-closable="false">
         <div>
             <Upload multiple :action="api.uploadApi" :headers="uplaodHeader" :max-size="2048" :format="['png','jpg','jpeg']" :show-upload-list="false" :on-exceeded-size="handleMaxSize" :on-success="handleSuccess" :on-format-error="handleFormatError" style="display:inline-block;width: 100px;">
@@ -46,12 +46,16 @@
             },
             config: {
                 type: Object
+            },
+            eidtId:{
+                type: String,
+                default: 'editor'
             }
         },
         mounted() {
             let _this = this;
             UE.delEditor('_editor');
-            this.editor = UE.getEditor('editor', this.config); // 初始化UE
+            this.editor = UE.getEditor(this.eidtId, this.config); // 初始化UE
             this.editor.addListener("ready", function() {
                 setTimeout(function(){
                     _this.editor.setContent(_this.defaultMsg,false); // 确保UE加载完成后，放入内容。
@@ -125,7 +129,7 @@
     .upload {
         position: absolute;
         right: 150px;
-        top: 110px;
+        top: 100px;
         z-index: 2;
     }
     .uploadimglist .imglist{

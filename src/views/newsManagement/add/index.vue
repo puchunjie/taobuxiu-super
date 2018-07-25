@@ -25,9 +25,11 @@
                         <FormItem label="摘要内容" prop="paper">
                             <Input type="text" v-model="itemApi.paper" :maxlength="80" placeholder="请输入摘要内容" style="width:450px;"></Input>
                         </FormItem>
-                        <FormItem class="ivu-form-item-required" label="正文">
+                        <!-- <FormItem class="ivu-form-item-required" label="正文"> -->
+                            <div style="width: 700px;padding-left: 100px;">
                             <UE :defaultMsg="defaultMsg" :config="config" ref="ue"></UE>
-                        </FormItem>
+                            </div>
+                        <!-- </FormItem> -->
                         <FormItem label="封面" class="ivu-form-item-required">
                             <Upload :action="api.uploadApi" :headers="uplaodHeader" :before-upload="beforeUpload" :max-size="2048" :format="['png','jpg','jpeg']" :show-upload-list="false" :on-exceeded-size="handleMaxSize" :on-success="handleSuccess" :on-format-error="handleFormatError"
                                 style="display:inline-block;width: 100px;">

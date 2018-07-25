@@ -1365,3 +1365,80 @@ export const deleteBankCard = '/sys/bankCard/deleteBankCard'
  *  商家银行卡修改默认状态
 */
 export const changDefault = '/sys/bankCard/changDefault'
+
+
+/** 
+ *  服务与支持列表
+*/
+export const findSerSupList = '/sys/serSup/findSerSupList'
+
+/** 
+ *  服务与支持保存
+*/
+export const saveSerSup = '/sys/serSup/saveSerSup'
+
+
+/** 
+ *  服务与支持删除
+*/
+export const deleteSerSup = '/sys/serSup/deleteSerSup'
+
+
+/** 
+ *  服务与支持更新
+*/
+export const updateSerSup = '/sys/serSup/updateSerSup'
+
+
+/** 
+ *  提现申请-分页列表
+*/
+export const widthDrawPage = '/sys/widthDraw/page'
+
+
+/** 
+ *  提现申请详情
+*/
+export const widthDrawDetail = '/sys/widthDraw/detail'
+
+
+/** 
+ *  拍卖场次全部
+*/
+export const getAllSuctionIndex = '/sys/auctionIndex/getAllSuctionIndex'
+
+
+/** 
+ *  货品类型全部
+*/
+export const getAllGoodsTypeList = '/sys/goodsType/getAllGoodsTypeList'
+
+
+/** 
+ *  服务与支持所有
+*/
+export const getAllSerSup = '/sys/serSup/getAllSerSup'
+
+
+/** 
+ *  拍卖信息保存
+*/
+export const saveAuction = '/sys/auction/saveAuction'
+
+
+/** 
+ *  服务与支持所有
+*/
+export const getOfferWay = '/api/auctionOfferWay/list'
+
+export const A_storeHouse = '/sys/auctionStoreHouse/getAllAuctionStoreHouse'
+
+export const A_proPlace = '/sys/auctionProPlace/getAllAuctionProPlace'
+
+export const A_ironType = '/sys/auctionIronType/getAllAuctionIronType'
+
+export const A_material = '/sys/auctionMaterial/getAllAuctionMaterial'
+
+export const A_surface = '/sys/auctionSurface/getAllAuctionSurface'
+
+

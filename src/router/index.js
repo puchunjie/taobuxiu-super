@@ -362,12 +362,21 @@ const router = new Router({
               path: 'goodsMana',
               name: 'goodsMana',
               component: resolve => require(['@/views/auctionManagement/configMana/goodsMana/index'], resolve),
+            }, {
+              path: 'supportMana',
+              name: 'supportMana',
+              component: resolve => require(['@/views/auctionManagement/configMana/supportMana/index'], resolve),
             }]
           },
           {
-            path: 'auctionTest',
-            name: 'auctionTest',
-            component: resolve => require(['@/views/auctionManagement/auctionTest/index'], resolve)
+            path: 'auctionMana',
+            name: 'auctionMana',
+            component: resolve => require(['@/views/auctionManagement/auctionMana/index'], resolve)
+          },
+          {
+            path: 'auctionAdd',
+            name: 'auctionAdd',
+            component: resolve => require(['@/views/auctionManagement/auctionMana/add/index'], resolve)
           }]
         },
         {
