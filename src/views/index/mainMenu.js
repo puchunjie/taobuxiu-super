@@ -384,9 +384,19 @@ export default [{
         name: 'auctionMana'
       },
       child: [{
+        name: '拍品管理',
+        router: {
+          name: '/auctionManagement/auctionMana/auctionList'
+        },
+      },{
         name: '新增拍品',
         router: {
-          name: '/auctionManagement/auctionAdd'
+          name: '/auctionManagement/auctionMana/auctionAdd'
+        },
+      },{
+        name: '拍卖详情',
+        router: {
+          name: '/auctionManagement/auctionMana/auctionDetail'
         },
       }]
     }]

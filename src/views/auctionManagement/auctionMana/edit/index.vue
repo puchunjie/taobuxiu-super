@@ -1,9 +1,9 @@
 <template>
   <div class="panel">
     <Card :bordered="false" class="card">
-      <p slot="title">新增拍品</p>
+      <p slot="title">编辑拍品</p>
       <div slot="extra">
-        <Button type="primary" @click="saveAcution('formValidate')">发布</Button>
+        <Button type="primary" @click="saveAcution('formValidate')">确认编辑</Button>
       </div>
       <Form ref="formValidate" :model="dataApi" :rules="ruleValidate" :label-width="100" inline class="addForm">
         <h2 class="title">基本信息</h2>
@@ -325,6 +325,9 @@
       };
     },
     computed: {
+      id() {
+        return this.$route.params.id
+      },
       isBJ() {
         return (
           this.dataApi.ironType === "不锈钢卷" ||
@@ -386,11 +389,45 @@
       }
     },
     methods: {
+      getData() {
+        this.$http.post(this.api.findAuction, {
+          id: this.id
+        }).then(res => {
+          if (res.code === 1000) {
+            this.dataApi = Object.assign({},res.data)
+            this.dataApi.infos = res.data.auctionInfos.length != '' ? res.data.auctionInfos : [{id: "",number: "",weight: "",maigin: "",offerWay: ""}];
+            this.dataApi.rights = res.data.auctionRights.length != '' ? res.data.auctionRights : [];
+            this.dataApi.hasReservePrice = res.data.hasReservePrice.toString();
+            this.timeApi.date = formatDuring(res.data.keepTime,3).split('-')[0];
+            this.timeApi.time = formatDuring(res.data.keepTime,3).split('-')[1];
+            this.dataApi.startTime = new Date(res.data.startTime);
+            this.dataApi.endTime = new Date(res.data.endTime);
+            this.auctionDescMsg = res.data.auctionLob.introduction;
+            this.auctionBuyMsg = res.data.auctionLob.moneyNotice;
+            this.auctionBondMsg = res.data.auctionLob.priceNotice;
+            this.auctionPackMsg = res.data.auctionLob.packMessage;
+            delete this.dataApi.auctionRights;
+            delete this.dataApi.auctionLob;
+            delete this.dataApi.auctionInfos;
+            this.selectedClass();
+          }
+        })
+      },
+      selectedClass(){
+        this.baseData[7].list.forEach(el =>{
+          this.dataApi.rights.forEach(sub =>{
+            if(el.name === sub.name){
+              el.isCheck = true;
+            }
+          })
+        })
+      },
       saveAcution(name) {
         let auctionDesc = this.$refs.auctionDesc.getUEContent();
         let auctionBond = this.$refs.auctionBond.getUEContent();
         let auctionBuy = this.$refs.auctionBuy.getUEContent();
         let params = this.$clearData(this.dataApi);
+        params.id = this.id;
         params.infos = JSON.stringify(params.infos);
         params.rights = JSON.stringify(params.rights);
         params.introduction = auctionDesc;
@@ -406,13 +443,13 @@
         this.$refs[name].validate(valid => {
           if (valid) {
             this.$Modal.confirm({
-              title: "拍品发布",
-              content: "是否确认发布拍品",
+              title: "拍品编辑",
+              content: "是否确认编辑拍品",
               onOk: () => {
-                this.$http.post(this.api.saveAuction, params).then(res => {
+                this.$http.post(this.api.updateAuction, params).then(res => {
                   if (res.code === 1000) {
-                    this.$router.push('../auctionMana')
-                    this.$Message.success("发布成功");
+                    this.$router.push('../../auctionMana')
+                    this.$Message.success("编辑成功");
                   } else {
                     this.$Message.error(res.message)
                   }
@@ -427,7 +464,7 @@
       selectItem(item, index) {
         if (item.isCheck) {
           _.remove(this.dataApi.rights, n => {
-              return n.id == item.id;
+              return n.name === item.name;
           });
         } else {
           this.dataApi.rights.push(item);
@@ -515,6 +552,7 @@
             }
           });
         });
+      this.getData()
     }
   };
 </script>

@@ -371,13 +371,34 @@ const router = new Router({
           {
             path: 'auctionMana',
             name: 'auctionMana',
-            component: resolve => require(['@/views/auctionManagement/auctionMana/index'], resolve)
-          },
-          {
-            path: 'auctionAdd',
-            name: 'auctionAdd',
-            component: resolve => require(['@/views/auctionManagement/auctionMana/add/index'], resolve)
-          }]
+            component: resolve => require(['@/views/auctionManagement/auctionMana/index'], resolve),
+            redirect: '/auctionManagement/auctionMana/auctionList',
+            children:[{
+              path: 'auctionList',
+              name: 'auctionList',
+              component: resolve => require(['@/views/auctionManagement/auctionMana/list/index'], resolve)
+            },{
+              path: 'auctionAdd',
+              name: 'auctionAdd',
+              component: resolve => require(['@/views/auctionManagement/auctionMana/add/index'], resolve)
+            },
+            {
+              path: 'auctionDetail/:id',
+              name: 'auctionDetail',
+              component: resolve => require(['@/views/auctionManagement/auctionMana/detail/index'], resolve)
+            },
+            {
+              path: 'auctionEdit/:id',
+              name: 'auctionEdit',
+              component: resolve => require(['@/views/auctionManagement/auctionMana/edit/index'], resolve)
+            },
+            {
+              path: 'auctionCopy/:id',
+              name: 'auctionCopy',
+              component: resolve => require(['@/views/auctionManagement/auctionMana/copy/index'], resolve)
+            }]
+          }
+          ]
         },
         {
           path: 'capitalManagement',

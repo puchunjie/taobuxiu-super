@@ -1427,6 +1427,29 @@ export const saveAuction = '/sys/auction/saveAuction'
 
 
 /** 
+ *  拍卖信息列表
+*/
+export const findAuctionList = '/sys/auction/findAuctionList'
+
+
+/** 
+ *  拍卖信息详情
+*/
+export const findAuction = '/sys/auction/findAuction'
+
+/** 
+ *  拍卖信息删除
+*/
+export const deleteAuction = '/sys/auction/deleteAuction'
+
+
+/** 
+ *  拍卖信息编辑
+*/
+export const updateAuction = '/sys/auction/updateAuction'
+
+
+/** 
  *  服务与支持所有
 */
 export const getOfferWay = '/api/auctionOfferWay/list'
