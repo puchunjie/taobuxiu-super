@@ -2,7 +2,7 @@
   <div class="panel">
     <Card :bordered="false" class="card">
       <p slot="title">拍品管理</p>
-      <Button slot="extra" type="primary" @click="addAuction">编辑拍品</Button>
+      <Button slot="extra" type="primary" @click="addAuction">新增拍品</Button>
       <Form :mode="pageApi" :label-width="80" inline>
         <FormItem label="商户名称：">
           <Input type="text" v-model="pageApi.companyName" style="width: 150px;" placeholder="请输入..."></Input>
@@ -15,33 +15,33 @@
         </FormItem>
         <FormItem label="有无底价：">
           <Select v-model="pageApi.reservePrice" placeholder="请选择" style="width:150px">
-                  <Option v-for="item in [{id:'true',name: '有'},{id:'false',name: '无'}]" :key="item.id" :value="item.id" >{{ item.name }}</Option>
-                </Select>
-        </FormItem>
-        <FormItem label="货品种类：">
-          <Select v-model="pageApi.goodsType" style="width: 150px;">
-                  <Option v-for="(item,index) in filterList[4].list" :key="index" :value="item.name">{{ item.name }}</Option>
-                </Select>
+            <Option v-for="item in [{id:'true',name: '有'},{id:'false',name: '无'}]" :key="item.id" :value="item.id" >{{ item.name }}</Option>
+          </Select>
         </FormItem>
         <FormItem label="品类：">
           <Select v-model="pageApi.ironType" style="width: 150px;">
-                  <Option v-for="(item,index) in filterList[0].list" :key="index" :value="item">{{ item }}</Option>
-                </Select>
-        </FormItem>
-        <FormItem label="材质：">
-          <Select v-model="pageApi.material" style="width: 150px;">
-                  <Option v-for="(item,index) in filterList[2].list" :key="index" :value="item">{{ item }}</Option>
-                </Select>
+            <Option v-for="(item,index) in filterList[0].list" :key="index" :value="item">{{ item }}</Option>
+          </Select>
         </FormItem>
         <FormItem label="表面：">
           <Select v-model="pageApi.surface" style="width: 150px;">
-                  <Option v-for="(item,index) in filterList[1].list" :key="index" :value="item">{{ item }}</Option>
-                </Select>
+            <Option v-for="(item,index) in filterList[1].list" :key="index" :value="item">{{ item }}</Option>
+          </Select>
+        </FormItem>
+        <FormItem label="材质：">
+          <Select v-model="pageApi.material" style="width: 150px;">
+            <Option v-for="(item,index) in filterList[2].list" :key="index" :value="item">{{ item }}</Option>
+          </Select>
         </FormItem>
         <FormItem label="产地：">
           <Select v-model="pageApi.proPlace" style="width: 150px;">
-                  <Option v-for="(item,index) in filterList[3].list" :key="index" :value="item">{{ item }}</Option>
-                </Select>
+            <Option v-for="(item,index) in filterList[3].list" :key="index" :value="item">{{ item }}</Option>
+          </Select>
+        </FormItem>
+        <FormItem label="货品种类：">
+          <Select v-model="pageApi.goodsType" style="width: 150px;">
+            <Option v-for="(item,index) in filterList[4].list" :key="index" :value="item.name">{{ item.name }}</Option>
+          </Select>
         </FormItem>
         <FormItem label="公差：">
           <Input type="text" v-model="pageApi.tolerance" style="width: 150px;" placeholder="请输入..."></Input>
@@ -195,9 +195,9 @@
               if (auctionStatus === '1') {
                 return h('div', '有效')
               } else if (auctionStatus === '2') {
-                return h('div', '成交')
+                return h('div', '已成交')
               } else if (auctionStatus === '3') {
-                return h('div', '流拍')
+                return h('div', '已流拍')
               }
             } else {
               return h('div', '已删除')

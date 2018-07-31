@@ -347,6 +347,11 @@ export default [{
       router: {
         name: 'resourceTypeConfig'
       }
+    }, {
+      name: '数据字典',
+      router: {
+        name: 'dictionaryMana'
+      }
     }]
   },
   {
@@ -423,6 +428,27 @@ export default [{
       name: '商户资金账户',
       router: {
         name: 'capitalAccount'
+      }
+    },{
+      name: '交易明细',
+      router: {
+        name: 'transactionMana'
+      },
+      child: [{
+        name: '提现退款记录',
+        router: {
+          name: '/capitalManagement/transactionMana/refundMana'
+        },
+      }, {
+        name: '会员充值记录',
+        router: {
+          name: '/capitalManagement/transactionMana/rechargeMana'
+        },
+      }]
+    },{
+      name: '充值管理',
+      router: {
+        name: 'recharge'
       }
     }]
   }

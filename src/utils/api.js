@@ -1449,6 +1449,13 @@ export const deleteAuction = '/sys/auction/deleteAuction'
 export const updateAuction = '/sys/auction/updateAuction'
 
 
+
+/** 
+ *  拍卖竞价历史
+*/
+export const findOfferAuction = '/sys/auction/findOfferAuction'
+
+
 /** 
  *  服务与支持所有
 */
@@ -1463,5 +1470,79 @@ export const A_ironType = '/sys/auctionIronType/getAllAuctionIronType'
 export const A_material = '/sys/auctionMaterial/getAllAuctionMaterial'
 
 export const A_surface = '/sys/auctionSurface/getAllAuctionSurface'
+
+
+/**
+ * 分页查询数据字典
+ * 
+ */
+
+export const findDataDictionaryPage = '/sys/dataDictionary/findDataDictionaryPage'
+
+/**
+ * 分页查询数据字典
+ * 
+ */
+
+export const deleteDataDictionary = '/sys/dataDictionary/deleteDataDictionary'
+
+
+/**
+ * 新增更新数据字典
+ * 
+ */
+
+export const saveUpdateDataDictionary = '/sys/dataDictionary/saveUpdateDataDictionary'
+
+
+
+/**
+ * 商户资金账户列表
+ * 
+ */
+
+export const buserAccountPage = '/sys/buserAccount/page'
+
+
+/**
+ * 商户资金账户详情
+ * 
+ */
+
+export const buserAccountHistory = '/sys/buserAccount/log'
+
+
+
+/**
+ * 超管充值
+ * 
+ */
+
+export const buserAccountRecharge = '/sys/buserAccount/recharge'
+
+
+
+/**
+ * 提现退款记录
+ * 
+ */
+
+export const widthDrawHistory = '/sys/widthDraw/history'
+
+
+/**
+ * 会员充值记录
+ * 
+ */
+
+export const rechargeHistory = '/sys/recharge/history'
+
+/**
+ * 充值账单记录
+ * 
+ */
+
+export const rechargePage = '/sys/recharge/page'
+
 
 

@@ -4,12 +4,15 @@
       <p slot="title">新增拍品</p>
       <div slot="extra">
         <Button type="primary" @click="saveAcution('formValidate')">发布</Button>
+        <Button type="primary" @click="back">返回</Button>
       </div>
       <Form ref="formValidate" :model="dataApi" :rules="ruleValidate" :label-width="100" inline class="addForm">
         <h2 class="title">基本信息</h2>
         <div>
           <FormItem label="商户名称：" prop="companyName">
-            <Input type="text" v-model="dataApi.companyName" style="width: 300px;" placeholder="请输入..."></Input>
+            <Select v-model="dataApi.companyName" style="width: 300px;" filterable remote :remote-method="remoteMethod" :loading="queryLoading">
+                <Option v-for="(option, index) in companyList" :value="`${option.companyName}`" :key="index">{{option.companyName}}</Option>
+              </Select>
           </FormItem>
         </div>
         <FormItem label="是否批量发布：">
@@ -19,33 +22,33 @@
         </FormItem>
         <FormItem label="场次类型：" prop="auctionIndex">
           <Select v-model="dataApi.auctionIndex" style="width: 150px;">
-                <Option v-for="(item,index) in baseData[5].list" :key="index" :value="item">{{ item }}</Option>
-              </Select>
+                  <Option v-for="(item,index) in baseData[5].list" :key="index" :value="item">{{ item }}</Option>
+                </Select>
         </FormItem>
         <FormItem label="货品种类：" prop="goodsType">
           <Select v-model="dataApi.goodsType" style="width: 150px;">
-                <Option v-for="(item,index) in baseData[6].list" :key="index" :value="item.name">{{ item.name }}</Option>
-              </Select>
+                  <Option v-for="(item,index) in baseData[6].list" :key="index" :value="item.name">{{ item.name }}</Option>
+                </Select>
         </FormItem>
         <FormItem label="品类：" prop="ironType">
           <Select v-model="dataApi.ironType" style="width: 150px;">
-                <Option v-for="(item,index) in baseData[0].list" :key="index" :value="item">{{ item }}</Option>
-              </Select>
+                  <Option v-for="(item,index) in baseData[0].list" :key="index" :value="item">{{ item }}</Option>
+                </Select>
         </FormItem>
         <FormItem label="材质：" prop="material">
           <Select v-model="dataApi.material" style="width: 150px;">
-                <Option v-for="(item,index) in baseData[2].list" :key="index" :value="item">{{ item }}</Option>
-              </Select>
+                  <Option v-for="(item,index) in baseData[2].list" :key="index" :value="item">{{ item }}</Option>
+                </Select>
         </FormItem>
         <FormItem label="表面：" prop="surface">
           <Select v-model="dataApi.surface" style="width: 150px;">
-                <Option v-for="(item,index) in baseData[1].list" :key="index" :value="item">{{ item }}</Option>
-              </Select>
+                  <Option v-for="(item,index) in baseData[1].list" :key="index" :value="item">{{ item }}</Option>
+                </Select>
         </FormItem>
         <FormItem label="产地：" prop="proPlace">
           <Select v-model="dataApi.proPlace" style="width: 150px;">
-                <Option v-for="(item,index) in baseData[3].list" :key="index" :value="item">{{ item }}</Option>
-              </Select>
+                  <Option v-for="(item,index) in baseData[3].list" :key="index" :value="item">{{ item }}</Option>
+                </Select>
         </FormItem>
         <FormItem label="规格：" v-if="!isBJ">
           <Input type="text" v-model="dataApi.specifiction" style="width: 150px;" placeholder="请输入..."></Input>
@@ -64,8 +67,8 @@
         </FormItem>
         <FormItem label="仓库：" prop="storeHouse">
           <Select v-model="dataApi.storeHouse" style="width: 150px;">
-                <Option v-for="(item,index) in baseData[4].list" :key="index" :value="item">{{ item }}</Option>
-              </Select>
+                  <Option v-for="(item,index) in baseData[4].list" :key="index" :value="item">{{ item }}</Option>
+                </Select>
         </FormItem>
         <FormItem label="所在地区：">
           <cityPick @on-pick="selectCity" style="width: 150px;"></cityPick>
@@ -83,7 +86,7 @@
           <Input type="text" v-model="dataApi.priceStep" placeholder="请输入..." style="width: 150px;"></Input>
         </FormItem>
         <FormItem label="开拍时间：" prop="startTime">
-          <DatePicker type="datetime" v-model="dataApi.startTime" placeholder="选择开拍时间" style="width: 150px"></DatePicker>
+          <DatePicker type="datetime" v-model="dataApi.startTime" :options="disableStartTime" placeholder="选择开拍时间" style="width: 150px"></DatePicker>
         </FormItem>
         <FormItem label="竞拍时间：">
           <Input type="text" v-model="timeApi.date" placeholder="请输入..." style="width: 60px;"></Input>天
@@ -93,13 +96,12 @@
           <Input type="text" v-model="dataApi.timeStep" placeholder="请输入..." style="width: 60px;"></Input>分/次
         </FormItem>
         <FormItem label="结束时间：">
-          <DatePicker type="datetime" v-model="dataApi.endTime" placeholder="选择结束时间" style="width: 150px"></DatePicker>
+          <DatePicker type="datetime" :disabled="!isStep" :options="disableEndTime" v-model="dataApi.endTime" placeholder="选择结束时间" style="width: 160px"></DatePicker>
         </FormItem>
         <FormItem label="服务支持：">
           <div class="item-content clearfix">
             <div class="item" v-for="(item,index) in baseData[7].list" :key="index" @click="selectItem(item,index)">
-              <span class="iconfont" :class="item.isCheck ? 'icon-yduifuxuankuangxuanzhong' : 'icon-yduifuxuankuang'"></span>
-              {{ item.name }}
+              <span class="iconfont" :class="item.isCheck ? 'icon-yduifuxuankuangxuanzhong' : 'icon-yduifuxuankuang'"></span> {{ item.name }}
             </div>
           </div>
         </FormItem>
@@ -133,15 +135,15 @@
           </Col>
           <Col span="3" class="auctionInfos-item">
           <Select v-model="item.offerWay">
-                <Option v-for="(item,index) in baseData[8].list" :key="index" :value="item.name">{{ item.name }}</Option>
-              </Select>
+                  <Option v-for="(item,index) in baseData[8].list" :key="index" :value="item.name">{{ item.name }}</Option>
+                </Select>
           </Col>
           <Col span="3" class="auctionInfos-item" v-if="dataApi.infos.length > 1">
           <Button @click="removeAuctionInfos(index)">删除</Button>
           </Col>
         </Row>
         <h2 class="title" v-if="dataApi.pack">打包详情</h2>
-        <div class="edit-wrapper"  v-if="dataApi.pack">
+        <div class="edit-wrapper" v-if="dataApi.pack">
           <ueEdit :defaultMsg="auctionPackMsg" :config="config" eidtId="packDesc" ref="packDesc"></ueEdit>
         </div>
         <h2 class="title">标的物介绍</h2>
@@ -150,11 +152,11 @@
         </div>
         <h2 class="title">竞买须知</h2>
         <div class="edit-wrapper">
-          <ueEdit  :defaultMsg="auctionBuyMsg" :config="config" eidtId="auctionBuy" ref="auctionBuy"></ueEdit>
+          <ueEdit :defaultMsg="auctionBuyMsg" :config="config" eidtId="auctionBuy" ref="auctionBuy"></ueEdit>
         </div>
         <h2 class="title">保证金须知</h2>
         <div class="edit-wrapper">
-          <ueEdit  :defaultMsg="auctionBondMsg" :config="config" eidtId="auctionBond" ref="auctionBond"></ueEdit>
+          <ueEdit :defaultMsg="auctionBondMsg" :config="config" eidtId="auctionBond" ref="auctionBond"></ueEdit>
         </div>
       </Form>
     </Card>
@@ -175,6 +177,16 @@
     },
     data() {
       return {
+        disableStartTime: {
+          disabledDate(date) {
+            return date && date.valueOf() < Date.now() - 86400000;
+          }
+        },
+        disableEndTime: {
+          disabledDate(date) {
+            return date && date.valueOf() < Date.now() - 86400000;
+          }
+        },
         baseData: [{
             list: []
           },
@@ -259,11 +271,13 @@
           initialFrameHeight: 550
         },
         index: 0,
+        companyList: [],
+        queryLoading: false,
         ruleValidate: {
           companyName: [{
             required: true,
             message: "不能为空",
-            trigger: "blur"
+            trigger: "change"
           }],
           auctionIndex: [{
             required: true,
@@ -360,6 +374,17 @@
           times = 0;
         }
         return days + times
+      },
+      minutes() {
+        if (this.dataApi.timeStep != '') {
+          return parseInt((Number(this.dataApi.timeStep)) * 60000);
+        }
+      },
+      isStep() {
+        return this.dataApi.timeStep != ''
+      },
+      endTime() {
+        return new Date(this.formateMsec + this.isStartTime)
       }
     },
     watch: {
@@ -372,20 +397,45 @@
           this.dataApi.length = "";
         }
       },
+      endTime(val) {
+        this.dataApi.endTime = val
+      },
       "dataApi.hasReservePrice" (val) {
         if (val === "false") {
           this.dataApi.reservePrice = "";
         }
       },
-      'dataApi.goodsType'(val){
-        this.baseData[6].list.map(el =>{
-          if(el.name === val){
+      'dataApi.goodsType' (val) {
+        this.baseData[6].list.map(el => {
+          if (el.name === val) {
             this.dataApi.pack = el.pack;
           }
         })
       }
     },
     methods: {
+      //返回
+      back() {
+        this.$router.go(-1);
+      },
+      remoteMethod(query) {
+        if (query != '') {
+          this.queryLoading = true
+          this.$http.post(this.api.getBusiness, {
+            name: query,
+            currentPage: 1,
+            pageSize: 10
+          }).then(res => {
+            if (res.code === 1000) {
+              this.companyList = res.data.list;
+              this.queryLoading = false;
+            }
+          })
+        } else {
+          this.companyList = [];
+          this.queryLoading = false;
+        }
+      },
       saveAcution(name) {
         let auctionDesc = this.$refs.auctionDesc.getUEContent();
         let auctionBond = this.$refs.auctionBond.getUEContent();
@@ -399,7 +449,10 @@
         params.startTime = this.isStartTime;
         params.endTime = this.isEndTime;
         params.keepTime = this.formateMsec;
-        if(params.pack){
+        if (this.minutes != 'undefined') {
+          params.timeStep = this.minutes
+        }
+        if (params.pack) {
           let packDesc = this.$refs.packDesc.getUEContent();
           params.packMessage = packDesc
         }
@@ -427,7 +480,7 @@
       selectItem(item, index) {
         if (item.isCheck) {
           _.remove(this.dataApi.rights, n => {
-              return n.id == item.id;
+            return n.id == item.id;
           });
         } else {
           this.dataApi.rights.push(item);
@@ -506,8 +559,8 @@
         .then(res => {
           res.forEach((el, index) => {
             if (el.code === 1000) {
-              if(index === 7){
-                el.data.forEach(sub =>{
+              if (index === 7) {
+                el.data.forEach(sub => {
                   sub.isCheck = false;
                 })
               }
@@ -542,17 +595,17 @@
       width: 600px;
       margin-bottom: 20px;
     }
-    .item-content{
-      .item{
+    .item-content {
+      .item {
         position: relative;
         display: inline-block;
         margin: 0 10px 0 0;
         cursor: pointer;
-        .iconfont{
+        .iconfont {
           font-size: 16px;
           color: #dddee1;
           vertical-align: middle;
-          &.icon-yduifuxuankuangxuanzhong{
+          &.icon-yduifuxuankuangxuanzhong {
             color: #2d8cf0
           }
         }

@@ -251,6 +251,13 @@ const router = new Router({
           path: 'logGoods',
           name: 'logGoods',
           component: resolve => require(['@/views/logisticsManagement/goods/index'], resolve)
+        }, {
+          path: 'dictionaryMana',
+          name: 'dictionaryMana',
+          component: resolve => require(['@/views/system/dictionaryMana/index'], resolve),
+          meta: {
+            requireAuth: true
+          }
         },
         {
           path: 'resourceRefresh',
@@ -412,7 +419,7 @@ const router = new Router({
             children: [{
               path: 'dealMana',
               name: 'dealMana',
-              component: resolve => require(['@/views/capitalManagement/extractMana/deal/index'], resolve),
+              component: resolve => require(['@/views/capitalManagement/extractMana/deal/index'], resolve)
             }, {
               path: 'applyMana',
               name: 'applyMana',
@@ -422,6 +429,24 @@ const router = new Router({
             path: 'capitalAccount',
             name: 'capitalAccount',
             component: resolve => require(['@/views/capitalManagement/capitalAccount/index'], resolve)
+          },{
+            path:'transactionMana',
+            name: 'transactionMana',
+            component: resolve => require(['@/views/capitalManagement/transactionMana/index'], resolve),
+            redirect: '/capitalManagement/transactionMana/refundMana',
+            children:[{
+              path: 'refundMana',
+              name: 'refundMana',
+              component: resolve => require(['@/views/capitalManagement/transactionMana/refund/index'], resolve)
+            },{
+              path: 'rechargeMana',
+              name: 'rechargeMana',
+              component: resolve => require(['@/views/capitalManagement/transactionMana/recharge/index'], resolve)
+            }]
+          },{
+            path: 'recharge',
+            name: 'recharge',
+            component: resolve => require(['@/views/capitalManagement/rechargeMana/index'], resolve)
           }
          ]
         }

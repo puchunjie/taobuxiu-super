@@ -206,25 +206,10 @@
     },
     filters: {
       toHidden(str, start, end) {
-        return str.substr(start, start) + "...." + str.substr(str.length - end);
+        return str.substr(start, start) + "..." + str.substr(str.length - end);
       },
       toStatus(val) {
-        switch (val * 1) {
-          case 0:
-            return "待审核处理";
-            break;
-          case 1:
-            return "提现成功";
-            break;
-          case 2:
-            return "申请驳回";
-            break;
-          case 3:
-            return "申请已撤销";
-            break;
-          default:
-            break;
-        }
+        return ['待审核处理','提现成功','申请驳回','申请已撤销'][val*1]
       }
     },
     methods: {
