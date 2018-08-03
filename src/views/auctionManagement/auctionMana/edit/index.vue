@@ -11,67 +11,70 @@
         <div>
           <FormItem label="商户名称：" prop="companyName">
             <Select v-model="dataApi.companyName" :label="dataApi.companyName" style="width: 300px;" filterable remote :remote-method="remoteMethod" :loading="queryLoading">
-                <Option v-for="(option, index) in companyList" :value="`${option.companyName}`" :key="index">{{option.companyName}}</Option>
-              </Select>
+              <Option v-for="(option, index) in companyList" :value="`${option.companyName}`" :key="index">{{option.companyName}}</Option>
+            </Select>
           </FormItem>
         </div>
         <FormItem label="是否批量发布：">
           <div style="width: 150px;">
-            <Checkbox v-model="dataApi.isBatch">是否批量发布</Checkbox>
+            <Checkbox v-model="dataApi.isBatch" :disabled="isPack">是否批量发布</Checkbox>
           </div>
         </FormItem>
         <FormItem label="场次类型：" prop="auctionIndex">
           <Select v-model="dataApi.auctionIndex" style="width: 150px;">
-                  <Option v-for="(item,index) in baseData[5].list" :key="index" :value="item">{{ item }}</Option>
-                </Select>
+                    <Option v-for="(item,index) in baseData[5].list" :key="index" :value="item">{{ item }}</Option>
+                  </Select>
         </FormItem>
         <FormItem label="货品种类：" prop="goodsType">
           <Select v-model="dataApi.goodsType" style="width: 150px;">
-                  <Option v-for="(item,index) in baseData[6].list" :key="index" :value="item.name">{{ item.name }}</Option>
-                </Select>
+                    <Option v-for="(item,index) in baseData[6].list" :key="index" :value="item.name">{{`${item.name}${item.pack ? '-打包':''}`  }}</Option>
+                  </Select>
         </FormItem>
         <FormItem label="品类：" prop="ironType">
           <Select v-model="dataApi.ironType" style="width: 150px;">
-                  <Option v-for="(item,index) in baseData[0].list" :key="index" :value="item">{{ item }}</Option>
-                </Select>
+                    <Option v-for="(item,index) in baseData[0].list" :key="index" :value="item">{{ item }}</Option>
+                  </Select>
         </FormItem>
-        <FormItem label="材质：" prop="material">
+        <FormItem label="打包描述：" v-if="isPack" prop="packDescription">
+          <Input type="text" v-model="dataApi.packDescription" style="width: 150px;" placeholder="请输入..."></Input>
+        </FormItem>
+        <FormItem label="材质：" v-if="!isPack" prop="material">
           <Select v-model="dataApi.material" style="width: 150px;">
-                  <Option v-for="(item,index) in baseData[2].list" :key="index" :value="item">{{ item }}</Option>
-                </Select>
+                    <Option v-for="(item,index) in baseData[2].list" :key="index" :value="item">{{ item }}</Option>
+                  </Select>
         </FormItem>
-        <FormItem label="表面：" prop="surface">
+        <FormItem label="表面：" v-if="!isPack" prop="surface">
           <Select v-model="dataApi.surface" style="width: 150px;">
-                  <Option v-for="(item,index) in baseData[1].list" :key="index" :value="item">{{ item }}</Option>
-                </Select>
+                    <Option v-for="(item,index) in baseData[1].list" :key="index" :value="item">{{ item }}</Option>
+                  </Select>
         </FormItem>
         <FormItem label="产地：" prop="proPlace">
           <Select v-model="dataApi.proPlace" style="width: 150px;">
-                  <Option v-for="(item,index) in baseData[3].list" :key="index" :value="item">{{ item }}</Option>
-                </Select>
+                    <Option v-for="(item,index) in baseData[3].list" :key="index" :value="item">{{ item }}</Option>
+                  </Select>
         </FormItem>
-        <FormItem label="规格：" v-if="!isBJ">
+        <FormItem label="规格：" v-if="!isPack && !isBJ">
           <Input type="text" v-model="dataApi.specifiction" style="width: 150px;" placeholder="请输入..."></Input>
         </FormItem>
-        <FormItem label="厚：" v-if="isBJ" prop="height">
+        <FormItem label="厚：" v-if="isBJ && !isPack" prop="height">
           <Input type="text" v-model="dataApi.height" style="width: 150px;" placeholder="请输入..."></Input>
         </FormItem>
-        <FormItem label="宽：" v-if="isBJ" prop="width">
+        <FormItem label="宽：" v-if="isBJ && !isPack" prop="width">
           <Input type="text" v-model="dataApi.width" style="width: 150px;" placeholder="请输入..."></Input>
         </FormItem>
-        <FormItem label="长：" v-if="isBJ" prop="length">
+        <FormItem label="长：" v-if="isBJ && !isPack" prop="length">
           <Input type="text" v-model="dataApi.length" style="width: 150px;" placeholder="请输入..."></Input>
         </FormItem>
-        <FormItem label="公差：">
+        <FormItem label="公差：" v-if="!isPack">
           <Input type="text" v-model="dataApi.tolerance" style="width: 150px;" placeholder="请输入..."></Input>
         </FormItem>
         <FormItem label="仓库：" prop="storeHouse">
           <Select v-model="dataApi.storeHouse" style="width: 150px;">
-                  <Option v-for="(item,index) in baseData[4].list" :key="index" :value="item">{{ item }}</Option>
-                </Select>
+              <Option v-for="(item,index) in baseData[4].list" :key="index" :value="item">{{ item }}</Option>
+            </Select>
         </FormItem>
         <FormItem label="所在地区：">
-          <cityPick @on-pick="selectCity" style="width: 150px;"></cityPick>
+          <cityPick @on-pick="selectCity" :value="`${dataApi.province} / ${dataApi.city}`" style="width: 150px;"></cityPick>
         </FormItem>
         <FormItem label="包装：">
           <Input type="text" v-model="dataApi.packaging" style="width: 150px;" placeholder="请输入..."></Input>
@@ -79,7 +82,7 @@
         <FormItem label="备注：">
           <Input type="text" v-model="dataApi.remark" style="width: 150px;" placeholder="请输入..."></Input>
         </FormItem>
-        <FormItem label="起拍价/￥：">
+        <FormItem label="起拍价￥/吨：">
           <InputNumber :max="99999999999" :min="0" v-model="dataApi.startPrice" style="width: 150px;"></InputNumber>
         </FormItem>
         <FormItem label="加价幅度/￥：">
@@ -96,7 +99,7 @@
           <Input type="text" v-model="dataApi.timeStep" placeholder="请输入..." style="width: 60px;"></Input>分/次
         </FormItem>
         <FormItem label="结束时间：">
-          <DatePicker type="datetime" v-model="dataApi.endTime" placeholder="选择结束时间" style="width: 150px"></DatePicker>
+          <DatePicker type="datetime" v-model="dataApi.endTime" :disabled="!isStep" placeholder="选择结束时间" style="width: 150px"></DatePicker>
         </FormItem>
         <FormItem label="服务支持：">
           <div class="item-content clearfix">
@@ -135,8 +138,8 @@
           </Col>
           <Col span="3" class="auctionInfos-item">
           <Select v-model="item.offerWay">
-                  <Option v-for="(item,index) in baseData[8].list" :key="index" :value="item.name">{{ item.name }}</Option>
-                </Select>
+                    <Option v-for="(item,index) in baseData[8].list" :key="index" :value="item.name">{{ item.name }}</Option>
+                  </Select>
           </Col>
           <Col span="3" class="auctionInfos-item" v-if="dataApi.infos.length > 1">
           <Button @click="removeAuctionInfos(index)">删除</Button>
@@ -241,13 +244,7 @@
           priceNotice: "",
           moneyNotice: "",
           rights: [],
-          infos: [{
-            id: "",
-            number: "",
-            weight: "",
-            maigin: "",
-            offerWay: ""
-          }],
+          infos: [],
           isBatch: false,
           hasReservePrice: "true"
         },
@@ -390,17 +387,39 @@
           this.dataApi.length = "";
         }
       },
-      "dataApi.hasReservePrice" (val) {
-        if (val === "false") {
-          this.dataApi.reservePrice = "";
-        }
-      },
       'dataApi.goodsType' (val) {
         this.baseData[6].list.map(el => {
           if (el.name === val) {
             this.dataApi.pack = el.pack;
+            this.isPack = el.pack;
           }
         })
+      },
+      'dataApi.pack' (val) {
+        if (val) {
+          if (this.dataApi.isBatch) {
+            this.dataApi.infos = [];
+            this.dataApi.infos.push({
+              id: "",
+              number: "",
+              weight: "",
+              maigin: "",
+              offerWay: ""
+            });
+          }
+          this.dataApi.isBatch = false
+          this.isPack = true;
+        };
+      },
+      'dataApi' (val) {
+        if (val.pack) {
+          this.isPack = true;
+        };
+      },
+      'dataApi.hasReservePrice' (val) {
+        if (val === 'false') {
+          this.dataApi.reservePrice = '';
+        }
       }
     },
     methods: {
@@ -431,15 +450,19 @@
           id: this.id
         }).then(res => {
           if (res.code === 1000) {
-            this.dataApi = Object.assign({}, res.data)
-            this.dataApi.infos = res.data.auctionInfos.length != '' ? res.data.auctionInfos : [{
+            let otherObj = {
+              infos: [],
+              rights: []
+            }
+            this.dataApi = Object.assign({}, res.data, otherObj);
+            this.dataApi.infos = res.data.auctionInfos.length != 0 ? res.data.auctionInfos : [{
               id: "",
               number: "",
               weight: "",
               maigin: "",
               offerWay: ""
             }];
-            this.dataApi.rights = res.data.auctionRights.length != '' ? res.data.auctionRights : [];
+            this.dataApi.rights = res.data.auctionRights.length != 0 ? res.data.auctionRights : [];
             this.dataApi.hasReservePrice = res.data.hasReservePrice.toString();
             this.timeApi.date = formatDuring(res.data.keepTime, 3).split('-')[0];
             this.timeApi.time = formatDuring(res.data.keepTime, 3).split('-')[1];
@@ -450,17 +473,33 @@
             this.auctionBuyMsg = res.data.auctionLob.moneyNotice;
             this.auctionBondMsg = res.data.auctionLob.priceNotice;
             this.auctionPackMsg = res.data.auctionLob.packMessage;
+            this.index = res.data.auctionInfos.length != 0 ? res.data.auctionInfos.length - 1 : 0;
             delete this.dataApi.auctionRights;
             delete this.dataApi.auctionLob;
             delete this.dataApi.auctionInfos;
+            // 清除拍品属性无用字段
+            this.dataApi.infos.forEach(el => {
+              delete el.createTime;
+              delete el.auctionId;
+              delete el.currentPrice;
+              delete el.createUser;
+              delete el.createUserId;
+              delete el.sortIndex;
+              delete el.status;
+              delete el.updateTime;
+              delete el.updateUser;
+              delete el.updateUserId;
+              delete el.money;
+            })
             this.selectedClass();
           }
         })
       },
+      //  设置已选择服务与支持
       selectedClass() {
         this.baseData[7].list.forEach(el => {
           this.dataApi.rights.forEach(sub => {
-            if (el.name === sub.name) {
+            if (el.name == sub.name) {
               el.isCheck = true;
             }
           })
@@ -572,34 +611,37 @@
       //  获取出价方式
       getOfferWay() {
         return this.$http.get(this.api.getOfferWay);
+      },
+      getAllData() {
+        this.$http
+          .all([
+            this.getIronTypes(),
+            this.getSurFaces(),
+            this.getMaterials(),
+            this.getPlaces(),
+            this.getHouse(),
+            this.getAllSuctionIndex(),
+            this.getAllGoodsTypeList(),
+            this.getAllSerSup(),
+            this.getOfferWay()
+          ])
+          .then(res => {
+            res.forEach((el, index) => {
+              if (el.code === 1000) {
+                if (index === 7) {
+                  el.data.forEach(sub => {
+                    sub.isCheck = false;
+                  })
+                }
+                this.baseData[index].list.push(...el.data);
+              }
+            });
+          });
       }
     },
     created() {
-      this.$http
-        .all([
-          this.getIronTypes(),
-          this.getSurFaces(),
-          this.getMaterials(),
-          this.getPlaces(),
-          this.getHouse(),
-          this.getAllSuctionIndex(),
-          this.getAllGoodsTypeList(),
-          this.getAllSerSup(),
-          this.getOfferWay()
-        ])
-        .then(res => {
-          res.forEach((el, index) => {
-            if (el.code === 1000) {
-              if (index === 7) {
-                el.data.forEach(sub => {
-                  sub.isCheck = false;
-                })
-              }
-              this.baseData[index].list.push(...el.data);
-            }
-          });
-        });
-      this.getData()
+      this.getAllData()
+      this.getData();
     }
   };
 </script>

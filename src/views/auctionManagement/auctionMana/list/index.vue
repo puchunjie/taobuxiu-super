@@ -213,7 +213,7 @@
         }, {
           title: '更新人',
           key: 'updateUser',
-          width: 100
+          width: 200
         }, {
           title: '操作',
           key: 'action',

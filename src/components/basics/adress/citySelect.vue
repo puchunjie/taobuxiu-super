@@ -1,5 +1,5 @@
 <template>
-    <Cascader ref='cs' :data="arr" :load-data="loadData" :clearable="false" @on-change="exportData" :clearData="clearData" :placeholder="value">
+    <Cascader ref='cs' :data="arr" :load-data="loadData" :clearable="false" @on-change="exportData" :clearData="clearData" :placeholder="value" :class="value != undefined ? 'city-picker' : ''">
     </Cascader>
 </template>
 
@@ -84,4 +84,20 @@
         }
     }
 </script>
+<style lang='less'>
+.city-picker{
+        input::-webkit-input-placeholder {
+            color: #495060;
+        }
+        input:-ms-input-placeholder {
+            color: #495060;
+        }
+        input:-moz-placeholder {
+            color: #495060;
+        }
+        input::-moz-placeholder {
+            color: #495060;
+        }
+}
+</style>
 

@@ -88,6 +88,11 @@
         </FormItem>
         <FormItem label="确认账号：" prop="bankCardNoAgain">
           <Input type="text" v-model="dataApi.bankCardNoAgain" placeholder="请输入..."></Input>
+        </FormItem> 
+        <FormItem label="账户种类：" prop="accountType" style="margin-bottom: 5px;" v-if="isDisable">
+          <Select v-model="dataApi.accountType">
+              <Option v-for="(item,i) in [{id: '1',name: '基本账户'},{id: '2',name: '一般账户'},{id: '3',name:'专用账户'},{id: '4',name:'临时账户'}]" :value="item.id" :key="i">{{ item.name }}</Option>
+          </Select>
         </FormItem>
         <FormItem label="账户币种：" prop="financeType">
             <RadioGroup v-model="dataApi.financeType">
@@ -123,6 +128,9 @@
         </FormItem>
         <FormItem label="开户行账号：" style="margin-bottom: 5px;">
           {{detail.bankCardNo}}
+        </FormItem>
+        <FormItem label="账户种类：" v-if="detail.bankCardType === '1'" style="margin-bottom: 5px;">
+          {{detail.accountType | accountType}}
         </FormItem>
         <FormItem label="账户币种：" style="margin-bottom: 5px;">
           {{detail.financeType === '1' ? '人民币':'美元'}}
@@ -170,7 +178,8 @@ import citySelect from '@/components/basics/citySelect'
           bankCardNoAgain: '',
           financeType: '1',
           isDefault: false,
-          buserId: ''
+          buserId: '',
+          accountType: ''
         },
         companyName: '',
         show: false,
@@ -190,6 +199,12 @@ import citySelect from '@/components/basics/citySelect'
             required: true,
             message: '开户行地址不能为空',
             trigger: 'blur'
+          }, {
+            validator: (rule, value, callback) => {
+              if(value != ''){
+                callback();
+              }
+            }
           }],
           bankName:[{
             required: true,
@@ -213,6 +228,11 @@ import citySelect from '@/components/basics/citySelect'
                 callback();
               }
             }
+          }],
+          accountType:[{
+            required: true,
+            message: '请选择账户种类',
+            trigger: 'change'
           }],
           bankCardType:[{
             required: true,
@@ -273,6 +293,11 @@ import citySelect from '@/components/basics/citySelect'
         }
       }
     },
+    filters: {
+      accountType(val){
+        return ['基本账户','一般账户','专用账户','临时账户'][val*1 -1]
+      }
+    },
     methods: {
       getList(params) {
         this.$http.post(this.api.findBankCardList, params).then(res => {
@@ -313,7 +338,8 @@ import citySelect from '@/components/basics/citySelect'
             bankCardNoAgain: data.bankCardNo,
             financeType: data.financeType,
             isDefault: data.isDefault,
-            buserId: data.buserId
+            buserId: data.buserId,
+            accountType: data.accountType
           }
         } else {
           this.dataApi = {
@@ -328,7 +354,8 @@ import citySelect from '@/components/basics/citySelect'
             bankCardNoAgain: '',
             financeType: '1',
             isDefault: false,
-            buserId: this.id
+            buserId: this.id,
+            accountType: ''
           }
         }
         this.show = true;

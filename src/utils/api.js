@@ -1531,6 +1531,37 @@ export const widthDrawHistory = '/sys/widthDraw/history'
 
 
 /**
+ * 提现退款记录
+ * 
+ */
+
+export const widthDrawPass = '/sys/widthDraw/pass'
+
+
+/**
+ * 提现退款记录
+ * 
+ */
+
+export const widthDrawReject = '/sys/widthDraw/reject'
+
+
+/**
+ * 提现申请-更新驳回理由
+ * 
+ */
+
+export const updateRejectRemark = '/sys/widthDraw/updateRejectRemark'
+
+/**
+ * 提现申请-更新附件
+ * 
+ */
+
+export const updateFiles = '/sys/widthDraw/updateFiles'
+
+
+/**
  * 会员充值记录
  * 
  */

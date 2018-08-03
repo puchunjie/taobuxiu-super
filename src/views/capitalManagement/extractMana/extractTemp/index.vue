@@ -49,9 +49,10 @@
             <Col class-name="col" span="2">{{item.status | toStatus}}</Col>
             <Col class-name="col" span="3">
             <Button size="small" type="warning" @click="showDetail(item)">详情</Button>
-            <Button size="small" type="warning" v-if="item.status === 0" @click="dealItem(item)">处理</Button>
-            <Button size="small" type="warning" v-if="item.status === 0">驳回</Button>
-            <Button size="small" type="warning" v-if="item.status === 2">编辑</Button>
+            <Button size="small" type="warning" v-if="item.status === 0" @click="dealItem(false,item)">处理</Button>
+            <Button size="small" type="warning" v-if="item.status === 0" @click="rejectItem(false,item)">驳回</Button>
+            <Button size="small" type="warning" v-if="item.status === 1" @click="dealItem(true,item)">编辑</Button>
+            <Button size="small" type="warning" v-if="item.status === 2 " @click="rejectItem(true,item)">编辑</Button>
             </Col>
           </Row>
           <Row v-if="list.length == 0">
@@ -86,14 +87,26 @@
         <FormItem label="提现备注：">
           {{detailItem.remark | isEmpty('暂无')}}
         </FormItem>
+        <FormItem label="驳回理由：" v-if="detailItem.status === 2">
+          {{detailItem.rejectRemark}}
+        </FormItem>
+        <FormItem label="转账记录：" v-if="detailItem.status === 1">
+          <Button size="small" @click="previewFiles(detailItem.files)" v-if="detailItem.files != ''">查看转账记录</Button>
+          <span v-else>暂无转账记录</span>
+        </FormItem>
+        <FormItem label="更新人：" v-if="detailItem.status === 1 || detailItem.status === 2">
+          {{detailItem.updateUser}}
+        </FormItem>
+        <FormItem label="更新时间："  v-if="detailItem.status === 1 || detailItem.status === 2">
+          {{detailItem.updateTime | dateformat}}
+        </FormItem>
       </Form>
       <div slot="footer">
         <Button @click="show = false">关闭</Button>
-        <!-- <Button type="primary">确定</Button> -->
       </div>
     </Modal>
     <Modal v-model="dealShow" title="提现申请详情" :closable="false" :mask-closable="false">
-      <Form :label-width="100" class="modal">
+      <Form :label-width="100" :model="dealData" ref="dealForm" class="modal" :rules="delaRules">
         <FormItem label="提现状态：">
           {{detailItem.status | toStatus}}
         </FormItem>
@@ -117,25 +130,66 @@
         <FormItem label="提现备注：">
           {{detailItem.remark | isEmpty('暂无')}}
         </FormItem>
-        <FormItem label="已退金额：">
+        <FormItem label="已退金额：" prop="dealAmount" v-if="!dealEdit">
           <Input type="text" v-model="dealData.dealAmount" style="width: 200px;" placeholder="请输入..."></Input>元
         </FormItem>
         <FormItem label="转账记录：">
-          <div class="file-img" v-if="dealData.files !=''">
-            <div class="file-img-item" v-for="(item,index) in dealData.files.split(',')" :key="index">
-              <img :src="item" style="max-width: 100%;">
-              <div class="file-item-cover">
-                  <Icon type="ios-eye-outline" @click.native="handleView(item.name)"></Icon>
-                  <Icon type="ios-trash-outline" @click.native="handleRemove(item)"></Icon>
-              </div>
-            </div>
-          </div>
-          <uploadImg :multiples="true" v-model="dealData.files"></uploadImg>
+          <uploadImg v-model="dealData.files"></uploadImg>
         </FormItem>
       </Form>
       <div slot="footer">
-        <Button @click="dealShow = false">关闭</Button>
-        <!-- <Button type="primary">确定</Button> -->
+        <Button @click="dealHidden('dealForm')">关闭</Button>
+        <Button type="primary" @click="dealAction('dealForm')" :loading="loading">确定</Button>
+      </div>
+    </Modal>
+    <Modal v-model="rejectShow" title="提现申请详情" :closable="false" :mask-closable="false">
+      <Form :label-width="100" :model="rejectApi" ref="rejectForm" class="modal" :rules="rejectRules">
+        <FormItem label="提现状态：">
+          {{detailItem.status | toStatus}}
+        </FormItem>
+        <FormItem label="申请单号：">
+          {{detailItem.id}}
+        </FormItem>
+        <FormItem label="申请商户：">
+          {{detailItem.buserName}}
+        </FormItem>
+        <FormItem label="申请时间：">
+          {{detailItem.createTime | dateformat}}
+        </FormItem>
+        <FormItem label="提现金额：">
+          ￥{{detailItem.amount}}
+        </FormItem>
+        <FormItem label="提现账户：">
+          <p>{{detailItem.toAccountName}}</p>
+          <p>{{detailItem.toBank}}</p>
+          <p>{{detailItem.toBankCardNo}}</p>
+        </FormItem>
+        <FormItem label="提现备注：">
+          {{detailItem.remark | isEmpty('暂无')}}
+        </FormItem>
+        <FormItem label="驳回理由：" prop="rejectRemark">
+          <Input type="text" v-model="rejectApi.rejectRemark" style="width: 300px;" placeholder="请输入..."></Input>
+        </FormItem>
+        <FormItem label="更新人：">
+          {{detailItem.updateUser}}
+        </FormItem>
+        <FormItem label="更新时间：">
+          {{detailItem.updateTime | dateformat}}
+        </FormItem>
+      </Form>
+      <div slot="footer">
+        <Button @click="rejectHidden('rejectForm')">关闭</Button>
+        <Button type="primary" @click="rejectAction('rejectForm')" :loading="loading">确定</Button>
+      </div>
+    </Modal>
+    <Modal v-model="prevShow" title="查看转账记录" width="800">
+      <div class="previewImg">
+        <div class="img-list" v-for="(item,index) in curFiles.split(',')" :key="index">
+          <img :src="item">
+        </div>
+      </div>
+      <div slot="footer">
+        <Button @click="prevShow = false">关闭</Button>
       </div>
     </Modal>
   </div>
@@ -176,7 +230,31 @@
           id: '',
           dealAmount: '',
           files: ''
-        }
+        },
+        rejectApi: {
+          id: '',
+          rejectRemark: ''
+        },
+        rejectShow: false,
+        delaRules: {
+          dealAmount: [{
+            required: true,
+            message: "不能为空",
+            trigger: "blur"
+          }]
+        },
+        rejectRules: {
+          rejectRemark: [{
+            required: true,
+            message: "不能为空",
+            trigger: "blur"
+          }]
+        },
+        loading: false,
+        rejectEdit: false,
+        dealEdit: false,
+        curFiles: '',
+        prevShow: false
       };
     },
     computed: {
@@ -209,7 +287,7 @@
         return str.substr(start, start) + "..." + str.substr(str.length - end);
       },
       toStatus(val) {
-        return ['待审核处理','提现成功','申请驳回','申请已撤销'][val*1]
+        return ['待审核处理', '提现成功', '申请驳回', '申请已撤销'][val * 1]
       }
     },
     methods: {
@@ -256,13 +334,72 @@
             }
           });
       },
+      previewFiles(files){
+        this.curFiles = files;
+        this.prevShow = true;
+      },
       showDetail(item) {
         this.getDetail(item);
         this.show = true;
       },
-      dealItem(item) {
+      dealItem(isEdit, item) {
+        this.dealEdit = isEdit;
+        if (isEdit) {
+          this.dealData.files = item.files
+        }
         this.getDetail(item);
         this.dealShow = true
+      },
+      // 处理
+      dealAction(name) {
+        let params = this.$clearData(this.dealData);
+        params.id = this.detailItem.id;
+        if (this.dealEdit) {
+          delete params.dealAmount;
+        }
+        let postUrl = this.dealEdit ? this.api.updateFiles : this.api.widthDrawPass;
+        this.$http.post(postUrl, params).then(res => {
+          if (res.code === 1000) {
+            this.getList(this.handleFilter)
+            this.dealShow = false;
+          } else {
+            this.$Message.error(res.message)
+          }
+        })
+      },
+      dealHidden(name) {
+        this.dealShow = false;
+        this.dealData.dealAmount = '';
+        this.dealData.files = '';
+        this.$refs[name].resetFields();
+      },
+      rejectHidden(name) {
+        this.rejectShow = false;
+        this.rejectApi.rejectRemark = '';
+        this.$refs[name].resetFields();
+      },
+      rejectItem(rejectEdit, item) {
+        this.rejectEdit = rejectEdit;
+        if (rejectEdit) {
+          this.rejectApi.rejectRemark = item.rejectRemark;
+        }
+        this.getDetail(item);
+        this.rejectShow = true
+      },
+      // 驳回
+      rejectAction(name) {
+        let params = this.$clearData(this.rejectApi);
+        params.id = this.detailItem.id;
+        let postUrl = this.rejectEdit ? this.api.updateRejectRemark : this.api.widthDrawReject.
+        console.log(postUrl)
+        this.$http.post(postUrl, params).then(res => {
+          if (res.code === 1000) {
+            this.getList(this.handleFilter)
+            this.rejectShow = false;
+          } else {
+            this.$Message.error(res.message)
+          }
+        })
       },
     },
     created() {
@@ -309,30 +446,15 @@
   
   .modal {
     .ivu-form-item {
-      margin-bottom: 10px;
+      margin-bottom: 15px;
     }
   }
   
-  .file-img {
-    .file-img-item {
-      position: relative;
-      display: inline-block;
-      width: 140px;
-      margin-right: 10px;
-      .file-item-cover{
-        display: none;
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        background: rgba(0,0,0,.6);
-      }
-      &:hover{
-        .file-item-cover{
-          display: block;
-        }
-      }
+.previewImg{
+  .img-list{
+    img{
+      max-width: 100%;
     }
   }
+}
 </style>

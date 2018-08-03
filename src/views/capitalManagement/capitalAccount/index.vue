@@ -62,8 +62,13 @@
       <Form :mode="logApi" :label-width="100" inline>
         <FormItem label="操作类别：">
           <Select v-model="logApi.logType" style="width:150px">
-                  <Option v-for="(item,index) in ['微信充值','支付宝充值','线下充值','现金支付','其他方式','提现申请','提现成功','提现撤回','提现驳回','参与拍卖','拍卖中标','拍卖退回']" :value="item" :key="index">{{ item }}</Option>
-              </Select>
+            <Option v-for="(item,index) in ['微信充值','支付宝充值','线下充值','现金支付','其他方式','提现申请','提现成功','提现撤回','提现驳回','参与拍卖','拍卖中标','拍卖退回']" :value="item" :key="index">{{ item }}</Option>
+          </Select>
+        </FormItem>
+        <FormItem label="交易类型：">
+          <Select v-model="logApi.tradeType" style="width:150px">
+            <Option v-for="(item,index) in ['充值','提现','拍卖']" :value="item" :key="index">{{ item }}</Option>
+          </Select>
         </FormItem>
         <FormItem label="提现编号：">
           <Input type="text" v-model="logApi.withDrawId" style="width: 150px;" placeholder="请输入..."></Input>
@@ -161,7 +166,8 @@
           amountBegin: '',
           amountEnd: '',
           tradeNo: '',
-          logType: ''
+          logType: '',
+          tradeType: ''
         },
         dateValue: ['', ''],
         logList: [],
@@ -188,6 +194,10 @@
           files: [{
             required: true,
             message: '请上传充值凭证',
+            trigger: 'blur'
+          }, {
+            validator: (rule, value, callback) => {
+            }
           }],
           amount: [{
             required: true,
@@ -225,7 +235,15 @@
           key: 'withDrawAccount',
           width: 150
         }, {
-          title: '操作类别',
+          title: '交易类型',
+          key: 'tradeType',
+          width: 150
+        }, {
+          title: '交易类别',
+          key: 'logDescribe',
+          width: 150
+        }, {
+          title: '交易状态',
           key: 'logDescribe',
           width: 150
         }, {
@@ -233,7 +251,7 @@
           key: 'tradeNo',
           width: 150
         }, {
-          title: '操作金额/￥',
+          title: '交易金额/￥',
           key: 'amount',
           width: 150
         }, {
@@ -284,7 +302,8 @@
           amountBegin: this.logApi.amountBegin,
           amountEnd: this.logApi.amountEnd,
           tradeNo: this.logApi.tradeNo,
-          logType: this.logApi.logType
+          logType: this.logApi.logType,
+          tradeType: this.logApi.tradeType
         }
       }
     },
@@ -378,7 +397,8 @@
           amountBegin: '',
           amountEnd: '',
           tradeNo: '',
-          logType: ''
+          logType: '',
+          tradeType:''
         }
         this.getLog(this.logFilter)
       },
