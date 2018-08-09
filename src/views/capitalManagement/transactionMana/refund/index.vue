@@ -186,7 +186,7 @@
       },
       changePage(page) {
         this.pageApi.currentPage = page;
-        this.getList(handleFilter)
+        this.getList(this.handleFilter)
       },
       resetFilter() {
         this.pageApi = {
