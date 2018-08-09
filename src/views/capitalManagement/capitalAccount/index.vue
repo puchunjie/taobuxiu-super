@@ -62,13 +62,13 @@
       <Form :mode="logApi" :label-width="100" inline>
         <FormItem label="操作类别：">
           <Select v-model="logApi.logType" style="width:150px">
-            <Option v-for="(item,index) in ['微信充值','支付宝充值','线下充值','现金支付','其他方式','提现申请','提现成功','提现撤回','提现驳回','参与拍卖','拍卖中标','拍卖退回']" :value="item" :key="index">{{ item }}</Option>
-          </Select>
+              <Option v-for="(item,index) in ['微信充值','支付宝充值','线下充值','现金支付','其他方式','提现申请','提现成功','提现撤回','提现驳回','参与拍卖','拍卖中标','拍卖退回']" :value="item" :key="index">{{ item }}</Option>
+            </Select>
         </FormItem>
         <FormItem label="交易类型：">
           <Select v-model="logApi.tradeType" style="width:150px">
-            <Option v-for="(item,index) in ['充值','提现','拍卖']" :value="item" :key="index">{{ item }}</Option>
-          </Select>
+              <Option v-for="(item,index) in ['充值','提现','拍卖']" :value="item" :key="index">{{ item }}</Option>
+            </Select>
         </FormItem>
         <FormItem label="提现编号：">
           <Input type="text" v-model="logApi.withDrawId" style="width: 150px;" placeholder="请输入..."></Input>
@@ -107,8 +107,8 @@
         </FormItem>
         <FormItem label="充值方式：" prop="rechargeWay">
           <Select v-model="dataApi.rechargeWay">
-              <Option v-for="(item,index) in [{id:'1',lable: '用户充值'},{id:'2',lable: '银行转账'},{id:'3',lable: '微信转账 '},{id: '4',lable: '支付宝转账 '},{id:'5',lable: '现金支付'},{id:'6',lable: '其他方式'},]" :value="item.id" :key="index">{{ item.lable }}</Option>
-            </Select>
+                <Option v-for="(item,index) in [{id:'2',lable: '银行转账'},{id:'3',lable: '微信转账 '},{id: '4',lable: '支付宝转账 '},{id:'5',lable: '现金支付'},{id:'6',lable: '其他方式'},]" :value="item.id" :key="index">{{ item.lable }}</Option>
+              </Select>
         </FormItem>
         <FormItem label="充值凭证：" prop="files">
           <uploadFile v-model="dataApi.files"></uploadFile>
@@ -197,6 +197,9 @@
             trigger: 'blur'
           }, {
             validator: (rule, value, callback) => {
+              if (value != '') {
+                callback();
+              }
             }
           }],
           amount: [{
@@ -338,6 +341,7 @@
                 this.$Message.success('操作成功！');
                 this.rechargeShow = false;
                 this.$refs[name].resetFields();
+                this.resetDataApi();
               } else {
                 this.$Message.error(res.message);
               }
@@ -350,7 +354,13 @@
       },
       close(name) {
         this.rechargeShow = false;
+        this.resetDataApi();
         this.$refs[name].resetFields();
+      },
+      resetDataApi() {
+        Object.keys(this.dataApi).forEach(key => {
+          this.dataApi[key] = ''
+        })
       },
       getList(params) {
         this.$http.post(this.api.buserAccountPage, params).then(res => {
@@ -398,8 +408,9 @@
           amountEnd: '',
           tradeNo: '',
           logType: '',
-          tradeType:''
+          tradeType: ''
         }
+        this.dateValue = ['', '']
         this.getLog(this.logFilter)
       },
       showRecharge(data) {

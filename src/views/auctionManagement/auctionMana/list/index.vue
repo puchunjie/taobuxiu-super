@@ -7,7 +7,7 @@
         <FormItem label="商户名称：">
           <Input type="text" v-model="pageApi.companyName" style="width: 150px;" placeholder="请输入..."></Input>
         </FormItem>
-        <FormItem label="提货单号：">
+        <FormItem label="场次编号：">
           <Input type="text" v-model="pageApi.auctionId" style="width: 150px;" placeholder="请输入..."></Input>
         </FormItem>
         <FormItem label="更新时间：">
@@ -39,7 +39,7 @@
           </Select>
         </FormItem>
         <FormItem label="货品种类：">
-          <Select v-model="pageApi.goodsType" style="width: 150px;">
+          <Select v-model="pageApi.goodTypes" style="width: 150px;">
             <Option v-for="(item,index) in filterList[4].list" :key="index" :value="item.name">{{ item.name }}</Option>
           </Select>
         </FormItem>

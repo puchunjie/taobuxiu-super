@@ -87,7 +87,7 @@
           {{detailItem.remark | isEmpty('暂无')}}
         </FormItem>
         <FormItem label="查看转账记录：">
-          <Button v-if="detailItem.files !=''" type="warning" size="small" @click="">查看转账记录</Button>
+          <Button v-if="detailItem.files !=''" type="warning" size="small" @click="previewImg(detailItem)">查看转账记录</Button>
           <span v-else>暂无</span>
         </FormItem>
         <FormItem label="审核人：">
@@ -99,6 +99,11 @@
       </Form>
       <div slot="footer">
         <Button @click="show = false">关闭</Button>
+      </div>
+    </Modal>
+    <Modal v-model="picShow" title="查看转账记录" width="700" :mask-closable="false">
+      <div class="preview-img">
+        <img v-for="(item,i) in files.split(',')" :src="item">
       </div>
     </Modal>
   </div>
@@ -129,7 +134,9 @@
           recharge: 0
         },
         show: false,
-        detailItem: {}
+        detailItem: {},
+        picShow: false,
+        files: ''
       }
     },
     computed: {
@@ -201,6 +208,10 @@
       goDetail(data){
         this.detailItem = Object.assign({},data);
         this.show = true;
+      },
+      previewImg(item){
+        this.files = item.files;
+        this.picShow = true;
       }
     },
     created() {
@@ -249,6 +260,11 @@
   .modal{
     .ivu-form-item{
       margin-bottom: 5px;
+    }
+  }
+  .preview-img{
+    img{
+      max-width: 100%;
     }
   }
 </style>

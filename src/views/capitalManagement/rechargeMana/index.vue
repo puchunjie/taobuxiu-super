@@ -43,8 +43,8 @@
             <Col class-name="col" span="4">{{item.buserName}}</Col>
             <Col class-name="col" span="4">{{item.rechargeWay | rechargeWay}}</Col>
             <Col class-name="col" span="4">
-              <Button type="warning" size="small" @click="previewsFiles(item.files)" v-if="item.files != ''">查看</Button>
-              <span v-else>暂无</span>
+            <Button type="warning" size="small" @click="previewsFiles(item.files)" v-if="item.files != ''">查看</Button>
+            <span v-else>暂无</span>
             </Col>
             <Col class-name="col" span="4">￥{{item.amount}}</Col>
             <Col class-name="col" span="4">{{item.createUser}}</Col>
@@ -59,7 +59,7 @@
     </Card>
     <Modal v-model="show" :title="`查看附件`" width="700" :closable="false" :mask-closable="false">
       <div class="previews" v-for="(item,index) in files.split(',')" :key="index">
-        <img :src="item" >
+        <img :src="item">
       </div>
       <div slot="footer">
         <Button @click="show = false">关闭</Button>
@@ -88,9 +88,10 @@
         totalCount: 0,
         show: false,
         files: '',
-        total:{
+        total: {
           recharge: 0
         },
+        tagsList: []
       }
     },
     computed: {
@@ -119,8 +120,8 @@
       },
     },
     filters: {
-      rechargeWay(val){
-        return ['用户充值','银行转账','微信转账','支付宝转账','现金支付','其他方式'][val-1]
+      rechargeWay(val) {
+        return ['用户充值', '银行转账', '微信转账', '支付宝转账', '现金支付', '其他方式'][val - 1]
       }
     },
     methods: {
@@ -133,7 +134,7 @@
           }
         })
       },
-      previewsFiles(files){
+      previewsFiles(files) {
         this.show = true;
         this.files = files
       },
@@ -157,7 +158,7 @@
       }
     },
     created() {
-      this.getList(this.handleFilter)
+      this.getList(this.handleFilter);
     }
   }
 </script>
@@ -172,13 +173,15 @@
       bottom: 0;
     }
   }
-  .total{
+  
+  .total {
     padding-bottom: 20px;
-    span{
+    span {
       display: inline-block;
       margin-right: 20px;
     }
   }
+  
   .table-contnet {
     line-height: 40px;
     text-align: center;
@@ -197,8 +200,9 @@
       white-space: nowrap;
     }
   }
-  .previews{
-    img{
+  
+  .previews {
+    img {
       max-width: 100%;
     }
   }

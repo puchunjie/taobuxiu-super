@@ -86,17 +86,17 @@
           <InputNumber :max="99999999999" :min="0" v-model="dataApi.startPrice" style="width: 150px;"></InputNumber>
         </FormItem>
         <FormItem label="加价幅度/￥：">
-          <Input type="text" v-model="dataApi.priceStep" placeholder="请输入..." style="width: 150px;"></Input>
+          <Input type="text" v-model="dataApi.priceStep" @on-keyup="onlyNumber" placeholder="请输入..." style="width: 150px;"></Input>
         </FormItem>
         <FormItem label="开拍时间：" prop="startTime">
           <DatePicker type="datetime" v-model="dataApi.startTime" placeholder="选择开拍时间" style="width: 150px"></DatePicker>
         </FormItem>
         <FormItem label="竞拍时间：">
-          <Input type="text" v-model="timeApi.date" placeholder="请输入..." style="width: 60px;"></Input>天
-          <TimePicker type="time" v-model="timeApi.time" format="HH’mm’ss" placeholder="选择时间" style="width: 168px;display:inline-block;margin-left:10px;"></TimePicker>
+          <Input type="text" v-model="timeApi.date" @on-keyup="onlyNumber" placeholder="请输入..." style="width: 60px;"></Input>天
+          <TimePicker type="time" v-model="timeApi.time" format="HH’mm’ss" placeholder="选择时间" style="width: 100px;display:inline-block;margin-left:10px;"></TimePicker>
         </FormItem>
         <FormItem label="延时周期：">
-          <Input type="text" v-model="dataApi.timeStep" placeholder="请输入..." style="width: 60px;"></Input>分/次
+          <Input type="text" v-model="dataApi.timeStep" @on-keyup="onlyNumber" placeholder="请输入..." style="width: 60px;"></Input>分/次
         </FormItem>
         <FormItem label="结束时间：">
           <DatePicker type="datetime" v-model="dataApi.endTime" :disabled="!isStep" placeholder="选择结束时间" style="width: 150px"></DatePicker>
@@ -115,7 +115,7 @@
           </RadioGroup>
         </FormItem>
         <FormItem style="margin-left: -100px;">
-          <Input type="text" v-model="dataApi.reservePrice" :disabled="dataApi.hasReservePrice === 'false'" placeholder="请输入保留底价..." style="width: 150px;"></Input>
+          <Input type="text" v-model="dataApi.reservePrice" @on-keyup="onlyNumber" :disabled="dataApi.hasReservePrice === 'false'" placeholder="请输入" style="width: 80px;"></Input>
         </FormItem>
         <h2 class="title">拍品属性
           <Button class="add" @click="addAuctionInfos" v-if="dataApi.isBatch">添加行</Button>
@@ -128,13 +128,13 @@
         </Row>
         <Row class="auctionInfos" v-for="(item,index) in dataApi.infos" :key="index">
           <Col span="3" class="auctionInfos-item">
-          <Input type="text" v-model="item.number" placeholder="请输入..."></Input>
+          <Input type="text" v-model="item.number" @on-keyup="onlyNumber" placeholder="请输入..."></Input>
           </Col>
           <Col span="3" class="auctionInfos-item">
-          <Input type="text" v-model="item.weight" placeholder="请输入..."></Input>
+          <Input type="text" v-model="item.weight" @on-keyup="onlyNumber" placeholder="请输入..."></Input>
           </Col>
           <Col span="3" class="auctionInfos-item">
-          <Input type="text" v-model="item.maigin" placeholder="请输入..."></Input>
+          <Input type="text" v-model="item.maigin" @on-keyup="onlyNumber" placeholder="请输入..."></Input>
           </Col>
           <Col span="3" class="auctionInfos-item">
           <Select v-model="item.offerWay">
@@ -437,6 +437,9 @@
       }
     },
     methods: {
+      onlyNumber(event){
+        event.target.value = event.target.value.replace(/[^\d.]/g,"").replace(".","$#$").replace(/\./g,"").replace("$#$",".").replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3');
+      },
       //返回
       back() {
         this.$router.go(-1);

@@ -11,8 +11,8 @@
         <div>
           <FormItem label="商户名称：" prop="companyName">
             <Select v-model="dataApi.companyName" style="width: 300px;" filterable remote :remote-method="remoteMethod" :loading="queryLoading">
-                <Option v-for="(option, index) in companyList" :value="`${option.companyName}`" :key="index">{{option.companyName}}</Option>
-              </Select>
+                    <Option v-for="(option, index) in companyList" :value="`${option.companyName}`" :key="index">{{option.companyName}}</Option>
+                  </Select>
           </FormItem>
         </div>
         <FormItem label="是否批量发布：">
@@ -22,36 +22,36 @@
         </FormItem>
         <FormItem label="场次类型：" prop="auctionIndex">
           <Select v-model="dataApi.auctionIndex" style="width: 150px;">
-            <Option v-for="(item,index) in baseData[5].list" :key="index" :value="item">{{ item }}</Option>
-          </Select>
+                <Option v-for="(item,index) in baseData[5].list" :key="index" :value="item">{{ item }}</Option>
+              </Select>
         </FormItem>
         <FormItem label="货品种类：" prop="goodsType">
           <Select v-model="dataApi.goodsType" style="width: 150px;">
-            <Option v-for="(item,index) in baseData[6].list" :key="index" :value="item.name">{{`${item.name}${item.pack ? '-打包':''}`}}</Option>
-          </Select>
+                <Option v-for="(item,index) in baseData[6].list" :key="index" :value="item.name">{{`${item.name}${item.pack ? '-打包':''}`}}</Option>
+              </Select>
         </FormItem>
         <FormItem label="品类：" prop="ironType">
           <Select v-model="dataApi.ironType" style="width: 150px;">
-            <Option v-for="(item,index) in baseData[0].list" :key="index" :value="item">{{ item }}</Option>
-          </Select>
+                <Option v-for="(item,index) in baseData[0].list" :key="index" :value="item">{{ item }}</Option>
+              </Select>
         </FormItem>
         <FormItem label="打包描述：" v-if="isPack" prop="packDescription">
           <Input type="text" v-model="dataApi.packDescription" style="width: 150px;" placeholder="请输入..."></Input>
         </FormItem>
         <FormItem label="材质：" v-if="!isPack" prop="material">
           <Select v-model="dataApi.material" style="width: 150px;">
-            <Option v-for="(item,index) in baseData[2].list" :key="index" :value="item">{{ item }}</Option>
-          </Select>
+                <Option v-for="(item,index) in baseData[2].list" :key="index" :value="item">{{ item }}</Option>
+              </Select>
         </FormItem>
         <FormItem label="表面：" v-if="!isPack" prop="surface">
           <Select v-model="dataApi.surface" style="width: 150px;">
-            <Option v-for="(item,index) in baseData[1].list" :key="index" :value="item">{{ item }}</Option>
-          </Select>
+                <Option v-for="(item,index) in baseData[1].list" :key="index" :value="item">{{ item }}</Option>
+              </Select>
         </FormItem>
         <FormItem label="产地：" prop="proPlace">
           <Select v-model="dataApi.proPlace" style="width: 150px;">
-            <Option v-for="(item,index) in baseData[3].list" :key="index" :value="item">{{ item }}</Option>
-          </Select>
+                <Option v-for="(item,index) in baseData[3].list" :key="index" :value="item">{{ item }}</Option>
+              </Select>
         </FormItem>
         <FormItem label="规格：" v-if="!isPack && !isBJ">
           <Input type="text" v-model="dataApi.specifiction" style="width: 150px;" placeholder="请输入..."></Input>
@@ -70,8 +70,8 @@
         </FormItem>
         <FormItem label="仓库：" prop="storeHouse">
           <Select v-model="dataApi.storeHouse" style="width: 150px;">
-            <Option v-for="(item,index) in baseData[4].list" :key="index" :value="item">{{ item }}</Option>
-          </Select>
+                <Option v-for="(item,index) in baseData[4].list" :key="index" :value="item">{{ item }}</Option>
+              </Select>
         </FormItem>
         <FormItem label="所在地区：">
           <cityPick @on-pick="selectCity" style="width: 150px;"></cityPick>
@@ -86,17 +86,17 @@
           <InputNumber :max="99999999999" :min="0" v-model="dataApi.startPrice" style="width: 150px;"></InputNumber>
         </FormItem>
         <FormItem label="加价幅度/￥：">
-          <Input type="text" v-model="dataApi.priceStep" placeholder="请输入..." style="width: 150px;"></Input>
+          <Input type="text" v-model="dataApi.priceStep" @on-keyup="onlyNumber" placeholder="请输入..." style="width: 150px;"></Input>
         </FormItem>
         <FormItem label="开拍时间：" prop="startTime">
           <DatePicker type="datetime" v-model="dataApi.startTime" :options="disableStartTime" placeholder="选择开拍时间" style="width: 150px"></DatePicker>
         </FormItem>
         <FormItem label="竞拍时间：">
-          <Input type="text" v-model="timeApi.date" placeholder="请输入..." style="width: 60px;"></Input>天
-          <TimePicker type="time" v-model="timeApi.time" format="HH’mm’ss" placeholder="选择时间" style="width: 168px;display:inline-block;margin-left:10px;"></TimePicker>
+          <Input type="text" v-model="timeApi.date" @on-keyup="onlyNumber" placeholder="请输入..." style="width: 60px;"></Input>天
+          <TimePicker type="time" v-model="timeApi.time" format="HH’mm’ss" placeholder="选择时间" style="width: 100px;display:inline-block;margin-left:10px;"></TimePicker>
         </FormItem>
         <FormItem label="延时周期：">
-          <Input type="text" v-model="dataApi.timeStep" placeholder="请输入..." style="width: 60px;"></Input>分/次
+          <Input type="text" v-model="dataApi.timeStep" @on-keyup="onlyNumber" placeholder="请输入..." style="width: 60px;"></Input>分/次
         </FormItem>
         <FormItem label="结束时间：">
           <DatePicker type="datetime" :disabled="!isStep" :options="disableEndTime" v-model="dataApi.endTime" placeholder="选择结束时间" style="width: 160px"></DatePicker>
@@ -115,7 +115,7 @@
           </RadioGroup>
         </FormItem>
         <FormItem style="margin-left: -100px;">
-          <Input type="text" v-model="dataApi.reservePrice" :disabled="dataApi.hasReservePrice === 'false'" placeholder="请输入保留底价..." style="width: 150px;"></Input>
+          <Input type="text" v-model="dataApi.reservePrice" @on-keyup="onlyNumber" :disabled="dataApi.hasReservePrice === 'false'" placeholder="请输入" style="width: 80px;"></Input>
         </FormItem>
         <h2 class="title">拍品属性
           <Button class="add" @click="addAuctionInfos" v-if="dataApi.isBatch">添加行</Button>
@@ -128,18 +128,18 @@
         </Row>
         <Row class="auctionInfos" v-for="(item,index) in dataApi.infos" :key="index">
           <Col span="3" class="auctionInfos-item">
-          <Input type="text" v-model="item.number" placeholder="请输入..."></Input>
+          <Input type="text" v-model="item.number" @on-keyup="onlyNumber" placeholder="请输入..."></Input>
           </Col>
           <Col span="3" class="auctionInfos-item">
-          <Input type="text" v-model="item.weight" placeholder="请输入..."></Input>
+          <Input type="text" v-model="item.weight" @on-keyup="onlyNumber" placeholder="请输入..."></Input>
           </Col>
           <Col span="3" class="auctionInfos-item">
-          <Input type="text" v-model="item.maigin" placeholder="请输入..."></Input>
+          <Input type="text" v-model="item.maigin" @on-keyup="onlyNumber" placeholder="请输入..."></Input>
           </Col>
           <Col span="3" class="auctionInfos-item">
           <Select v-model="item.offerWay">
-                  <Option v-for="(item,index) in baseData[8].list" :key="index" :value="item.name">{{ item.name }}</Option>
-                </Select>
+            <Option v-for="(item,index) in baseData[8].list" :key="index" :value="item.name">{{ item.name }}</Option>
+          </Select>
           </Col>
           <Col span="3" class="auctionInfos-item" v-if="dataApi.infos.length > 1">
           <Button @click="removeAuctionInfos(index)">删除</Button>
@@ -323,7 +323,7 @@
             message: "请选择",
             trigger: "change"
           }],
-          packDescription:[{
+          packDescription: [{
             required: true,
             message: "不能为空",
             trigger: "blur"
@@ -421,16 +421,19 @@
           }
         })
       },
-      'dataApi.pack'(val){
-        if(val) this.dataApi.isBatch = false;
+      'dataApi.pack' (val) {
+        if (val) this.dataApi.isBatch = false;
       },
-      'dataApi.hasReservePrice'(val){
-        if(val === 'false'){
+      'dataApi.hasReservePrice' (val) {
+        if (val === 'false') {
           this.dataApi.reservePrice = '';
         }
       }
     },
     methods: {
+      onlyNumber(event){
+        event.target.value = event.target.value.replace(/[^\d.]/g,"").replace(".","$#$").replace(/\./g,"").replace("$#$",".").replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3');
+      },
       //返回
       back() {
         this.$router.go(-1);
