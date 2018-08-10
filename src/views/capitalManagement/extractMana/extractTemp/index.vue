@@ -14,8 +14,8 @@
         </FormItem>
         <FormItem label="状态：">
           <Select v-model="pageApi.status" placeholder="请选择" style="width:150px" :disabled="isDeal">
-                  <Option v-for="item in [{id:0,name: '待审核处理'},{id:1,name: '提现成功'},{id:2,name: '申请驳回'},{id:3,name: '申请已撤销'}]" :key="item.id" :value="item.id" >{{ item.name }}</Option>
-                </Select>
+                      <Option v-for="item in [{id:0,name: '待审核处理'},{id:1,name: '提现成功'},{id:2,name: '申请驳回'},{id:3,name: '申请已撤销'}]" :key="item.id" :value="item.id" >{{ item.name }}</Option>
+                    </Select>
         </FormItem>
         <FormItem label="提现金额：">
           <Input type="text" v-model="pageApi.amountBegin" placeholder="请输入..." style="width:80px"></Input>-
@@ -28,9 +28,9 @@
       <div class="card-contnet">
         <div class="table-contnet">
           <Row class-name="head">
-            <Col class-name="col" span="2">提现单号</Col>
+            <Col class-name="col" span="3">提现单号</Col>
             <Col class-name="col" span="3">提现商户</Col>
-            <Col class-name="col" span="3">申请时间</Col>
+            <Col class-name="col" span="2">申请时间</Col>
             <Col class-name="col" span="4">提现账户</Col>
             <Col class-name="col" span="2">金额</Col>
             <Col class-name="col" span="2">审核人</Col>
@@ -39,9 +39,9 @@
             <Col class-name="col" span="3">操作</Col>
           </Row>
           <Row v-for="item in list" :key="item.id">
-            <Col class-name="col" span="2">{{item.id}}</Col>
+            <Col class-name="col" span="3">{{item.id}}</Col>
             <Col class-name="col" span="3">{{item.buserName}}</Col>
-            <Col class-name="col" span="3">{{item.createTime | dateformat}}</Col>
+            <Col class-name="col" span="2">{{item.createTime | dateformat}}</Col>
             <Col class-name="col" span="4">{{item.bankCardType === '1' ? '企业':'个人'}}|{{item.toBank}}|{{item.toBankCardNo | toHidden(0,4)}}|{{item.toAccountName | toHidden(0,1)}}</Col>
             <Col class-name="col" span="2">{{item.amount}}</Col>
             <Col class-name="col" span="2">{{item.checkUser}}</Col>
@@ -97,7 +97,7 @@
         <FormItem label="更新人：" v-if="detailItem.status === 1 || detailItem.status === 2">
           {{detailItem.updateUser}}
         </FormItem>
-        <FormItem label="更新时间："  v-if="detailItem.status === 1 || detailItem.status === 2">
+        <FormItem label="更新时间：" v-if="detailItem.status === 1 || detailItem.status === 2">
           {{detailItem.updateTime | dateformat}}
         </FormItem>
       </Form>
@@ -130,8 +130,8 @@
         <FormItem label="提现备注：">
           {{detailItem.remark | isEmpty('暂无')}}
         </FormItem>
-        <FormItem label="已退金额：" prop="dealAmount" v-if="!dealEdit">
-          <Input type="text" v-model="dealData.dealAmount" style="width: 200px;" placeholder="请输入..."></Input>元
+        <FormItem label="已退金额：" prop="dealAmount">
+          <Input type="text" v-model="dealData.dealAmount" :disabled="dealEdit" style="width: 200px;" placeholder="请输入..."></Input>元
         </FormItem>
         <FormItem label="转账记录：">
           <uploadImg v-model="dealData.files"></uploadImg>
@@ -334,7 +334,7 @@
             }
           });
       },
-      previewFiles(files){
+      previewFiles(files) {
         this.curFiles = files;
         this.prevShow = true;
       },
@@ -345,27 +345,35 @@
       dealItem(isEdit, item) {
         this.dealEdit = isEdit;
         if (isEdit) {
-          this.dealData.files = item.files
+          this.dealData.files = item.files;
+          this.dealData.dealAmount = item.dealAmount.toString();
         }
         this.getDetail(item);
         this.dealShow = true
       },
       // 处理
       dealAction(name) {
-        let params = this.$clearData(this.dealData);
-        params.id = this.detailItem.id;
-        if (this.dealEdit) {
-          delete params.dealAmount;
-        }
-        let postUrl = this.dealEdit ? this.api.updateFiles : this.api.widthDrawPass;
-        this.$http.post(postUrl, params).then(res => {
-          if (res.code === 1000) {
-            this.getList(this.handleFilter)
-            this.dealShow = false;
+        this.$refs[name].validate((valid) => {
+          if (valid) {
+            let params = this.$clearData(this.dealData);
+                params.id = this.detailItem.id;
+                if (this.dealEdit) {
+                  delete params.dealAmount;
+                }
+            let postUrl = this.dealEdit ? this.api.updateFiles : this.api.widthDrawPass;
+            this.$http.post(postUrl, params).then(res => {
+              if (res.code === 1000) {
+                this.getList(this.handleFilter)
+                this.dealShow = false;
+              } else {
+                this.$Message.error(res.message)
+              }
+            })
           } else {
-            this.$Message.error(res.message)
+            this.$Message.error('表单验证失败')
           }
         })
+  
       },
       dealHidden(name) {
         this.dealShow = false;
@@ -388,18 +396,24 @@
       },
       // 驳回
       rejectAction(name) {
-        let params = this.$clearData(this.rejectApi);
-        params.id = this.detailItem.id;
-        let postUrl = this.rejectEdit ? this.api.updateRejectRemark : this.api.widthDrawReject.
-        console.log(postUrl)
-        this.$http.post(postUrl, params).then(res => {
-          if (res.code === 1000) {
-            this.getList(this.handleFilter)
-            this.rejectShow = false;
+        this.$refs[name].validate((valid) => {
+          if (valid) {
+            let params = this.$clearData(this.rejectApi);
+            params.id = this.detailItem.id;
+            let postUrl = this.rejectEdit ? this.api.updateRejectRemark : this.api.widthDrawReject;
+            this.$http.post(postUrl, params).then(res => {
+              if (res.code === 1000) {
+                this.getList(this.handleFilter)
+                this.rejectShow = false;
+              } else {
+                this.$Message.error(res.message)
+              }
+            })
           } else {
-            this.$Message.error(res.message)
+            this.$Message.error('表单验证失败')
           }
         })
+  
       },
     },
     created() {
@@ -450,11 +464,11 @@
     }
   }
   
-.previewImg{
-  .img-list{
-    img{
-      max-width: 100%;
+  .previewImg {
+    .img-list {
+      img {
+        max-width: 100%;
+      }
     }
   }
-}
 </style>

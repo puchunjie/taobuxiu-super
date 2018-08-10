@@ -134,11 +134,14 @@
             let reservePrice = params.row.reservePrice != '' ? '有底价' : '无底价';
             return h('div', [
               h('div', iron),
-              h('Tag', {
-                props: {
-                  color: 'blue',
-                  size: 'small'
-                }
+              h('span', {
+                 style: {
+                  color: '#fff',
+                  display: 'inline-block',
+                  background: '#2d8cf0',
+                  borderRadius:'4px',
+                  padding: '1px 4px'
+                },
               }, reservePrice),
               h('span', goodsType)
             ])
@@ -177,9 +180,9 @@
             return h('div', str)
           }
         }, {
-          title: '起拍价',
+          title: '起拍价(元/吨)',
           key: 'startPrice',
-          width: 100
+          width: 120
         }, {
           title: '状态',
           key: 'status',

@@ -107,17 +107,17 @@
         </FormItem>
         <FormItem label="充值方式：" prop="rechargeWay">
           <Select v-model="dataApi.rechargeWay">
-                <Option v-for="(item,index) in [{id:'2',lable: '银行转账'},{id:'3',lable: '微信转账 '},{id: '4',lable: '支付宝转账 '},{id:'5',lable: '现金支付'},{id:'6',lable: '其他方式'},]" :value="item.id" :key="index">{{ item.lable }}</Option>
-              </Select>
+            <Option v-for="(item,index) in [{id:'2',lable: '银行转账'},{id:'3',lable: '微信转账 '},{id: '4',lable: '支付宝转账 '},{id:'5',lable: '现金支付'},{id:'6',lable: '其他方式'},]" :value="item.id" :key="index">{{ item.lable }}</Option>
+          </Select>
         </FormItem>
         <FormItem label="充值凭证：" prop="files">
           <uploadFile v-model="dataApi.files"></uploadFile>
         </FormItem>
         <FormItem label="充值金额：" prop="amount">
-          <Input type="text" v-model="dataApi.amount" placeholder="请输入..."></Input>
+          <Input type="text" v-model="dataApi.amount" @on-keyup="onlyNumber" placeholder="请输入..."></Input>
         </FormItem>
         <FormItem label="确认充值金额：" prop="checkAmount">
-          <Input type="text" v-model="dataApi.checkAmount" placeholder="请输入..."></Input>
+          <Input type="text" v-model="dataApi.checkAmount" @on-keyup="onlyNumber" placeholder="请输入..."></Input>
         </FormItem>
         <FormItem label="充值备注：">
           <Input type="text" v-model="dataApi.rechargeWayRemark" placeholder="请输入..."></Input>
@@ -243,11 +243,11 @@
           width: 150
         }, {
           title: '交易类别',
-          key: 'logDescribe',
+          key: 'logType',
           width: 150
         }, {
           title: '交易状态',
-          key: 'logDescribe',
+          key: 'tradeStatus',
           width: 150
         }, {
           title: '支付流水号',
@@ -361,6 +361,9 @@
         Object.keys(this.dataApi).forEach(key => {
           this.dataApi[key] = ''
         })
+      },
+      onlyNumber(event){
+        event.target.value = event.target.value.replace(/[^\d.]/g,"").replace(".","$#$").replace(/\./g,"").replace("$#$",".").replace(/^(\-)*(\d+)\.(\d\d).*$/,'$1$2.$3');
       },
       getList(params) {
         this.$http.post(this.api.buserAccountPage, params).then(res => {
