@@ -4,7 +4,7 @@
       :on-error="ctryErr">
       <Button type="ghost" :loading="loading" icon="ios-cloud-upload-outline">上传图片</Button>
     </Upload>
-    <div class="upload-img-list" >
+    <div class="upload-img-list">
       <div class="img-list" v-for="(item,index) in imgSrc" :key="index" v-if="item!=''">
         <div class="upload-list-cover">
           <Icon type="ios-trash-outline" @click.native="handleRemove(index)"></Icon>
@@ -24,6 +24,10 @@
     props: {
       value: {
         type: String
+      },
+      single: {
+        types: Boolean,
+        default: false
       }
     },
     data() {
@@ -46,7 +50,11 @@
         this.$emit('input', val.toString())
       },
       value(val) {
-        this.imgSrc = val.split(',');
+        if (val != '') {
+          this.imgSrc = val.split(',');
+        }else{
+          this.imgSrc = []
+        }
       }
     },
     methods: {
@@ -55,7 +63,12 @@
       },
       handleSuccess(res, file) {
         let pres = JSON.parse(res);
-        this.imgSrc.push(this.api.excelBaseUrl + pres[0].url);
+        if (this.single) {
+          this.imgSrc = [];
+          this.imgSrc.push(this.api.excelBaseUrl + pres[0].url);
+        } else {
+          this.imgSrc.push(this.api.excelBaseUrl + pres[0].url);
+        }
         this.$Message.success('上传成功！');
         this.loading = false;
       },
@@ -80,17 +93,18 @@
         });
         this.loading = false;
       },
-      handleRemove(index){
-        if(this.imgSrc.length === 1){
-          this.imgSrc = [];
-        }else{
-          this.imgSrc.splice(index,1)
+      handleRemove(index) {
+        if (this.imgSrc.length === 1) {
+          this.imgSrc = []
+        } else {
+          this.imgSrc.splice(index, 1)
         }
       }
     },
-    mounted() {
-      if (this.value)
+    created() {
+      if (this.value) {
         this.imgSrc = this.value.split(',');
+      }
     }
   }
 </script>

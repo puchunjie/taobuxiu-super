@@ -35,23 +35,23 @@
                 <Option v-for="(item,index) in baseData[0].list" :key="index" :value="item">{{ item }}</Option>
               </Select>
         </FormItem>
-        <FormItem label="打包描述：" v-if="isPack" prop="packDescription">
-          <Input type="text" v-model="dataApi.packDescription" style="width: 150px;" placeholder="请输入..."></Input>
+        <FormItem label="产地：" prop="proPlace" >
+          <Select v-model="dataApi.proPlace" style="width: 150px;">
+                <Option v-for="(item,index) in baseData[3].list" :key="index" :value="item">{{ item }}</Option>
+              </Select>
         </FormItem>
-        <FormItem label="材质：" v-if="!isPack" prop="material">
+        <FormItem label="材质：" prop="material" v-if="!isPack">
           <Select v-model="dataApi.material" style="width: 150px;">
                 <Option v-for="(item,index) in baseData[2].list" :key="index" :value="item">{{ item }}</Option>
               </Select>
         </FormItem>
-        <FormItem label="表面：" v-if="!isPack" prop="surface">
+        <FormItem label="表面：" prop="surface" v-if="!isPack">
           <Select v-model="dataApi.surface" style="width: 150px;">
                 <Option v-for="(item,index) in baseData[1].list" :key="index" :value="item">{{ item }}</Option>
               </Select>
         </FormItem>
-        <FormItem label="产地：" prop="proPlace">
-          <Select v-model="dataApi.proPlace" style="width: 150px;">
-                <Option v-for="(item,index) in baseData[3].list" :key="index" :value="item">{{ item }}</Option>
-              </Select>
+        <FormItem label="打包描述：" v-if="isPack" prop="packDescription">
+          <Input type="text" v-model="dataApi.packDescription" style="width: 150px;" placeholder="请输入..."></Input>
         </FormItem>
         <FormItem label="规格：" v-if="!isPack && !isBJ">
           <Input type="text" v-model="dataApi.specifiction" style="width: 150px;" placeholder="请输入..."></Input>
@@ -229,9 +229,9 @@
           pack: false,
           packDescription: "",
           ironType: "",
+          proPlace: "",
           material: "",
           surface: "",
-          proPlace: "",
           specifiction: "",
           height: "",
           width: "",
@@ -297,17 +297,17 @@
             message: "请选择",
             trigger: "change"
           }],
+          proPlace: [{
+            required: true,
+            message: "请选择",
+            trigger: "change"
+          }],
           material: [{
             required: true,
             message: "请选择",
             trigger: "change"
           }],
           surface: [{
-            required: true,
-            message: "请选择",
-            trigger: "change"
-          }],
-          proPlace: [{
             required: true,
             message: "请选择",
             trigger: "change"
@@ -427,6 +427,19 @@
       'dataApi.hasReservePrice' (val) {
         if (val === 'false') {
           this.dataApi.reservePrice = '';
+        }
+      },
+      isPack(val){
+        if(val){
+          this.dataApi.material = "";
+          this.dataApi.surface = "";
+          this.dataApi.specifiction = "";
+          this.dataApi.height = "";
+          this.dataApi.width = "";
+          this.dataApi.length = "";
+          this.dataApi.tolerance = "";
+        }else{
+          this.dataApi.packDescription = ''
         }
       }
     },

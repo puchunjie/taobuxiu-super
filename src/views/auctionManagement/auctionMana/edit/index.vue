@@ -35,9 +35,6 @@
                     <Option v-for="(item,index) in baseData[0].list" :key="index" :value="item">{{ item }}</Option>
                   </Select>
         </FormItem>
-        <FormItem label="打包描述：" v-if="isPack" prop="packDescription">
-          <Input type="text" v-model="dataApi.packDescription" style="width: 150px;" placeholder="请输入..."></Input>
-        </FormItem>
         <FormItem label="材质：" v-if="!isPack" prop="material">
           <Select v-model="dataApi.material" style="width: 150px;">
                     <Option v-for="(item,index) in baseData[2].list" :key="index" :value="item">{{ item }}</Option>
@@ -52,6 +49,9 @@
           <Select v-model="dataApi.proPlace" style="width: 150px;">
                     <Option v-for="(item,index) in baseData[3].list" :key="index" :value="item">{{ item }}</Option>
                   </Select>
+        </FormItem>
+        <FormItem label="打包描述：" v-if="isPack" prop="packDescription">
+          <Input type="text" v-model="dataApi.packDescription" style="width: 150px;" placeholder="请输入..."></Input>
         </FormItem>
         <FormItem label="规格：" v-if="!isPack && !isBJ">
           <Input type="text" v-model="dataApi.specifiction" style="width: 150px;" placeholder="请输入..."></Input>

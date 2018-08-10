@@ -38,7 +38,7 @@
           <Input type="text" v-model="dataApi.sortIndex" placeholder="请输入..."></Input>
         </FormItem>
         <FormItem label="图标：">
-          <uploadImg v-model="dataApi.icon" ></uploadImg>
+          <uploadImg v-model="dataApi.icon" :single="true"></uploadImg>
           <!-- <div v-show="dataApi.icon !=''">
             <img :src="dataApi.icon" style="max-width: 100%;margin-top:10px;">
           </div> -->

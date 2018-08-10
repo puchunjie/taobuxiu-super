@@ -236,7 +236,7 @@
   }
 </script>
 
-<style lang='less' scoped>
+<style lang='less' >
   .addForm {
     .ivu-form-item {
       margin-bottom: 10px;
@@ -286,6 +286,7 @@
   .card-contnet {
     position: relative;
   }
+  
   .table-contnet {
     line-height: 40px;
     text-align: center;
