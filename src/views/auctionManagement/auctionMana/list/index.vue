@@ -140,8 +140,9 @@
                   display: 'inline-block',
                   background: '#2d8cf0',
                   borderRadius:'4px',
-                  padding: '1px 4px'
-                },
+                  padding: '1px 4px',
+                  marginRight: '3px'
+                }
               }, reservePrice),
               h('span', goodsType)
             ])

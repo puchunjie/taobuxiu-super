@@ -53,6 +53,9 @@
         <FormItem label="打包描述：" v-if="isPack" prop="packDescription">
           <Input type="text" v-model="dataApi.packDescription" style="width: 150px;" placeholder="请输入..."></Input>
         </FormItem>
+        <FormItem label="公差：" v-if="!isPack">
+          <Input type="text" v-model="dataApi.tolerance" style="width: 150px;" placeholder="请输入..."></Input>
+        </FormItem>
         <FormItem label="规格：" v-if="!isPack && !isBJ">
           <Input type="text" v-model="dataApi.specifiction" style="width: 150px;" placeholder="请输入..."></Input>
         </FormItem>
@@ -64,9 +67,6 @@
         </FormItem>
         <FormItem label="长：" v-if="isBJ && !isPack" prop="length">
           <Input type="text" v-model="dataApi.length" style="width: 150px;" placeholder="请输入..."></Input>
-        </FormItem>
-        <FormItem label="公差：" v-if="!isPack">
-          <Input type="text" v-model="dataApi.tolerance" style="width: 150px;" placeholder="请输入..."></Input>
         </FormItem>
         <FormItem label="仓库：" prop="storeHouse">
           <Select v-model="dataApi.storeHouse" style="width: 150px;">
