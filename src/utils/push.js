@@ -72,7 +72,7 @@ export default {
           } else if (data.code == 34 || data.code == 35 || data.code == 36) {
             this.$router.push('/authList')
           }else if (data.code == 71 || data.code == 72 || data.code == 73 || data.code == 74) {
-            this.$router.push('/extractMana')
+            this.$router.push({name: 'dealMana'})
           }
           window.focus();
           notif.close();
