@@ -90,8 +90,7 @@
         files: '',
         total: {
           recharge: 0
-        },
-        tagsList: []
+        }
       }
     },
     computed: {
