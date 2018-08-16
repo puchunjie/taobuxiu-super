@@ -49,7 +49,9 @@
             <Row v-if="list.length == 0">
               <Col class-name="col" span="24">暂无数据</Col>
             </Row>
+
         </div>
+         <Page class="page-count" size="small" :total="totalCount" :current="apiData.currentPage" :page-size="apiData.pageSize" @on-change="changePage"></Page>
       </div>
       </Card>
     </div>
@@ -150,6 +152,10 @@
       }
     },
     methods: {
+      changePage(page){
+        this.apiData.currentPage = page;
+        this.getList();
+      },
       onFilter(){
         this.filterData.currentPage = 1
         this.getList();
