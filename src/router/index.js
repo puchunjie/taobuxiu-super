@@ -53,6 +53,10 @@ const router = new Router({
           name: 'adManage',
           component: resolve => require(['@/views/marketing/adManage'], resolve),
         }, {
+          path: 'homeAd',
+          name: 'homeAd',
+          component: resolve => require(['@/views/marketing/homeAd/index'], resolve),
+        }, {
           path: 'userManagement',
           name: 'userManagement',
           component: resolve => require(['@/views/userManagement/user/index'], resolve),

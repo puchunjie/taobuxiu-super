@@ -396,6 +396,22 @@ export const removeAd = '/sys/ad/delAdInfo';
 export const addAd = '/sys/ad/saveAd';
 
 
+/**
+ * 首页悬浮广告位
+ * path: /sys/homeAdv/save
+ * method: POST
+ */
+export const homeAdv = '/sys/homeAdv/save';
+
+/**
+ * 获取首页悬浮广告位
+ * path: /api/homeAdv/get
+ * method: POST
+ * 
+ */
+export const getHomeAdv = '/api/homeAdv/get';
+
+
 // *********************************应用管理*********************************
 /**
  * 添加基础计量单位

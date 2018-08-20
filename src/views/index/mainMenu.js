@@ -110,6 +110,11 @@ export default [{
       router: {
         name: 'adManage'
       }
+    },{
+      name: '首页浮动广告',
+      router: {
+        name: 'homeAd'
+      }
     }]
   },
   {
