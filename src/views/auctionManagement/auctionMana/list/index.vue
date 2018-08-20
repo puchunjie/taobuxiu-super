@@ -152,9 +152,14 @@
           key: 'ironType',
           width: 150,
           render: (h, params) => {
+            let pack = params.row.pack;
             let specifiction = params.row.specifiction != '' ? params.row.specifiction : `${params.row.height}*${params.row.width}*${params.row.length}`
             let str = `${params.row.surface}/${params.row.material}/${specifiction}/${params.row.tolerance}`
-            return h('div', str)
+            if(pack){
+              return h('div', '无')
+            }else{
+              return h('div', str)
+            }
           }
         }, {
           title: '重量(KG)',
