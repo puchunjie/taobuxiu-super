@@ -8,7 +8,7 @@
             <p v-show="position === '1' || position === '2'">尺寸:160*240</p>
             <p v-show="position === '3'">尺寸:179*90</p>
             <p v-show="position === '4'">尺寸:1320*90</p>
-            <uploadBtn v-model="dataApi.src" :single="true"></uploadBtn>
+            <uploadBtn v-model="dataApi.src" :single="true" :showPreview="true"></uploadBtn>
           </FormItem>
           <FormItem label="商铺ID：">
             <Input v-model="dataApi.buserId" placeholder="请输入商铺ID"></Input>

@@ -8,10 +8,17 @@
       <div class="img-list" v-for="(item,index) in imgSrc" :key="index" v-if="item!=''">
         <div class="upload-list-cover">
           <Icon type="ios-trash-outline" @click.native="handleRemove(index)"></Icon>
+          <Icon type="ios-eye" v-if="showPreview" @click.native="handlePrev(index)"></Icon>
         </div>
         <img :src="item">
       </div>
     </div>
+    <Modal v-model="show" title="预览" width="800">
+      <img :src="currentImg" style="max-width: 100%;">
+      <div slot="footer">
+        <Button @click="show = false">关闭</Button>
+      </div>
+    </Modal>
   </div>
 </template>
 
@@ -26,14 +33,22 @@
         type: String
       },
       single: {
-        types: Boolean,
+        // 是否上传多张图片
+        type: Boolean,
+        default: false
+      },
+      showPreview:{
+        //  是否有大图预览
+        type: Boolean,
         default: false
       }
     },
     data() {
       return {
         imgSrc: [],
-        loading: false
+        loading: false,
+        show: false,
+        currentImg: ''
       }
     },
     computed: {
@@ -52,7 +67,7 @@
       value(val) {
         if (val != '') {
           this.imgSrc = val.split(',');
-        }else{
+        } else {
           this.imgSrc = []
         }
       }
@@ -99,6 +114,10 @@
         } else {
           this.imgSrc.splice(index, 1)
         }
+      },
+      handlePrev(index) {
+        this.show = true;
+        this.currentImg = this.imgSrc[index];
       }
     },
     created() {
