@@ -44,8 +44,8 @@
             <Col class-name="col" span="4">{{item.buserName}}</Col>
             <Col class-name="col" span="4">￥{{item.totalAccount}}</Col>
             <Col class-name="col" span="4">￥{{item.account}}</Col>
-            <Col class-name="col" span="4">￥{{item.lockAccount}}</Col>
             <Col class-name="col" span="4">￥{{item.withDrawAccount}}</Col>
+            <Col class-name="col" span="4">￥{{item.lockAccount}}</Col>
             <Col class-name="col" span="4">
             <Button type="warning" size="small" @click="showRecharge(item)">充值</Button>
             <Button type="warning" size="small" @click="showDetail(item)">详情</Button>
