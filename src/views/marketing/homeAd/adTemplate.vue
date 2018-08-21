@@ -10,7 +10,7 @@
             <p v-show="position === '4'">尺寸:1320*90</p>
             <uploadBtn v-model="dataApi.src" :single="true" :showPreview="true"></uploadBtn>
           </FormItem>
-          <FormItem label="商铺ID：">
+          <FormItem label="商铺ID：" v-if="position != '3'">
             <Input v-model="dataApi.buserId" placeholder="请输入商铺ID"></Input>
           </FormItem>
           <FormItem label="颜色值：" v-if="position === '4'">
