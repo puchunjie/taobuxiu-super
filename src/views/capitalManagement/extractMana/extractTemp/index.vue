@@ -6,7 +6,7 @@
         <FormItem label="商户名称：">
           <Input type="text" v-model="pageApi.buserName" placeholder="请输入..."></Input>
         </FormItem>
-        <FormItem label="提货单号：">
+        <FormItem label="提现单号：">
           <Input type="text" v-model="pageApi.id" placeholder="请输入..."></Input>
         </FormItem>
         <FormItem label="申请时间：">
