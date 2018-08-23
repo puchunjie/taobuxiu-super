@@ -96,7 +96,7 @@
           <TimePicker type="time" v-model="timeApi.time" format="HH’mm’ss" placeholder="选择时间" style="width: 100px;display:inline-block;margin-left:10px;"></TimePicker>
         </FormItem>
         <FormItem label="延时周期：">
-          <Input type="text" v-model="dataApi.timeStep" @on-keyup="onlyNumber" placeholder="请输入..." style="width: 60px;"></Input>分/次
+          <Input type="text" v-model="dataApi.timeStep" :disabled="dataApi.isBatch" @on-keyup="onlyNumber" placeholder="请输入..." style="width: 60px;"></Input>分/次
         </FormItem>
         <FormItem label="结束时间：">
           <DatePicker type="datetime" v-model="dataApi.endTime" :disabled="!isStep" placeholder="选择结束时间" style="width: 150px"></DatePicker>
@@ -415,6 +415,9 @@
         if (val.pack) {
           this.isPack = true;
         };
+      },
+      'dataApi.isBatch'(val){
+        if(val) this.dataApi.timeStep = ''
       },
       'dataApi.hasReservePrice' (val) {
         if (val === 'false') {
