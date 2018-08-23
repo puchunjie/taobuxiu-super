@@ -133,11 +133,11 @@
                 <Col class-name="col" span="6">时间</Col>
                 <Col class-name="col" span="10">出价公司</Col>
               </Row>
-              <Row v-for="(item,index) in recordList" :key="item.id">
+              <Row v-for="(items,index) in recordList" :key="item.id" :class="item.auctionInfos[0].status == 2 && index === 0 ? 'success':''">
                 <Col class-name="col" span="4">{{index === 0 ? '领先':'出局'}}</Col>
-                <Col class-name="col" span="4">￥{{item.price}}</Col>
-                <Col class-name="col" span="6">{{item.updateTime | dateformatS}}</Col>
-                <Col class-name="col" span="10">{{item.companyName}}</Col>
+                <Col class-name="col" span="4">￥{{items.price}}</Col>
+                <Col class-name="col" span="6">{{items.updateTime | dateformatS}}</Col>
+                <Col class-name="col" span="10">{{items.companyName}}</Col>
               </Row>
               <Row v-if="recordList.length == 0">
                 <Col class-name="col" span="24">暂无数据</Col>
@@ -156,11 +156,11 @@
             <Col class-name="col" span="6">时间</Col>
             <Col class-name="col" span="10">出价公司</Col>
           </Row>
-          <Row v-for="(item,index) in recordList" :key="item.id">
+          <Row v-for="(items,index) in recordList" :key="items.id">
             <Col class-name="col" span="4">{{index === 0 ? '领先':'出局'}}</Col>
-            <Col class-name="col" span="4">￥{{item.price}}</Col>
-            <Col class-name="col" span="6">{{item.updateTime | dateformatS}}</Col>
-            <Col class-name="col" span="10">{{item.companyName}}</Col>
+            <Col class-name="col" span="4">￥{{items.price}}</Col>
+            <Col class-name="col" span="6">{{items.updateTime | dateformatS}}</Col>
+            <Col class-name="col" span="10">{{items.companyName}}</Col>
           </Row>
           <Row v-if="recordList.length == 0">
             <Col class-name="col" span="24">暂无数据</Col>
@@ -286,7 +286,9 @@
   .card-contnet {
     position: relative;
   }
-  
+  .success{
+    color: red;
+  }
   .table-contnet {
     line-height: 40px;
     text-align: center;
