@@ -415,6 +415,9 @@
         if (val.pack) {
           this.isPack = true;
         };
+        if(val.rights) {
+          this.selectedClass();
+        }
       },
       'dataApi.isBatch'(val){
         if(val) this.dataApi.timeStep = ''
@@ -618,7 +621,7 @@
       getOfferWay() {
         return this.$http.get(this.api.getOfferWay);
       },
-      getAllData() {
+      getAll() {
         this.$http
           .all([
             this.getIronTypes(),
@@ -640,14 +643,14 @@
                   })
                 }
                 this.baseData[index].list.push(...el.data);
+                this.getData();
               }
             });
           });
       }
     },
     created() {
-      this.getAllData()
-      this.getData();
+      this.getAll()
     }
   };
 </script>
