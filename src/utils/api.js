@@ -23,7 +23,7 @@ if (process.env.NODE_ENV == 'development') {
     // ws = 'ws://192.168.0.251/websocket'
     // ws = 'ws://111.231.134.170:8080/websocket'
     // ws = 'ws://192.168.0.251:8080/websocket'
-    ws = `ws://${window.location.host}/websocket`;
+    ws = `wss://${window.location.host}/websocket`;
     exportContract = `http://${window.location.host}:8080/contract_download_sys.jsp`
     detailContract = `http://${window.location.host}:8080/contract.jsp`
     uploadHost = ''

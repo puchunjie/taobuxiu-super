@@ -120,7 +120,7 @@
           <Input type="text" v-model="dataApi.checkAmount" @on-keyup="onlyNumber" placeholder="请输入..."></Input>
         </FormItem>
         <FormItem label="充值备注：">
-          <Input type="text" v-model="dataApi.rechargeWayRemark" placeholder="请输入..."></Input>
+          <Input type="text" v-model="dataApi.remark" placeholder="请输入..."></Input>
         </FormItem>
       </Form>
       <div slot="footer">
