@@ -25,7 +25,7 @@
       </Form>
       <div class="card-contnet">
         <div class="total">
-          <span>退款总金额: ￥{{total.recharge != '' ? total.recharge : 0}}</span>
+          <span>充值总金额: ￥{{total.recharge != '' ? total.recharge : 0}}</span>
         </div>
         <div class="table-contnet">
           <Row class-name="head">
